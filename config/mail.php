@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'lost.and.found.utn@gmail.com',
-        'name' => 'Lost And Found',
+        'name' => 'Lost & Found',
     ],
 
     /*
