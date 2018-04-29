@@ -16,7 +16,7 @@ class CreateMateriasTable extends Migration
         Schema::create('materias', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('curso');
+            $table->boolean('baja')->default(false);
             $table->timestamps();
         });
     }

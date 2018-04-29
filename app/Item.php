@@ -4,9 +4,9 @@ namespace App;
 
 class Item extends Model
 {
-    public function loEncontro()
+    public function user()
     {
-    	return $this->hasOne(User::class);
+    	return $this->belongsTo(User::class);
     }
 
     public function retiro()
@@ -16,7 +16,7 @@ class Item extends Model
 
     public function materia()
     {
-    	return $this->hasOne(Materia::class);
+    	return $this->belongsTo(Materia::class);
     }
 
     public function tag()

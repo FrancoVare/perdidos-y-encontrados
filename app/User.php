@@ -44,4 +44,13 @@ class User extends Authenticatable
     {
         $this->notify(new MailResetPasswordToken($token));
     }
+
+    public function publish (Item $item)
+    {
+        $item->retiro_id = 1;
+        $item->tag_id = 1;
+        $item->laboratorio_id = 1;
+
+        $this->items()->save($item);
+    }
 }
