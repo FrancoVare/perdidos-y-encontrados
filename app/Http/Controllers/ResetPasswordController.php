@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
     {
         $this->validate(request(),[
 
-            'password' => 'required|confirmed'
+            'password' => 'required|string|min:6|confirmed'
 
         ]);
 
