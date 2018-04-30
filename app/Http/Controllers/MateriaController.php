@@ -7,6 +7,11 @@ use App\Materia;
 
 class MateriaController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware(['auth','first-login']);
+    }
+
     public function index()
     {
     	$materias = Materia::where('baja',false)->orderBy('nombre')->get();
@@ -18,13 +23,13 @@ class MateriaController extends Controller
     {
     	$this->validate(request(),[
 
-    		'nombre' => 'required'
+    		'nombre-materia' => 'required'
 
     	]);
 
     	Materia::create([
 
-    		'nombre' => request('nombre')
+    		'nombre' => request('nombre-materia')
 
     	]);
 

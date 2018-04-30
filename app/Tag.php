@@ -5,24 +5,19 @@ namespace App;
 class Tag extends Model
 {
 
-	protected $casts = [
+	// protected $casts = [
 
-		'pruebasMinimas' => 'array'
+	// 	'pruebasMinimas' => 'array'
 
-	];
+	// ];
 
     public function items()
     {
     	return $this->hasMany(Item::class);
     }
 
-    public function getPruebasAttribute()
+    public function pruebas()
     {
-	  return json_decode($this->attributes['pruebas']);
-	}
-
-	public function setPruebasAttribute(Array $val) 
-	{
-	  $this->attributes['pruebas'] = json_encode($val);
-	}
+    	return $this->belongsToMany(Prueba::class);
+    }
 }

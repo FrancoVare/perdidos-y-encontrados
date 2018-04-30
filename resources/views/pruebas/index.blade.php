@@ -4,19 +4,19 @@
 
 <div class="row">
   <div class="column">
-  	<h1>Agregar Materia</h1>
+  	<h1>Agregar Prueba</h1>
   	
 	<div class="container">
 		<hr>
-		<form method="post" action="/materias">
+		<form method="post" action="/pruebas">
 		@csrf
 
 		<div class="form-group">
 		    <label for="nombre">Nombre:</label>
-		    <input type="text" class="form-control{{ $errors->has('nombre-materia') ? ' is-invalid' : '' }}" id="nombre-materia" name="nombre-materia" >
-		    @if ($errors->has('nombre-materia'))
+		    <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" id="nombre" name="nombre" >
+		    @if ($errors->has('nombre'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre-materia') }}</strong>
+                                        <strong>{{ $errors->first('nombre') }}</strong>
                                     </span>
                                 @endif
 		 </div>
@@ -29,26 +29,26 @@
 	</div>
   </div>
   <div class="column" style="border-left:1px solid gray">
-  	<h1>Eliminar Materia</h1>
+  	<h1>Eliminar Prueba</h1>
   	
   	<div class="container">
   		<hr>
-  		<form method="post" action="/materias/destroy">
+  		<form method="post" action="/pruebas/destroy">
 		@csrf
 
 		<div class="form-group">
-			<select class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" id="nombre" name="nombre" style="width: 90%" size="10">
+			<select class="form-control{{ $errors->has('nombre_prueba') ? ' is-invalid' : '' }}" id="nombre_prueba" name="nombre_prueba" style="width: 90%" size="10">
 
-			@foreach($materias as $materia)
+			@foreach($pruebas as $prueba)
 
-	        <option value="{{$materia->id}}">{{$materia->nombre}}</option>
+	        <option value="{{$prueba->id}}">{{$prueba->nombre}}</option>
 
 	        @endforeach
 			
 		</select>
-		@if ($errors->has('nombre'))
+		@if ($errors->has('nombre_prueba'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                        <strong>{{ $errors->first('nombre_prueba') }}</strong>
                                     </span>
                                 @endif
 		</div>

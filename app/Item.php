@@ -21,7 +21,7 @@ class Item extends Model
 
     public function tag()
     {
-    	return $this->hasOne(Tag::class);
+    	return $this->belongsTo(Tag::class);
     }
 
     public function laboratorio()

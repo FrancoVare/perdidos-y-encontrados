@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Prueba;
+
+class PruebaController extends Controller
+{
+    public function __construct()
+    {
+        return $this->middleware(['auth','first-login']);
+    }
+
+   	public function index()
+   	{
+   		$pruebas = Prueba::where('baja',false)->orderBy('nombre')->get();
+
+    	return view('pruebas.index',compact('pruebas'));
+   	}
+
+   	public function show()
+    {
+    	
+    }
+
+    public function destroy()
+    {
+    	$this->validate(request(),[
+
+    		'nombre_prueba' => 'required'
+
+    	]);
+
+    	$mat = Prueba::find(request('nombre_prueba'));
+    	$mat-> baja = true;
+    	$mat->save();
+
+    	return redirect('/pruebas');
+
+    }
+
+    public function store()
+    {
+    	$this->validate(request(),[
+
+    		'nombre' => 'required'
+
+    	]);
+
+    	Prueba::create([
+
+    		'nombre' => request('nombre')
+
+    	]);
+
+    	return redirect('/pruebas');
+    }
+}

@@ -11,8 +11,6 @@
 
 @yield('content')
 
-@include('layouts.errors')
-
 </div>
 
 

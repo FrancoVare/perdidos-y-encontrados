@@ -1,10 +1,14 @@
 <div class="blog-post">
   <h2 class="blog-post-title">
 
+    @if(Auth::check())
     <a href="/items/{{$item->id}}">
-        {{$item->descripcion}}
+        {{$item->tag->nombre}}
     </a>
-
+    @else
+        {{$item->tag->nombre}}
+    @endif
+    
   </h2>
 
   <p class="blog-post-meta">

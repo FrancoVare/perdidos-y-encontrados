@@ -12,22 +12,59 @@
 			 
 			 {{csrf_field()}}
 
-			<div class="form-group">
-				<label for="materia_id">Materia:</label>
-				<select class="form-control" id="materia_id" name="materia_id" style="width: 50%" size="10">
+			<div class="row">
+				<div class="column">
+					<div class="form-group">
+						<label for="materia_id">Materia:</label>
+						<div class="container">
+							<select class="form-control{{ $errors->has('materia_id') ? ' is-invalid' : '' }}" id="materia_id" name="materia_id" style="width: 100%" size="10">
 
-					@foreach($materias as $materia)
+								@foreach($materias as $materia)
 
-			     	   <option value="{{$materia->id}}">{{$materia->nombre}}</option>
+						     	   <option value="{{$materia->id}}">{{$materia->nombre}}</option>
 
-			        @endforeach
-				
-				</select>
+						        @endforeach
+						
+						</select>
+						@if ($errors->has('materia_id'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('materia_id') }}</strong>
+                                    </span>
+                                @endif
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="form-group">
+						<label for="tag_id">Tag:</label>
+						<div class="container">
+							<select class="form-control{{ $errors->has('tag_id') ? ' is-invalid' : '' }}" id="tag_id" name="tag_id" style="width:100%" size="10">
+
+								@foreach($tags as $tag)
+
+						     	   <option value="{{$tag->id}}">{{$tag->nombre}}</option>
+
+						        @endforeach
+						
+							</select>
+							@if ($errors->has('tag_id'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('tag_id') }}</strong>
+                                    </span>
+                                @endif
+						</div>
+					</div>
+				</div>
 			</div>
 
 			 <div class="form-group">
 			    <label for="descripcion">Descripcion:</label>
-			    <textarea id="descripcion" name="descripcion" class="form-control" ></textarea>
+			    <textarea id="descripcion" name="descripcion" class="form-control{{ $errors->has('descripcion') ? ' is-invalid' : '' }}" ></textarea>
+			    @if ($errors->has('descripcion'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('descripcion') }}</strong>
+                                    </span>
+                                @endif
 			 </div>
 
 			 <div class="form-group">

@@ -17,7 +17,7 @@
             @auth
               
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Registrar</a>
+                <a class="nav-link" href="@if(auth()->guard()->user()->firstLogin){{'/resetPassword'}} @else {{route('register')}} @endif">Registrar</a>
               </li>
 
               <li class="nav-item dropdown">
