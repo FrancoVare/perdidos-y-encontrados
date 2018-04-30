@@ -2,8 +2,5 @@
 Desarrollo de sistema de perdidos y encontrados para DISILAB
 
 
-/views/items/show.blade.php -> cambiar formato de fecha igual al de /views/items/item.blade.php
-
-Ver si el errors.layout se puede localizar
-
-Modificar registro de items despues que esten todas las abm
+Terminar de localizar validaciones en resources/lang/es/validation.php
+Arreglar nombres de campo para que se vean bien en errores (_ se ve como espacio)
