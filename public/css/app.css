@@ -3166,6 +3166,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  #right {
+    padding-left: 40px;
+  }
+
   #sidebar {
     min-width: 35px;
     max-width: 40px;
