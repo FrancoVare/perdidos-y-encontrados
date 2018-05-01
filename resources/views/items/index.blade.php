@@ -2,11 +2,23 @@
 
 @section('content')
 
-          @foreach($items as $item)
 
-          @include('items.item')
+<div class="row">
+	<div class="col-sm-1">
+		
+	</div>
+	<div class="col-sm-10">
+		@foreach($items as $item)
 
-          @endforeach
+	    	@include('items.item')
+
+   		@endforeach
+	</div>
+</div>
+	
+
+
+          
 
 {{--           <nav>
             <ul class="pager">
