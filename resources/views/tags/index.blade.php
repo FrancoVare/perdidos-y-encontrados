@@ -3,7 +3,10 @@
 @section('content')
 
 <div class="row">
-  <div class="column">
+	<div class="col-sm-1">
+		
+	</div>
+  <div class="col-sm-5">
   	<h1>Agregar Tag</h1>
   	
 	<div class="container">
@@ -16,7 +19,7 @@
 		    <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" id="nombre" name="nombre" >
 		    @if ($errors->has('nombre'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                        <strong>Debe darle un nombre al tag</strong>
                                     </span>
                                 @endif
 		</div>
@@ -34,7 +37,7 @@
 			</select>
 			@if ($errors->has('pruebas'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('pruebas') }}</strong>
+                                        <strong>Seleccione al menos una prueba</strong>
                                     </span>
                                 @endif
 		</div>
@@ -45,7 +48,7 @@
 		</form>
 	</div>
   </div>
-  <div class="column" style="border-left:1px solid gray">
+  <div class="col-sm-5">
   	<h1>Eliminar Tag</h1>
   	
   	<div class="container">
@@ -54,7 +57,7 @@
 		@csrf
 
 		<div class="form-group">
-			<select class="form-control{{ $errors->has('nombre_tag') ? ' is-invalid' : '' }}" id="nombre_tag" name="nombre_tag" style="width: 90%" size="10">
+			<select class="form-control{{ $errors->has('nombre_tag') ? ' is-invalid' : '' }}" id="nombre_tag" name="nombre_tag" style="width: 100%" size="10">
 
 			@foreach($tags as $tag)
 
@@ -65,7 +68,7 @@
 		</select>
 		@if ($errors->has('nombre_tag'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre_tag') }}</strong>
+                                        <strong>Seleccione un tag</strong>
                                     </span>
                                 @endif
 		</div>

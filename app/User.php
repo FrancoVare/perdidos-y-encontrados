@@ -47,9 +47,6 @@ class User extends Authenticatable
 
     public function publish (Item $item)
     {
-        $item->retiro_id = 1;
-        $item->laboratorio_id = 1;
-
         $this->items()->save($item);
     }
 }

@@ -3,7 +3,10 @@
 @section('content')
 
 <div class="row">
-  <div class="column">
+	<div class="col-sm-1">
+		
+	</div>
+  <div class="col-sm-5">
   	<h1>Agregar Prueba</h1>
   	
 	<div class="container">
@@ -16,7 +19,7 @@
 		    <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" id="nombre" name="nombre" >
 		    @if ($errors->has('nombre'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre') }}</strong>
+                                        <strong>Debe darle un nombre a la prueba</strong>
                                     </span>
                                 @endif
 		 </div>
@@ -28,7 +31,7 @@
 	</form>
 	</div>
   </div>
-  <div class="column" style="border-left:1px solid gray">
+  <div class="col-sm-5">
   	<h1>Eliminar Prueba</h1>
   	
   	<div class="container">
@@ -37,7 +40,7 @@
 		@csrf
 
 		<div class="form-group">
-			<select class="form-control{{ $errors->has('nombre_prueba') ? ' is-invalid' : '' }}" id="nombre_prueba" name="nombre_prueba" style="width: 90%" size="10">
+			<select class="form-control{{ $errors->has('nombre_prueba') ? ' is-invalid' : '' }}" id="nombre_prueba" name="nombre_prueba" style="width: 100%" size="10">
 
 			@foreach($pruebas as $prueba)
 
@@ -48,7 +51,7 @@
 		</select>
 		@if ($errors->has('nombre_prueba'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('nombre_prueba') }}</strong>
+                                        <strong>Seleccione una prueba</strong>
                                     </span>
                                 @endif
 		</div>

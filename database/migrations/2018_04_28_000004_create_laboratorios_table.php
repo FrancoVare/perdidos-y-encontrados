@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateLaboratoriosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('laboratorios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('retiro_id');
-            $table->integer('tag_id');
-            $table->integer('materia_id');
-            $table->integer('laboratorio_id');
-            $table->datetime('fechaEncontrado');
-            $table->text('descripcion');
+            $table->unsignedInteger('sede_id');
+            $table->string('nombre');
+            $table->boolean('baja')->default(false);
             $table->timestamps();
+
+
+            $table->foreign('sede_id')->references('id')->on('sedes');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('laboratorios');
     }
 }

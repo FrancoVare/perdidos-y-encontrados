@@ -26,6 +26,6 @@ class Item extends Model
 
     public function laboratorio()
     {
-    	return $this->hasOne(Laboratorio::class);
+    	return $this->belongsTo(Laboratorio::class);
     }
 }
