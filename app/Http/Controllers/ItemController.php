@@ -17,11 +17,18 @@ class ItemController extends Controller
    	}
 
 
-   public function index()
-   {
+   public function index(Tag $tag = null)
+   {  
 
-   		$items = Item::latest()->get();
+      if(!is_null($tag)){
+        $items = $tag->items;
+      }
 
+      else {
+        $items = Item::latest()->get();
+      }
+
+      
    		return view('items.index',compact('items'));
    }
 
@@ -58,6 +65,7 @@ class ItemController extends Controller
 
     	auth()->user()->publish(new Item(compact('descripcion','fechaEncontrado','materia_id','tag_id','laboratorio_id')));
 
+      $this->flash('El objeto ha sido registrado');
     	return redirect('/');
     }
 }

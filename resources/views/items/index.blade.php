@@ -7,25 +7,22 @@
 	<div class="col-sm-1">
 		
 	</div>
-	<div class="col-sm-10">
+	<div class="col-sm-9">
 		@foreach($items as $item)
 
 	    	@include('items.item')
 
    		@endforeach
 	</div>
+      <div class="filter-module filter-module-inset">
+        <h4 style="text-align: center;">Tags</h4>
+        <ul class="fa-ul">
+        	@foreach($tags as $tag)
+        		<li><a class="side" href="/items/tags/{{$tag}}"><i class="fa-li fa fa-chevron-circle-right"></i>{{$tag}}</a></li>
+        	@endforeach
+        	<li><a class="side" href="/"><i class="fa-li fa fa-chevron-circle-right"></i>Todos</a></li>
+        </ul>
+    </div>
 </div>
-	
-
-
-          
-
-{{--           <nav>
-            <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
-            </ul>
-          </nav> --}}
-
 
 @endsection

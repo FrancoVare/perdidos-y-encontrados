@@ -33,6 +33,8 @@ class MateriaController extends Controller
 
     	]);
 
+        $this->flash('La materia ha sido agregada');
+
     	return redirect('/materias');
     }
 
@@ -49,6 +51,7 @@ class MateriaController extends Controller
     	$mat-> baja = true;
     	$mat->save();
 
+        $this->flash('La materia ha sido eliminada');
     	return redirect('/materias');
 
     }

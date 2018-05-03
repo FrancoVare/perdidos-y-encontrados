@@ -24,8 +24,16 @@
 
     </p>
   	<hr>
-
+    <h3>Descripcion</h3>
   	{{$item->descripcion}}
+
+    <hr>
+    <h3>Pruebas minimas para la entrega</h3>
+    <ul>
+      @foreach($item->tag->pruebas as $prueba)
+        <li>{{$prueba->nombre}}</li>
+      @endforeach
+    </ul>
   </div>
 </div>
 

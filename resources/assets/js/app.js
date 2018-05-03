@@ -7,6 +7,12 @@
 
 require('./bootstrap');
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 window.Vue = require('vue');
 
 /**
@@ -15,8 +21,21 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ // Define a new component called button-counter
+ 
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
     el: '#app'
 });
+
+
+
+$(function() {
+   $('#flash-message').delay(250).fadeIn('normal', function() {
+      $(this).delay(5000).fadeOut();
+   });
+});
+
+

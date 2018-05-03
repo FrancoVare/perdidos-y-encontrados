@@ -13883,6 +13883,12 @@ module.exports = __webpack_require__(43);
 
 __webpack_require__(13);
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 window.Vue = __webpack_require__(36);
 
 /**
@@ -13891,10 +13897,19 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// Define a new component called button-counter
+
+
 Vue.component('example-component', __webpack_require__(39));
 
 var app = new Vue({
-  el: '#app'
+    el: '#app'
+});
+
+$(function () {
+    $('#flash-message').delay(250).fadeIn('normal', function () {
+        $(this).delay(5000).fadeOut();
+    });
 });
 
 /***/ }),

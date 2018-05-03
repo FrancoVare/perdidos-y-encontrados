@@ -14,11 +14,9 @@ class CreatePruebaTagTable extends Migration
     public function up()
     {
         Schema::create('prueba_tag', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('prueba_id');
             $table->unsignedInteger('tag_id');
-            $table->timestamps();
-
+            $table->primary(['prueba_id','tag_id']);
 
             $table->foreign('prueba_id')->references('id')->on('pruebas');
             $table->foreign('tag_id')->references('id')->on('tags');

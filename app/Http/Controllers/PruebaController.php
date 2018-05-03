@@ -36,6 +36,7 @@ class PruebaController extends Controller
     	$mat-> baja = true;
     	$mat->save();
 
+        $this->flash('La prueba ha sido eliminada');
     	return redirect('/pruebas');
 
     }
@@ -54,6 +55,7 @@ class PruebaController extends Controller
 
     	]);
 
+        $this->flash('La prueba ha sido agregada');
     	return redirect('/pruebas');
     }
 }

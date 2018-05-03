@@ -19,6 +19,7 @@ Route::get('/home', 'ItemController@index')->middleware('first-login');
 Route::post('/items', 'ItemController@store');
 Route::get('/items/create','ItemController@create')->middleware('first-login');
 Route::get('/items/{item}', 'ItemController@show')->middleware('first-login');
+Route::get('/items/tags/{tag}', 'ItemController@index')->middleware('first-login');
 
 Route::get('/materias', 'MateriaController@index');
 Route::post('/materias', 'MateriaController@store');

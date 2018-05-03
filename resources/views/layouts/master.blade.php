@@ -2,6 +2,15 @@
 
 @include('layouts.navbar')
 
+@if($flash = session('message'))
+
+<div id="flash-message" class="alert alert-success" role="alert">
+	{{$flash}}
+</div>
+
+@endif
+
+
 <div class="container-fluid" style="padding-left: 0">
 	@if(Auth::check())
 		@include('layouts.sidebar')
@@ -9,7 +18,7 @@
 
 	<div id="right">
 		@if(Auth::check())
-		<a href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
+		<a class="side" href="#" data-target="#sidebar" data-toggle="collapse"><i class="fa fa-navicon fa-2x py-2 p-1"></i></a>
 		@else
 		<i style="visibility: hidden;" class="fa fa-navicon fa-2x py-2 p-1"></i>
 		@endif
@@ -18,3 +27,6 @@
 </div> <!--wrapper-->
 	
 @include('layouts.footer')
+
+
+

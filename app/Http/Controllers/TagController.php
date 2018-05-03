@@ -50,9 +50,7 @@ class TagController extends Controller
 
         $tag->save();
 
-        
-        
-
+        $this->flash('El tag ha sido agregado');
         return redirect('/tags');
     }
 
@@ -69,6 +67,7 @@ class TagController extends Controller
       $tag-> baja = true;
       $tag->save();
 
+      $this->flash('El tag ha sido eliminado');
       return redirect('/tags');
 
     }

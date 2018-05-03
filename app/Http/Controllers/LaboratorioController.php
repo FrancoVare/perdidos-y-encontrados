@@ -37,6 +37,7 @@ class LaboratorioController extends Controller
 
     	]);
 
+        $this->flash('El laboratorio ha sido agregado');
     	return redirect('/laboratorios');
     }
 
@@ -53,6 +54,7 @@ class LaboratorioController extends Controller
     	$lab-> baja = true;
     	$lab->save();
 
+        $this->flash('El laboratorio ha sido eliminado');
     	return redirect('/laboratorios');
 
     }

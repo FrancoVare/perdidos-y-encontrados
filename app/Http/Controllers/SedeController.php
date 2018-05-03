@@ -35,6 +35,7 @@ class SedeController extends Controller
 
     	]);
 
+        $this->flash('La sede ha sido agregada');
     	return redirect('/sedes');
     }
 
@@ -51,6 +52,7 @@ class SedeController extends Controller
     	$sede-> baja = true;
     	$sede->save();
 
+        $this->flash('La sede ha sido eliminada');
     	return redirect('/sedes');
 
     }

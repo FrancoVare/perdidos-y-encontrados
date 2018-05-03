@@ -49,6 +49,7 @@ class ResetPasswordController extends Controller
         auth()->user()->firstLogin = false;
         auth()->user()->save();
 
+        $this->flash('La contraseña se ha cambiado con exito');
         return redirect()->home();
     }
 

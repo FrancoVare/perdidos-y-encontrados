@@ -20,4 +20,9 @@ class Tag extends Model
     {
     	return $this->belongsToMany(Prueba::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'nombre';
+    }
 }
