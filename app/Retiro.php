@@ -9,7 +9,7 @@ class Retiro extends Model
     	return $this->belongsTo(Item::class);
     }
 
-    public function loEntrego()
+    public function user()
     {
     	return $this->hasOne(User::class);
     }

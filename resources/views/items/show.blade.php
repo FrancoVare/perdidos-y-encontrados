@@ -27,13 +27,13 @@
     <h3>Descripcion</h3>
   	{{$item->descripcion}}
 
-    <hr>
-    <h3>Pruebas minimas para la entrega</h3>
-    <ul>
-      @foreach($item->tag->pruebas as $prueba)
-        <li>{{$prueba->nombre}}</li>
-      @endforeach
-    </ul>
+
+    @if(is_null($item->retiro))
+    <form action="/retiros" method="GET">
+      <input type="hidden" name="item" value="{{$item->id}}" /> 
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    @endif
   </div>
 </div>
 

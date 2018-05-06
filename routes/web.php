@@ -41,6 +41,9 @@ Route::get('/sedes', 'SedeController@index');
 Route::post('/sedes', 'SedeController@store');
 Route::post('/sedes/destroy', 'SedeController@destroy');
 
+Route::get('/retiros', 'RetiroController@create');
+Route::post('/retiros', 'RetiroController@store');
+
 Route::get('/resetPassword', 'ResetPasswordController@create');
 Route::post('/resetPassword', 'ResetPasswordController@store');
 

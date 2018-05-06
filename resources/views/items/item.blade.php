@@ -2,7 +2,7 @@
     <a href="/items/{{$item->id}}">
 @endif
     <div class="blog-post">
-      <h2 class="blog-post-title">{{$item->tag->nombre}}</h2>
+      <h2 class="blog-post-title">{{$item->tag->nombre}} @if(!is_null($item->retiro)) => Retirado @endif</h2>
 
       <p class="blog-post-meta">
 
