@@ -16,9 +16,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Schema::defaultStringLength(191);
 
-        view()->composer('items.index-vue',function($view){
-            $view->with('tags',\App\Tag::has('items')->pluck('nombre'));
-        });
+        // view()->composer('items.index-vue',function($view){
+        //     $view->with('tags',\App\Tag::has('items')->pluck('nombre'));
+        // });
     }
 
     /**
