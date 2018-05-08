@@ -13,28 +13,46 @@ class ItemController extends Controller
 
 	public function __construct()
    	{
-   		return $this->middleware('auth')->except('index');
+   		return $this->middleware('auth')->except(['index','apiItems']);
    	}
 
 
    public function index(Tag $tag = null)
    {  
+      return view('items.index');
+   }
 
-      if(!is_null($tag)){
-        $items = Item::latest()->where('tag_id','=',$tag->id)->paginate(15);
-      }
+   public function apiItems()
+   {  
 
-      else {
-        $items = Item::latest()->paginate(15);
-      }
-
+      $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede'])
+                        ->latest()
+                        ->paginate(15);
       
-      return view('items.index',compact('items'));
+      if(!is_null(request('tag'))){
+        $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede'])
+                        ->where('tag_id','=',Tag::where('nombre','=',request('tag'))->first()->id)
+                        ->latest()
+                        ->paginate(15);
+      }
+
+      return json_encode($items);
    }
 
    public function show(Item $item)
     {
     	return view('items.show',compact('item'));
+    }
+
+
+
+    public function createVue()
+    {
+      $materias = Materia::where('baja',false)->orderBy('nombre')->get();
+      $tags = Tag::where('baja',false)->orderBy('nombre')->get();
+      $laboratorios = Laboratorio::where('baja',false)->orderBy('nombre')->get();
+      
+      return view('items.create-vue',compact('materias','tags','laboratorios'));
     }
 
     public function create()

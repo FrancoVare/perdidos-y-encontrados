@@ -11,7 +11,7 @@ class TagController extends Controller
 
     public function __construct()
     {
-        return $this->middleware(['auth','first-login']);
+        return $this->middleware(['auth','first-login'])->except('apiTags');
     }
 
    	public function index()
@@ -21,6 +21,11 @@ class TagController extends Controller
 
       	return view('tags.index',compact('tags','pruebas'));
    	}
+
+    public function apiTags()
+    {
+      return Tag::has('items')->pluck('nombre');
+    }
 
    	public function show()
     {

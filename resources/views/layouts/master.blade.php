@@ -25,10 +25,5 @@
 		@yield('content')
 	</div> <!--blog-main-->
 </div> <!--wrapper-->
-
-{{-- <div id="app">
-	<button @click="showNewMateriaModal = true">New Materia</button>
-	<new-materia-modal :show="showNewMateriaModal" @close="showNewMateriaModal = false"></new-materia-modal>
-</div> --}}
 	
 @include('layouts.footer')

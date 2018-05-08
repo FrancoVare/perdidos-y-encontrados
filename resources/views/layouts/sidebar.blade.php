@@ -39,6 +39,7 @@
             <a href="#" class="list-group-item">Subitem 3</a>
         </div>
         <a href="/items/create" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info-circle"></i> <span class="d-none d-md-inline">Registrar item</span></a>
+        <a href="/items/create-vue" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-info-circle"></i> <span class="d-none d-md-inline">Registrar (Vue)</span></a>
         <a href="/materias" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-graduation-cap"></i> <span class="d-none d-md-inline">Materias</span></a>
         <a href="/pruebas" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-flask"></i> <span class="d-none d-md-inline">Pruebas</span></a>
         <a href="/tags" class="list-group-item d-inline-block collapsed" data-parent="#sidebar"><i class="fa fa-tag"></i> <span class="d-none d-md-inline">Tags</span></a>

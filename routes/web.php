@@ -17,7 +17,11 @@ Auth::routes();
 Route::get('/', 'ItemController@index')->name('home')->middleware('first-login');
 Route::get('/home', 'ItemController@index')->middleware('first-login');
 Route::post('/items', 'ItemController@store');
+Route::get('/api/items', 'ItemController@apiItems');
 Route::get('/items/create','ItemController@create')->middleware('first-login');
+
+Route::get('/items/create-vue','ItemController@createVue')->middleware('first-login');
+
 Route::get('/items/{item}', 'ItemController@show')->middleware('first-login');
 Route::get('/items/tags/{tag}', 'ItemController@index')->middleware('first-login');
 
@@ -30,6 +34,7 @@ Route::post('/pruebas', 'PruebaController@store');
 Route::post('/pruebas/destroy', 'PruebaController@destroy');
 
 Route::get('/tags', 'TagController@index');
+Route::get('/api/tags', 'TagController@apiTags');
 Route::post('/tags', 'TagController@store');
 Route::post('/tags/destroy', 'TagController@destroy');
 

@@ -27,7 +27,8 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('new-materia-modal', require('./components/NewMateriaModal.vue'));
-
+Vue.component('paginate', require('vuejs-paginate'));
+Vue.component('items',require('./components/Items.vue'));
 
 
 const app = new Vue({
