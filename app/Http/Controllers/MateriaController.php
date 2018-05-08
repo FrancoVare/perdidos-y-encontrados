@@ -27,6 +27,8 @@ class MateriaController extends Controller
 
     	]);
 
+        dd(request());
+
     	Materia::create([
 
     		'nombre' => request('nombre-materia')

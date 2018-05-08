@@ -21,15 +21,15 @@ class ItemController extends Controller
    {  
 
       if(!is_null($tag)){
-        $items = $tag->items;
+        $items = Item::latest()->where('tag_id','=',$tag->id)->paginate(15);
       }
 
       else {
-        $items = Item::latest()->get();
+        $items = Item::latest()->paginate(15);
       }
 
       
-   		return view('items.index',compact('items'));
+      return view('items.index',compact('items'));
    }
 
    public function show(Item $item)

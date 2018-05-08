@@ -13,6 +13,9 @@
 	    	@include('items.item')
 
    		@endforeach
+        <div class="container">
+            {{$items->links()}}
+        </div>
 	</div>
       <div class="filter-module filter-module-inset">
         <h4 style="text-align: center;">Tags</h4>

@@ -7,6 +7,7 @@ use App\Prueba;
 use App\Tag;
 use App\Sede;
 use App\Laboratorio;
+use App\Item;
 
 class DatabaseSeeder extends Seeder
 {
@@ -140,7 +141,7 @@ class DatabaseSeeder extends Seeder
             'sede_id' => 2
         ]);
 
-
+        factory(Item::class,120)->create();
 
     }
 }

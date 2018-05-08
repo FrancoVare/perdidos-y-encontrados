@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        // Schema::defaultStringLength(191);
 
         view()->composer('items.index',function($view){
             $view->with('tags',\App\Tag::has('items')->pluck('nombre'));
