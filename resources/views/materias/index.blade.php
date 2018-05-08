@@ -16,8 +16,8 @@
 
 		<div class="form-group">
 		    <label for="nombre">Nombre:</label>
-		    <input type="text" class="form-control{{ $errors->has('nombre-materia') ? ' is-invalid' : '' }}" id="nombre-materia" name="nombre-materia" >
-		    @if ($errors->has('nombre-materia'))
+		    <input type="text" class="form-control{{ $errors->has('nombreMateria') ? ' is-invalid' : '' }}" id="nombreMateria" name="nombreMateria" >
+		    @if ($errors->has('nombreMateria'))
                                     <span class="invalid-feedback">
                                         <strong>Debe darle un nombre a la materia</strong>
                                     </span>

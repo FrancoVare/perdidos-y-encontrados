@@ -23,15 +23,13 @@ class MateriaController extends Controller
     {
     	$this->validate(request(),[
 
-    		'nombre-materia' => 'required'
+    		'nombreMateria' => 'required'
 
     	]);
 
-        dd(request());
-
     	Materia::create([
 
-    		'nombre' => request('nombre-materia')
+    		'nombre' => request('nombreMateria')
 
     	]);
 
