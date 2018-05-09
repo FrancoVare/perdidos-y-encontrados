@@ -64607,7 +64607,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #fafafa;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -64690,6 +64690,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
@@ -64698,7 +64701,6 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         return {
             items: [],
             tags: [],
-            qcyo: {},
             total: 0,
             perPage: 0,
             pageCount: 1,
@@ -65132,16 +65134,32 @@ var render = function() {
               })
         }),
         _vm._v(" "),
-        _c("paginate", {
-          ref: "paginate",
-          attrs: {
-            "page-count": _vm.pageCount,
-            "click-handler": _vm.fetch,
-            "prev-text": "Anterior",
-            "next-text": "Siguiente",
-            "container-class": "pagination"
-          }
-        })
+        _c(
+          "paginate",
+          {
+            ref: "paginate",
+            attrs: {
+              "page-count": _vm.pageCount,
+              "click-handler": _vm.fetch,
+              "prev-text": "Anterior",
+              "next-text": "Siguiente",
+              "container-class": "pagination"
+            }
+          },
+          [
+            _c(
+              "span",
+              { attrs: { slot: "prevContent" }, slot: "prevContent" },
+              [_c("i", { staticClass: "fa fa-angle-left fa-lg" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              { attrs: { slot: "nextContent" }, slot: "nextContent" },
+              [_c("i", { staticClass: "fa fa-angle-right fa-lg" })]
+            )
+          ]
+        )
       ],
       2
     ),

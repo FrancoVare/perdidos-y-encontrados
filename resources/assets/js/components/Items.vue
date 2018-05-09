@@ -45,6 +45,9 @@
             :next-text="'Siguiente'"
             :container-class="'pagination'"
             ref="paginate">
+
+            <span slot="prevContent"><i class="fa fa-angle-left fa-lg"></i></span>
+            <span slot="nextContent"><i class="fa fa-angle-right fa-lg"></i></span>
         </paginate>
       </div>
 
@@ -77,7 +80,6 @@ moment.locale('es');
             return {
                 items: [],
                 tags:[],
-                qcyo:{},
                 total:0,
                 perPage:0,
                 pageCount: 1,
@@ -149,6 +151,7 @@ moment.locale('es');
     color: white;
     border-radius: 5px;
     box-shadow: 0 0 3px black;
+    margin: 3px;
 }
 
 .pagination li.active {
@@ -157,12 +160,24 @@ moment.locale('es');
     border-radius: 5px;
 }
 
+.pagination li.disabled {
+  box-shadow: none;
+}
+
+.pagination li.disabled > a{
+  cursor: default;
+}
+
 .pagination li.active > a {
     color: white;
 }
 
 .pagination li > a:hover:not(.active) {
     background-color: #ddd;
+}
+
+.pagination li.disabled > a:hover:not(.active) {
+    background-color: #fafafa;
 }
 
 .blog-post {
