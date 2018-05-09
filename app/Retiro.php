@@ -11,11 +11,11 @@ class Retiro extends Model
 
     public function user()
     {
-    	return $this->hasOne(User::class);
+    	return $this->belongsTo(User::class);
     }
 
     public function laboratorio()
     {
-    	return $this->hasOne(Laboratorio::class);
+    	return $this->belongsTo(Laboratorio::class);
     }
 }

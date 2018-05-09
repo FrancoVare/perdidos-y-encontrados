@@ -5,7 +5,7 @@ use App\Item;
 
 $factory->define(Item::class, function (Faker $faker) {
     return [
-        'fechaEncontrado' => $faker->dateTimeThisYear,
+        'created_at' => $faker->dateTimeThisYear,
     	'descripcion' => $faker->realText,
     	'materia_id' => $faker->numberBetween(1,3),
 	    'laboratorio_id' => $faker->numberBetween(1,7),

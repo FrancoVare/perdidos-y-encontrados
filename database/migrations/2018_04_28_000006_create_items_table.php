@@ -19,7 +19,6 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('tag_id');
             $table->unsignedInteger('materia_id');
             $table->unsignedInteger('laboratorio_id');
-            $table->datetime('fechaEncontrado');
             $table->text('descripcion');
             $table->timestamps();
 

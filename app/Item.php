@@ -28,4 +28,23 @@ class Item extends Model
     {
     	return $this->belongsTo(Laboratorio::class);
     }
+
+    public function scopeEstado($query,$estado)
+    {
+        if($estado == 'Perdidos'){
+            return $query->has('retiro','<',1);
+        } else {
+            return $query->has('retiro');
+        }
+        
+    }
+
+    public function scopeTag($query,$tag)
+    {
+        if($tag == 'Todos'){
+            return $query;
+        } else {
+            return $query->where('tag_id','=',Tag::where('nombre','=',$tag)->first()->id);
+        }
+    }
 }

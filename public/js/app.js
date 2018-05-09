@@ -64607,7 +64607,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  position: fixed;\r\n  right: 5%;\r\n  top: 10%;\r\n  padding: 15px;\r\n  margin: 0 -15px 15px;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\r\n  width: 160px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -64674,6 +64674,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
@@ -64682,9 +64698,13 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         return {
             items: [],
             tags: [],
+            qcyo: {},
+            total: 0,
+            perPage: 0,
             pageCount: 1,
             endpoint: '/api/items?page=',
-            tagActive: 'Todos'
+            tagActive: 'Todos',
+            estadoActive: 'Perdidos'
         };
     },
 
@@ -64709,29 +64729,35 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            axios.get(this.endpoint + page).then(function (_ref2) {
+            axios.get(this.endpoint + page + '&tag=' + this.tagActive + '&estado=' + this.estadoActive).then(function (_ref2) {
                 var data = _ref2.data;
 
                 _this2.items = data.data;
                 _this2.pageCount = data.last_page;
+                _this2.total = data.total;
+                _this2.perPage = data.to - data.from + 1;
             });
         },
         getHumanDate: function getHumanDate(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, 'YYYY-MM-DD H:m:s').format('dddd, D [de] MMMM [de] YYYY [a alrededor de las] H:mm');
         },
         addTag: function addTag(tag) {
-            this.endpoint = '/api/items?tag=' + tag + '&page=';
-            this.fetch(1);
-            this.$refs.paginate.selected = 0;
             if (tag == '') {
                 this.tagActive = 'Todos';
             } else {
                 this.tagActive = tag;
             }
+            this.fetch(1);
+            this.$refs.paginate.selected = 0;
         },
-
-        activate: function activate(el) {
-            this.tagActive = el;
+        addEstado: function addEstado(estado) {
+            if (estado == '') {
+                this.estadoActive = 'Perdidos';
+            } else {
+                this.estadoActive = estado;
+            }
+            this.fetch(1);
+            this.$refs.paginate.selected = 0;
         }
     }
 });
@@ -65012,63 +65038,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm._l(_vm.items, function(item) {
-        return _vm.authCheck
-          ? _c("a", { attrs: { href: "/items/" + item.id } }, [
-              _c("div", { staticClass: "blog-post" }, [
-                _c("h2", { staticClass: "blog-post-title" }, [
-                  _vm._v(_vm._s(item.tag.nombre))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "blog-post-meta" }, [
-                  _vm._v(
-                    "\n\n            Lo encontro " +
-                      _vm._s(item.user.name) +
-                      " el " +
-                      _vm._s(_vm.getHumanDate(item.created_at)) +
-                      "\n            despues de la cursada de \n            " +
-                      _vm._s(item.materia.nombre) +
-                      " en el laboratorio \n            " +
-                      _vm._s(item.laboratorio.nombre) +
-                      " de \n            " +
-                      _vm._s(item.laboratorio.sede.nombre) +
-                      ".\n\n          "
-                  )
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-sm-1" }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-sm-8" },
+      [
+        _c(
+          "div",
+          { staticClass: "container", staticStyle: { "text-align": "right" } },
+          [
+            _c("p", { staticClass: "blog-post-meta" }, [
+              _vm._v(
+                "Mostrando " +
+                  _vm._s(Math.min(this.perPage, this.total)) +
+                  " de " +
+                  _vm._s(this.total)
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.items, function(item) {
+          return _vm.authCheck
+            ? _c("a", { attrs: { href: "/items/" + item.id } }, [
+                _c("div", { staticClass: "blog-post" }, [
+                  _c("h2", { staticClass: "blog-post-title" }, [
+                    _vm._v(_vm._s(item.tag.nombre))
+                  ]),
+                  _vm._v(" "),
+                  item.retiro != null
+                    ? _c("p", [
+                        _vm._v(
+                          "Retirado el " +
+                            _vm._s(_vm.getHumanDate(item.retiro.created_at)) +
+                            " por " +
+                            _vm._s(item.retiro.nombre)
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "blog-post-meta" }, [
+                    _vm._v(
+                      "\n\n            Lo encontro " +
+                        _vm._s(item.user.name) +
+                        " el " +
+                        _vm._s(_vm.getHumanDate(item.created_at)) +
+                        "\n            despues de la cursada de \n            " +
+                        _vm._s(item.materia.nombre) +
+                        " en el laboratorio \n            " +
+                        _vm._s(item.laboratorio.nombre) +
+                        " de \n            " +
+                        _vm._s(item.laboratorio.sede.nombre) +
+                        ".\n\n          "
+                    )
+                  ])
                 ])
               ])
-            ])
-          : _vm._e()
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.items, function(item) {
-        return !_vm.authCheck
-          ? _c("div", { staticClass: "blog-post" }, [
-              _c("h2", { staticClass: "blog-post-title" }, [
-                _vm._v(_vm._s(item.tag.nombre))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "blog-post-meta" }, [
-                _vm._v(
-                  "\n\n            Lo encontro " +
-                    _vm._s(item.user.name) +
-                    " el " +
-                    _vm._s(_vm.getHumanDate(item.created_at)) +
-                    "\n            despues de la cursada de \n            " +
-                    _vm._s(item.materia.nombre) +
-                    " en el laboratorio \n            " +
-                    _vm._s(item.laboratorio.nombre) +
-                    " de \n            " +
-                    _vm._s(item.laboratorio.sede.nombre) +
-                    ".\n\n          "
-                )
-              ])
-            ])
-          : _vm._e()
-      }),
-      _vm._v(" "),
+            : _vm._l(_vm.items, function(item) {
+                return _c("div", { staticClass: "blog-post" }, [
+                  _c("h2", { staticClass: "blog-post-title" }, [
+                    _vm._v(_vm._s(item.tag.nombre))
+                  ]),
+                  _vm._v(" "),
+                  item.retiro != null
+                    ? _c("p", [
+                        _vm._v(
+                          "Retirado el " +
+                            _vm._s(_vm.getHumanDate(item.retiro.created_at)) +
+                            " por " +
+                            _vm._s(item.retiro.nombre)
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "blog-post-meta" }, [
+                    _vm._v(
+                      "\n\n            Lo encontro " +
+                        _vm._s(item.user.name) +
+                        " el " +
+                        _vm._s(_vm.getHumanDate(item.created_at)) +
+                        "\n            despues de la cursada de \n            " +
+                        _vm._s(item.materia.nombre) +
+                        " en el laboratorio \n            " +
+                        _vm._s(item.laboratorio.nombre) +
+                        " de \n            " +
+                        _vm._s(item.laboratorio.sede.nombre) +
+                        ".\n\n          "
+                    )
+                  ])
+                ])
+              })
+        }),
+        _vm._v(" "),
+        _c("paginate", {
+          ref: "paginate",
+          attrs: {
+            "page-count": _vm.pageCount,
+            "click-handler": _vm.fetch,
+            "prev-text": "Anterior",
+            "next-text": "Siguiente",
+            "container-class": "pagination"
+          }
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-sm-1" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-sm-2" }, [
       _c("div", { staticClass: "filter-module filter-module-inset" }, [
         _c("h4", { staticStyle: { "text-align": "center" } }, [_vm._v("Tags")]),
         _vm._v(" "),
@@ -65119,22 +65199,56 @@ var render = function() {
             ])
           ],
           2
-        )
-      ]),
-      _vm._v(" "),
-      _c("paginate", {
-        ref: "paginate",
-        attrs: {
-          "page-count": _vm.pageCount,
-          "click-handler": _vm.fetch,
-          "prev-text": "Anterior",
-          "next-text": "Siguiente",
-          "container-class": "pagination"
-        }
-      })
-    ],
-    2
-  )
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("h4", { staticStyle: { "text-align": "center" } }, [
+          _vm._v("Estado")
+        ]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "fa-ul" }, [
+          _c("li", [
+            _c(
+              "a",
+              {
+                class: { active: _vm.estadoActive == "Perdidos" },
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.addEstado("Perdidos")
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "fa-li fa fa-chevron-circle-right" }),
+                _vm._v("Perdidos")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c(
+              "a",
+              {
+                class: { active: _vm.estadoActive == "Encontrados" },
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    _vm.addEstado("Encontrados")
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "fa-li fa fa-chevron-circle-right" }),
+                _vm._v("Encontrados")
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

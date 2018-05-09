@@ -25,16 +25,12 @@ class ItemController extends Controller
    public function apiItems()
    {  
 
-      $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede'])
+      $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede','retiro'])
                         ->latest()
+                        ->tag(request('tag'))
+                        ->estado(request('estado'))
                         ->paginate(15);
-      
-      if(!is_null(request('tag'))){
-        $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede'])
-                        ->where('tag_id','=',Tag::where('nombre','=',request('tag'))->first()->id)
-                        ->latest()
-                        ->paginate(15);
-      }
+
 
       return json_encode($items);
    }
@@ -75,13 +71,12 @@ class ItemController extends Controller
 
     	]);
 
-    	$fechaEncontrado = date('Y-m-d H:i:s');
     	$descripcion = request('descripcion');
     	$materia_id = request('materia_id');
       $laboratorio_id = request('laboratorio_id');
       $tag_id = request('tag_id');
 
-    	auth()->user()->publish(new Item(compact('descripcion','fechaEncontrado','materia_id','tag_id','laboratorio_id')));
+    	auth()->user()->publish(new Item(compact('descripcion','materia_id','tag_id','laboratorio_id')));
 
       $this->flash('El objeto ha sido registrado');
     	return redirect('/');

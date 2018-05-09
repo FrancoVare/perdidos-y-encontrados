@@ -24,7 +24,9 @@ class TagController extends Controller
 
     public function apiTags()
     {
-      return Tag::has('items')->pluck('nombre');
+      return Tag::whereHas('items',function($query){
+        $query;//->estado('Perdidos');
+      })->pluck('nombre');
     }
 
    	public function show()
