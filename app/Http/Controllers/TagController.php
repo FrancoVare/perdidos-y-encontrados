@@ -24,9 +24,12 @@ class TagController extends Controller
 
     public function apiTags()
     {
-      return Tag::whereHas('items',function($query){
-        $query;//->estado('Perdidos');
-      })->pluck('nombre');
+      if(request('side')){
+        return Tag::has('items')->get();
+      } else {
+        return Tag::where('baja',false)->orderBy('nombre')->get();
+      }
+      
     }
 
    	public function show()
@@ -66,16 +69,15 @@ class TagController extends Controller
 
       $this->validate(request(),[
 
-        'nombre_tag' => 'required'
+        'nombre' => 'required'
 
       ]);
 
-      $tag = Tag::find(request('nombre_tag'));
+      $tag = Tag::find(request('nombre'));
       $tag-> baja = true;
       $tag->save();
 
-      $this->flash('El tag ha sido eliminado');
-      return redirect('/tags');
+      return response()->json(['message' => 'El tag '.$tag->nombre.' ha sido eliminado']);
 
     }
 }

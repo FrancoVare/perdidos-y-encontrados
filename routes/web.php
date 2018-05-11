@@ -25,7 +25,8 @@ Route::get('/items/create-vue','ItemController@createVue')->middleware('first-lo
 Route::get('/items/{item}', 'ItemController@show')->middleware('first-login');
 Route::get('/items/tags/{tag}', 'ItemController@index')->middleware('first-login');
 
-Route::get('/materias', 'MateriaController@index');
+// Route::get('/materias', 'MateriaController@index');
+Route::get('/api/materias', 'MateriaController@apiMaterias');
 Route::post('/materias', 'MateriaController@store');
 Route::post('/materias/destroy', 'MateriaController@destroy');
 
@@ -39,6 +40,7 @@ Route::post('/tags', 'TagController@store');
 Route::post('/tags/destroy', 'TagController@destroy');
 
 Route::get('/laboratorios', 'LaboratorioController@index');
+Route::get('/api/laboratorios', 'LaboratorioController@apiLaboratorios');
 Route::post('/laboratorios', 'LaboratorioController@store');
 Route::post('/laboratorios/destroy', 'LaboratorioController@destroy');
 

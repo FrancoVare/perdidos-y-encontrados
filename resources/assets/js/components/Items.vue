@@ -57,7 +57,7 @@
         <div class="filter-module filter-module-inset">
           <h4 style="text-align: center;">Tags</h4>
           <ul class="fa-ul">
-              <li v-for="tag in tags"><a :class="{active : tagActive == tag}" href="#" @click="addTag(tag)"><i class="fa-li fa fa-chevron-circle-right"></i>{{tag}}</a></li>
+              <li v-for="tag in tags"><a :class="{active : tagActive == tag.nombre}" href="#" @click="addTag(tag.nombre)"><i class="fa-li fa fa-chevron-circle-right"></i>{{tag.nombre}}</a></li>
               <li><a :class="{active : tagActive == 'Todos'}" href="#" @click="addTag('')"><i class="fa-li fa fa-chevron-circle-right"></i>Todos</a></li>
           </ul>
           <hr>
@@ -93,7 +93,7 @@ moment.locale('es');
 
         created() {
             this.fetch();
-            axios.get('/api/tags')
+            axios.get('/api/tags?side=1')
                     .then(({data}) => {
                         this.tags = data;
                     });

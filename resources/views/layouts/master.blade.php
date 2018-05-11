@@ -2,15 +2,6 @@
 
 @include('layouts.navbar')
 
-@if($flash = session('message'))
-
-<div id="flash-message" class="alert alert-success" role="alert">
-	{{$flash}}
-</div>
-
-@endif
-
-
 <div class="container-fluid" style="padding-left: 0">
 	@if(Auth::check())
 		@include('layouts.sidebar')

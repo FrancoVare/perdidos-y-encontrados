@@ -28,11 +28,14 @@
 	  methods: {
 	    close() {
 	      this.$emit('close');
-	      this.title = '';
+	      this.nombre = '';
 	    },
 	    savePost() {
 	      // Some save logic goes here...
-	      axios.post('/materias',{nombreMateria: this.nombre});
+	      axios.post('/materias',{nombreMateria: this.nombre})
+          .then(response => {
+            flash(response.data.message,'success');
+          });
 	      this.close();
 	    }
     }

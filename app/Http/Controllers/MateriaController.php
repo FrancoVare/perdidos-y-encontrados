@@ -12,11 +12,9 @@ class MateriaController extends Controller
         return $this->middleware(['auth','first-login']);
     }
 
-    public function index()
+    public function apiMaterias()
     {
-    	$materias = Materia::where('baja',false)->orderBy('nombre')->get();
-
-    	return view('materias.index',compact('materias'));
+        return json_encode(Materia::where('baja',false)->orderBy('nombre')->get());
     }
 
     public function store()
@@ -27,15 +25,13 @@ class MateriaController extends Controller
 
     	]);
 
-    	Materia::create([
+    	$mat = Materia::create([
 
     		'nombre' => request('nombreMateria')
 
     	]);
 
-        $this->flash('La materia ha sido agregada');
-
-    	return redirect('/materias');
+    	return response()->json(['message' => 'La materia '.$mat->nombre.' ha sido agregada']);
     }
 
     public function destroy()
@@ -51,8 +47,6 @@ class MateriaController extends Controller
     	$mat-> baja = true;
     	$mat->save();
 
-        $this->flash('La materia ha sido eliminada');
-    	return redirect('/materias');
-
+    	return response()->json(['message' => 'La materia '.$mat->nombre.' ha sido eliminada']);
     }
 }

@@ -21,6 +21,13 @@ class LaboratorioController extends Controller
     	return view('laboratorios.index',compact('laboratorios','sedes'));
     }
 
+    public function apiLaboratorios()
+    {
+        $laboratorios = Laboratorio::with('sede')->where('baja',false)->orderBy('nombre')->get();
+
+        return json_encode($laboratorios);
+    }
+
     public function store()
     {
     	$this->validate(request(),[
@@ -54,8 +61,7 @@ class LaboratorioController extends Controller
     	$lab-> baja = true;
     	$lab->save();
 
-        $this->flash('El laboratorio ha sido eliminado');
-    	return redirect('/laboratorios');
+    	return response()->json(['message' => 'El laboratorio '.$lab->nombre .' de ' . $lab->sede->nombre . ' ha sido eliminado']);
 
     }
 }

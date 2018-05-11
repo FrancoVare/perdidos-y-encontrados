@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="row" id="app">
+	<flash :display-icons="true" :timeout="5000"></flash>
 	<div class="col-sm-1">
 		
 	</div>
@@ -12,12 +13,18 @@
 
 		<hr>
 
-		<button @click="showNewMateriaModal = true">New Materia</button>
-		<new-materia-modal :show="showNewMateriaModal" @close="showNewMateriaModal = false"></new-materia-modal>
-
+		<div class="row">
+			<div class="col-sm-4" style="display: flex;">
+				<registro atributo="Materia"></registro>
+			</div>
+			<div class="col-sm-4" style="display: flex;">
+				<registro atributo="Tag"></registro>
+			</div>
+			<div class="col-sm-4" style="display: flex;">
+				<registro atributo="Laboratorio"></registro>
+			</div>
+		</div>
 	</div>
-
-
 </div>
 
 @endsection

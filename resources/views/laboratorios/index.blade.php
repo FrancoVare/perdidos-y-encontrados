@@ -49,7 +49,7 @@
 		</div>
 	  </div>
 	  <div class="col-sm-5">
-	  	<h1>Eliminar Laboratorio</h1>
+	  	{{-- <h1>Eliminar Laboratorio</h1>
 	  	
 	  	<div class="container">
 	  		<hr>
@@ -78,7 +78,7 @@
 			</div>
 			
 		</form>
-	  	</div>
+	  	</div> --}}
 	</div>
 </div>
 

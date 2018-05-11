@@ -49,7 +49,7 @@
 	</div>
   </div>
   <div class="col-sm-5">
-  	<h1>Eliminar Tag</h1>
+  	{{-- <h1>Eliminar Tag</h1>
   	
   	<div class="container">
   		<hr>
@@ -57,7 +57,7 @@
 		@csrf
 
 		<div class="form-group">
-			<select class="form-control{{ $errors->has('nombre_tag') ? ' is-invalid' : '' }}" id="nombre_tag" name="nombre_tag" style="width: 100%" size="10">
+			<select class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" id="nombre" name="nombre" style="width: 100%" size="10">
 
 			@foreach($tags as $tag)
 
@@ -66,7 +66,7 @@
 	        @endforeach
 			
 		</select>
-		@if ($errors->has('nombre_tag'))
+		@if ($errors->has('nombre'))
                                     <span class="invalid-feedback">
                                         <strong>Seleccione un tag</strong>
                                     </span>
@@ -78,7 +78,7 @@
 		</div>
 		
 	</form>
-  	</div>
+  	</div> --}}
   </div>
 </div>
 
