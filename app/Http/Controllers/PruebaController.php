@@ -19,6 +19,13 @@ class PruebaController extends Controller
     	return view('pruebas.index',compact('pruebas'));
    	}
 
+    public function apiPruebas()
+    {
+        $pruebas = Prueba::where('baja',false)->orderBy('nombre')->get();
+
+        return json_encode($pruebas);
+    }
+
    	public function show()
     {
     	

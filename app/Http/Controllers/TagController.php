@@ -60,8 +60,7 @@ class TagController extends Controller
 
         $tag->save();
 
-        $this->flash('El tag ha sido agregado');
-        return redirect('/tags');
+        return response()->json(['message' => 'El tag '.$tag->nombre.' ha sido agregado']);
     }
 
     public function destroy()

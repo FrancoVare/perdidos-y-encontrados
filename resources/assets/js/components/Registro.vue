@@ -61,6 +61,7 @@ moment.locale('es');
             },
             abrirModal(){
               this.showModal = true;
+              this.$el.focus();
             },
             cerrarModal(){
               this.showModal = false;

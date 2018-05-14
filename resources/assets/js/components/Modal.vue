@@ -2,6 +2,9 @@
 <transition name="modal">
         <div class="modal-mask" @click="close" v-show="show">
             <div class="modal-container" @click.stop>
+                <button type="button" class="close close-btn" aria-label="Close" @click="close()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               <slot></slot>
             </div>
         </div>
@@ -24,8 +27,18 @@
     transition: opacity .3s ease;
 }
 
+.invalid-feedback{
+    display: block;
+}
+
+.close-btn{
+    right: -24px;
+    top: -14.02px;
+    position: relative;
+}
+
 .modal-container {
-    width: 300px;
+    width: 400px;
     margin: 40px auto 0;
     padding: 20px 30px;
     background-color: #fff;
@@ -37,11 +50,19 @@
 
 .modal-header h3 {
     margin-top: 0;
-    color: #42b983;
+    color: #4b4b4b;
+}
+
+.modal-header {
+    justify-content: center;
 }
 
 .modal-body {
     margin: 20px 0;
+}
+
+.modal-footer{
+    justify-content: center;
 }
 
 .text-right {
@@ -50,7 +71,8 @@
 
 .form-label {
     display: block;
-    margin-bottom: 1em;
+    margin-bottom: .5em;
+    text-align: left;
 }
 
 .form-label > .form-control {
@@ -91,18 +113,15 @@
 
 <script>
     export default {
-        props: ['show'],
+        props: {
+            show:{
+                type: Boolean
+            }
+        },
         methods: {
           close: function () {
             this.$emit('close');
           }
-        },
-        mounted: function () {
-          document.addEventListener("keydown", (e) => {
-            if (this.show && e.keyCode == 27) {
-              this.close();
-            }
-          });
         }
     }
 </script>

@@ -31,6 +31,7 @@ Route::post('/materias', 'MateriaController@store');
 Route::post('/materias/destroy', 'MateriaController@destroy');
 
 Route::get('/pruebas', 'PruebaController@index');
+Route::get('/api/pruebas', 'PruebaController@apiPruebas');
 Route::post('/pruebas', 'PruebaController@store');
 Route::post('/pruebas/destroy', 'PruebaController@destroy');
 

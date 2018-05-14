@@ -28,13 +28,12 @@ window.flash = function(message, type) {
  */
 
  // Define a new component called button-counter
- 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('new-materia-modal', require('./components/NewMateriaModal.vue'));
-// Vue.component('new-laboratorio-modal', require('./components/NewLaboratorioModal.vue'));
-// Vue.component('new-tag-modal', require('./components/NewTagModal.vue'));
+Vue.component('new-laboratorio-modal', require('./components/NewLaboratorioModal.vue'));
+Vue.component('new-tag-modal', require('./components/NewTagModal.vue'));
 Vue.component('paginate', require('vuejs-paginate'));
 Vue.component('items',require('./components/Items.vue'));
 Vue.component('registro',require('./components/Registro.vue'));
@@ -42,10 +41,6 @@ Vue.component('flash',require('./components/Flash.vue'));
 
 
 const app = new Vue({
-      el: '#app',
-	  data: {
-	    showModal: false,
-	    showNewMateriaModal: false
-	  }
+      el: '#app'
 });
 

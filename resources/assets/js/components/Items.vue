@@ -23,9 +23,11 @@
             </div>
         </a>
 
-        <div class="blog-post" v-else v-for="item in items">
+        <div class="blog-post" v-if="!authCheck" v-for="item in items">
               <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
+
               <p v-if="item.retiro != null">Retirado el {{getHumanDate(item.retiro.created_at)}} por {{item.retiro.nombre}}</p>
+
               <p class="blog-post-meta">
 
                 Lo encontro {{item.user.name}} el {{getHumanDate(item.created_at)}}
