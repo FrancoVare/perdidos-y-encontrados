@@ -39,6 +39,7 @@ Vue.component('new-tag-modal', require('./components/NewTagModal.vue'));
 Vue.component('paginate', require('vuejs-paginate'));
 Vue.component('items',require('./components/Items.vue'));
 Vue.component('registro',require('./components/Registro.vue'));
+Vue.component('registro-item',require('./components/RegistroItem.vue'));
 Vue.component('flash',require('./components/Flash.vue'));
 
 

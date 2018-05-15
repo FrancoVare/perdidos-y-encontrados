@@ -2,7 +2,7 @@
     <div style="width: 100%">
       <div style="display: flex">
         <label style="margin: auto .5em">{{this.atributo}}:</label>
-        <select :name="this.atributo" :class="{'form-control' : true, 'is-invalid': errors.nombre}" v-model="selected" style="width: 100%; margin:auto .5em">
+        <select v-bind:value="value" v-on:change="updateValue($event.target.value)" :class="{'form-control' : true, 'is-invalid': errors.nombre}" v-model="selected" style="width: 100%; margin:auto .5em">
           <option style="display:none"></option> 
           <option v-if="atributo == 'Materia'" v-for="materia in lista" :value="materia.id">{{materia.nombre}}</option>
           <option v-if="atributo == 'Tag'" v-for="tag in lista" :value="tag.id">{{tag.nombre}}</option>
@@ -40,7 +40,7 @@ moment.locale('es');
               }
             };
         },
-        props:['atributo'],
+        props:['atributo','value'],
         created() {
             this.getDatos();
         },
@@ -49,10 +49,14 @@ moment.locale('es');
             if(newVal) this.errors = {
                 nombre:null
               };
+            else this.updateValue(null);
           }
         },
         methods: {
-            getDatos() {
+          updateValue: function (value) {
+            this.$emit('input', value);
+          },
+          getDatos() {
               axios.get("/api/" + this.atributo.toLowerCase() + 's')
                     .then(({data}) => {
                         this.lista = data;

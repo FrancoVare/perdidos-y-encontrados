@@ -13,17 +13,8 @@
 
 		<hr>
 
-		<div class="row">
-			<div class="col-sm-4" style="display: flex;">
-				<registro atributo="Materia"></registro>
-			</div>
-			<div class="col-sm-4" style="display: flex;">
-				<registro atributo="Tag"></registro>
-			</div>
-			<div class="col-sm-4" style="display: flex;">
-				<registro atributo="Laboratorio"></registro>
-			</div>
-		</div>
+		<registro-item></registro-item>
+		
 	</div>
 </div>
 
