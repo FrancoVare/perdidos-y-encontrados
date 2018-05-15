@@ -35,16 +35,29 @@ class PruebaController extends Controller
     {
     	$this->validate(request(),[
 
-    		'nombre_prueba' => 'required'
+    		'pruebas' => 'required'
 
     	]);
 
-    	$mat = Prueba::find(request('nombre_prueba'));
-    	$mat-> baja = true;
-    	$mat->save();
+    	$pruebas = Prueba::find(request('pruebas'));
+       $nombres = [];
+        
+        foreach ($pruebas as $prueba) {
+            $prueba-> baja = true;
+            $prueba->save();
+            $nombres[] = $prueba->nombre;
+        }
 
-        $this->flash('La prueba ha sido eliminada');
-    	return redirect('/pruebas');
+        if(count($pruebas)>1){
+            $s = 's';
+            $n = 'n';
+            $nombres = implode(', ',$nombres);
+        } else {
+            $s = '';
+            $n = '';
+            $nombres = $nombres[0];
+        }
+        return response()->json(['message' => "La{$s} prueba{$s} " .$nombres." ha{$n} sido eliminada{$s}"]);
 
     }
 
@@ -56,13 +69,12 @@ class PruebaController extends Controller
 
     	]);
 
-    	Prueba::create([
+    	$prueba = Prueba::create([
 
     		'nombre' => request('nombre')
 
     	]);
 
-        $this->flash('La prueba ha sido agregada');
-    	return redirect('/pruebas');
+        return response()->json(['message' => 'La prueba '.$prueba->nombre.' ha sido agregada']);
     }
 }

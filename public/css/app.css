@@ -3068,6 +3068,10 @@ a {
   color: black;
 }
 
+.btn {
+  margin: 3px;
+}
+
 a:hover {
   text-decoration: none;
   color: #fafafa;

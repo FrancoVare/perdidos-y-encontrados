@@ -33,6 +33,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('new-materia-modal', require('./components/NewMateriaModal.vue'));
 Vue.component('new-laboratorio-modal', require('./components/NewLaboratorioModal.vue'));
+Vue.component('new-prueba-modal', require('./components/NewPruebaModal.vue'));
+Vue.component('new-sede-modal', require('./components/NewSedeModal.vue'));
 Vue.component('new-tag-modal', require('./components/NewTagModal.vue'));
 Vue.component('paginate', require('vuejs-paginate'));
 Vue.component('items',require('./components/Items.vue'));

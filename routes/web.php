@@ -46,6 +46,7 @@ Route::post('/laboratorios', 'LaboratorioController@store');
 Route::post('/laboratorios/destroy', 'LaboratorioController@destroy');
 
 Route::get('/sedes', 'SedeController@index');
+Route::get('/api/sedes', 'SedeController@apiSedes');
 Route::post('/sedes', 'SedeController@store');
 Route::post('/sedes/destroy', 'SedeController@destroy');
 

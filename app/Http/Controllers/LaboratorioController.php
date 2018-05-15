@@ -32,20 +32,19 @@ class LaboratorioController extends Controller
     {
     	$this->validate(request(),[
 
-    		'nombre-lab' => 'required',  
+    		'nombreLab' => 'required',  
             'sede' => 'required'
 
     	]);
 
-    	Laboratorio::create([
+    	$lab = Laboratorio::create([
 
-    		'nombre' => request('nombre-lab'),  
+    		'nombre' => request('nombreLab'),  
             'sede_id' => request('sede')
 
     	]);
 
-        $this->flash('El laboratorio ha sido agregado');
-    	return redirect('/laboratorios');
+        return response()->json(['message' => 'El laboratorio '.$lab->nombre .' de ' . $lab->sede->nombre . ' ha sido agregado']);
     }
 
     public function destroy()

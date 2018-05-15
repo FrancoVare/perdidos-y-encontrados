@@ -21,8 +21,9 @@
               </span>
             </div>
             <div style="text-align: center;">
-              <button class="btn btn-primary" @click="abrirModal()">Agregar Prueba</button>
-              <new-materia-modal :show="showModal" @close="cerrarModal()"></new-materia-modal>
+              <button class="btn btn-success rounded-circle btn-lg" @click="abrirModal()"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-danger rounded-circle btn-lg" @click="eliminarPrueba()"><i class="fa fa-times"></i></button>
+              <new-prueba-modal :show="showModal" @close="cerrarModal()"></new-prueba-modal>
             </div>
         </div>
         <div class="modal-footer">
@@ -66,6 +67,7 @@
       },
       cerrarModal(){
         this.showModal = false;
+        this.getDatos();
       },
       getDatos() {
               axios.get("/api/pruebas")
@@ -83,7 +85,19 @@
           .catch(error =>{
             this.errors = error.response.data.errors;
           });
-	    }
+	    },
+      eliminarPrueba() {
+        // Some save logic goes here...
+      axios.post('/pruebas/destroy',{pruebas: this.selected})
+           .then(response => {
+              flash(response.data.message,'success');
+              this.getDatos();
+              this.selected = [];
+            })
+           .catch(error =>{
+              this.errors = error.response.data.errors;
+           });
+      }
     }
 }
 </script>

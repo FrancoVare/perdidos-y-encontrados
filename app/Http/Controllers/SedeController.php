@@ -19,24 +19,30 @@ class SedeController extends Controller
     	return view('sedes.index',compact('sedes'));
     }
 
+    public function apiSedes()
+    {
+        $sedes = Sede::where('baja',false)->orderBy('nombre')->get();
+
+        return json_encode($sedes);
+    }
+
     public function store()
     {
     	$this->validate(request(),[
 
-    		'nombre-sede' => 'required',  
+    		'nombreSede' => 'required',  
     		'direccion' => 'required'
 
     	]);
 
-    	Sede::create([
+    	$sede = Sede::create([
 
-    		'nombre' => request('nombre-sede'),  
+    		'nombre' => request('nombreSede'),  
     		'direccion' => request('direccion')
 
     	]);
 
-        $this->flash('La sede ha sido agregada');
-    	return redirect('/sedes');
+        return response()->json(['message' => 'La sede '. $sede->nombre .'ha sido agregada']);
     }
 
     public function destroy()
@@ -44,16 +50,15 @@ class SedeController extends Controller
 
     	$this->validate(request(),[
 
-    		'nombre' => 'required'
+    		'sede' => 'required'
 
     	]);
 
-    	$sede = Sede::find(request('nombre'));
+    	$sede = Sede::find(request('sede'));
     	$sede-> baja = true;
     	$sede->save();
 
-        $this->flash('La sede ha sido eliminada');
-    	return redirect('/sedes');
+        return response()->json(['message' => 'La sede '. $sede->nombre .' ha sido eliminada']);
 
     }
 }
