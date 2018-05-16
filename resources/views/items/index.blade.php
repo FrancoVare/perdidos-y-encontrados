@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-<div id="app">
-	<items auth-check={{Auth::check()}}></items>
-</div>
+<items auth-check={{Auth::check()}}></items>
 
 @endsection

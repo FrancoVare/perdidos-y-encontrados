@@ -5,17 +5,16 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-
-        
           
-          @if (Route::has('login'))
-            
-            @auth
+          @auth
               
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="@if(auth()->guard()->user()->firstLogin){{'/resetPassword'}} @else {{'/items/create'}} @endif">Nuevo Item</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link" href="@if(auth()->guard()->user()->firstLogin){{'/resetPassword'}} @else {{route('register')}} @endif">Registrar</a>
               </li>
@@ -32,18 +31,22 @@
                   {{ csrf_field() }}
               </form>
             
-            @else
-              
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
-              </li>
-            
-            @endauth 
-         
-         @endif
-
         </ul>
 
+        @endauth
+
+
+        @guest
+          <ul class="navbar-nav mr-auto"></ul>
+          
+          <ul class="navbar-nav ml-auto">  
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('login') }}">Login</a>
+            </li>
+          </ul>
+
+        @endguest
+        
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>

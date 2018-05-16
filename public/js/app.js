@@ -66506,62 +66506,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            lista: [],
-            showModal: false,
-            selected: null,
-            post: '',
-            errors: {
-                nombre: null
-            }
-        };
+  data: function data() {
+    return {
+      lista: [],
+      showModal: false,
+      selected: null,
+      post: '',
+      errors: {
+        nombre: null
+      }
+    };
+  },
+
+  props: ['atributo', 'value', 'errorShow'],
+  created: function created() {
+    this.getDatos();
+  },
+
+  watch: {
+    selected: function selected(newVal, oldVal) {
+      if (newVal) this.errors = {
+        nombre: null
+      };else this.updateValue(null);
     },
-
-    props: ['atributo', 'value', 'errorShow'],
-    created: function created() {
-        this.getDatos();
-    },
-
-    watch: {
-        selected: function selected(newVal, oldVal) {
-            if (newVal) this.errors = {
-                nombre: null
-            };else this.updateValue(null);
-        }
-    },
-    methods: {
-        updateValue: function updateValue(value) {
-            this.$emit('input', value);
-        },
-        getDatos: function getDatos() {
-            var _this = this;
-
-            axios.get("/api/" + this.atributo.toLowerCase() + 's').then(function (_ref) {
-                var data = _ref.data;
-
-                _this.lista = data;
-            });
-        },
-        eliminarDato: function eliminarDato() {
-            var _this2 = this;
-
-            axios.post('/' + this.atributo.toLowerCase() + 's/destroy', { nombre: this.selected }).then(function (response) {
-                _this2.selected = null;
-                _this2.getDatos();
-                flash(response.data.message, 'success');
-            }).catch(function (error) {
-                _this2.errors = error.response.data.errors;
-            });
-        },
-        abrirModal: function abrirModal() {
-            this.showModal = true;
-        },
-        cerrarModal: function cerrarModal() {
-            this.showModal = false;
-            this.getDatos();
-        }
+    value: function value(newVal, oldVal) {
+      if (!newVal) this.selected = null;
     }
+  },
+  methods: {
+    updateValue: function updateValue(value) {
+      this.$emit('input', value);
+    },
+    getDatos: function getDatos() {
+      var _this = this;
+
+      axios.get("/api/" + this.atributo.toLowerCase() + 's').then(function (_ref) {
+        var data = _ref.data;
+
+        _this.lista = data;
+      });
+    },
+    eliminarDato: function eliminarDato() {
+      var _this2 = this;
+
+      axios.post('/' + this.atributo.toLowerCase() + 's/destroy', { nombre: this.selected }).then(function (response) {
+        _this2.selected = null;
+        _this2.getDatos();
+        flash(response.data.message, 'success');
+      }).catch(function (error) {
+        _this2.errors = error.response.data.errors;
+      });
+    },
+    abrirModal: function abrirModal() {
+      this.showModal = true;
+    },
+    cerrarModal: function cerrarModal() {
+      this.showModal = false;
+      this.getDatos();
+    }
+  }
 });
 
 /***/ }),
@@ -66848,6 +66851,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.post('/items', { descripcion: this.descripcion, materia_id: this.selectedMateria, tag_id: this.selectedTag, laboratorio_id: this.selectedLab }).then(function (response) {
         flash(response.data.message, 'success');
+        _this.selectedMateria = null;
+        _this.selectedTag = null;
+        _this.selectedLab = null;
+        _this.descripcion = '';
       }).catch(function (error) {
         _this.errors = error.response.data.errors;
       });

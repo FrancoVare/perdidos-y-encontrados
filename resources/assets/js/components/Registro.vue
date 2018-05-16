@@ -50,6 +50,9 @@ moment.locale('es');
                 nombre:null
               };
             else this.updateValue(null);
+          },
+          value: function (newVal,oldVal){
+            if(!newVal) this.selected = null;
           }
         },
         methods: {

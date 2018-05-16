@@ -59,6 +59,10 @@
                 axios.post('/items',{descripcion: this.descripcion,materia_id:this.selectedMateria,tag_id:this.selectedTag,laboratorio_id:this.selectedLab})
                 .then(response => {
                     flash(response.data.message,'success');
+                    this.selectedMateria = null;
+                    this.selectedTag = null;
+                    this.selectedLab = null;
+                    this.descripcion = '';
                 })
                 .catch(error =>{
                     this.errors = error.response.data.errors;
