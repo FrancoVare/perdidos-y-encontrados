@@ -2,7 +2,7 @@
     <div style="width: 100%">
       <div style="display: flex">
         <label style="margin: auto .5em">{{this.atributo}}:</label>
-        <select v-bind:value="value" v-on:change="updateValue($event.target.value)" :class="{'form-control' : true, 'is-invalid': errors.nombre}" v-model="selected" style="width: 100%; margin:auto .5em">
+        <select v-bind:value="value" v-on:change="updateValue($event.target.value)" :class="{'form-control' : true, 'is-invalid': errors.nombre || this.errorShow}" v-model="selected" style="width: 100%; margin:auto .5em">
           <option style="display:none"></option> 
           <option v-if="atributo == 'Materia'" v-for="materia in lista" :value="materia.id">{{materia.nombre}}</option>
           <option v-if="atributo == 'Tag'" v-for="tag in lista" :value="tag.id">{{tag.nombre}}</option>
@@ -13,7 +13,7 @@
           <button class="btn btn-danger rounded-circle btn-lg" @click="eliminarDato()"><i class="fa fa-times"></i></button>
         </div>
       </div>
-      <span v-if="errors.nombre" class="invalid-feedback inv-reg">
+      <span v-if="errors.nombre || this.errorShow" class="invalid-feedback inv-reg">
             <strong>Debe seleccionar una opcion.</strong>
         </span>
       <div style="text-align: center;">
@@ -40,7 +40,7 @@ moment.locale('es');
               }
             };
         },
-        props:['atributo','value'],
+        props:['atributo','value','errorShow'],
         created() {
             this.getDatos();
         },

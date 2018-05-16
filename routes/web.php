@@ -19,9 +19,6 @@ Route::get('/home', 'ItemController@index')->middleware('first-login');
 Route::post('/items', 'ItemController@store');
 Route::get('/api/items', 'ItemController@apiItems');
 Route::get('/items/create','ItemController@create')->middleware('first-login');
-
-Route::get('/items/create-vue','ItemController@createVue')->middleware('first-login');
-
 Route::get('/items/{item}', 'ItemController@show')->middleware('first-login');
 Route::get('/items/tags/{tag}', 'ItemController@index')->middleware('first-login');
 

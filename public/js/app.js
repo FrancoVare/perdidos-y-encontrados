@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(207);
+module.exports = __webpack_require__(210);
 
 
 /***/ }),
@@ -30720,8 +30720,8 @@ Vue.component('new-tag-modal', __webpack_require__(187));
 Vue.component('paginate', __webpack_require__(190));
 Vue.component('items', __webpack_require__(191));
 Vue.component('registro', __webpack_require__(197));
-Vue.component('registro-item', __webpack_require__(217));
-Vue.component('flash', __webpack_require__(202));
+Vue.component('registro-item', __webpack_require__(202));
+Vue.component('flash', __webpack_require__(205));
 
 var app = new Vue({
     el: '#app'
@@ -66518,7 +66518,7 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         };
     },
 
-    props: ['atributo', 'value'],
+    props: ['atributo', 'value', 'errorShow'],
     created: function created() {
         this.getDatos();
     },
@@ -66589,7 +66589,10 @@ var render = function() {
               expression: "selected"
             }
           ],
-          class: { "form-control": true, "is-invalid": _vm.errors.nombre },
+          class: {
+            "form-control": true,
+            "is-invalid": _vm.errors.nombre || this.errorShow
+          },
           staticStyle: { width: "100%", margin: "auto .5em" },
           domProps: { value: _vm.value },
           on: {
@@ -66672,7 +66675,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.errors.nombre
+    _vm.errors.nombre || this.errorShow
       ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
           _c("strong", [_vm._v("Debe seleccionar una opcion.")])
         ])
@@ -66734,15 +66737,262 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(203)
+/* template */
+var __vue_template__ = __webpack_require__(204)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\RegistroItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-345589dd", Component.options)
+  } else {
+    hotAPI.reload("data-v-345589dd", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 203 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      selectedMateria: null,
+      selectedTag: null,
+      selectedLab: null,
+      descripcion: '',
+      errors: {
+        descripcion: null,
+        materia_id: null,
+        laboratorio_id: null,
+        tag_id: null
+      }
+    };
+  },
+  mounted: function mounted() {
+    // console.log('Component mounted.')
+  },
+
+  watch: {
+    selectedMateria: function selectedMateria(newVal, oldVal) {
+      if (newVal) this.errors.materia_id = null;
+    },
+    selectedLab: function selectedLab(newVal, oldVal) {
+      if (newVal) this.errors.laboratorio_id = null;
+    },
+    selectedTag: function selectedTag(newVal, oldVal) {
+      if (newVal) this.errors.tag_id = null;
+    },
+    descripcion: function descripcion(newVal, oldVal) {
+      if (newVal.length) this.errors.descripcion = null;
+    }
+  },
+  methods: {
+    guardarItem: function guardarItem() {
+      var _this = this;
+
+      axios.post('/items', { descripcion: this.descripcion, materia_id: this.selectedMateria, tag_id: this.selectedTag, laboratorio_id: this.selectedLab }).then(function (response) {
+        flash(response.data.message, 'success');
+      }).catch(function (error) {
+        _this.errors = error.response.data.errors;
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+      [
+        _c("registro", {
+          attrs: { "error-show": _vm.errors.materia_id, atributo: "Materia" },
+          model: {
+            value: _vm.selectedMateria,
+            callback: function($$v) {
+              _vm.selectedMateria = _vm._n($$v)
+            },
+            expression: "selectedMateria"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+      [
+        _c("registro", {
+          attrs: { "error-show": _vm.errors.tag_id, atributo: "Tag" },
+          model: {
+            value: _vm.selectedTag,
+            callback: function($$v) {
+              _vm.selectedTag = _vm._n($$v)
+            },
+            expression: "selectedTag"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+      [
+        _c("registro", {
+          attrs: {
+            "error-show": _vm.errors.laboratorio_id,
+            atributo: "Laboratorio"
+          },
+          model: {
+            value: _vm.selectedLab,
+            callback: function($$v) {
+              _vm.selectedLab = _vm._n($$v)
+            },
+            expression: "selectedLab"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("label", [_vm._v("Descripcion")]),
+    _vm._v(" "),
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.descripcion,
+          expression: "descripcion"
+        }
+      ],
+      class: { "form-control": true, "is-invalid": _vm.errors.descripcion },
+      domProps: { value: _vm.descripcion },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.descripcion = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.errors.descripcion
+      ? _c("span", { staticClass: "invalid-feedback" }, [
+          _c("strong", [_vm._v("Debe proveer una descripcion")])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticStyle: { "text-align": "right", width: "100%" } }, [
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-lg",
+          staticStyle: { margin: "0" },
+          on: {
+            click: function($event) {
+              _vm.guardarItem()
+            }
+          }
+        },
+        [_vm._v("Aceptar")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-345589dd", module.exports)
+  }
+}
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(203)
+  __webpack_require__(206)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(205)
+var __vue_script__ = __webpack_require__(208)
 /* template */
-var __vue_template__ = __webpack_require__(206)
+var __vue_template__ = __webpack_require__(209)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66781,13 +67031,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(204);
+var content = __webpack_require__(207);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -66807,7 +67057,7 @@ if(false) {
 }
 
 /***/ }),
-/* 204 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -66821,7 +67071,7 @@ exports.push([module.i, "\n.alert-wrap[data-v-24005b09] {\n    position: fixed;\
 
 
 /***/ }),
-/* 205 */
+/* 208 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66941,7 +67191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 206 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66984,174 +67234,10 @@ if (false) {
 }
 
 /***/ }),
-/* 207 */
+/* 210 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(2)
-/* script */
-var __vue_script__ = __webpack_require__(218)
-/* template */
-var __vue_template__ = __webpack_require__(219)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\RegistroItem.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-345589dd", Component.options)
-  } else {
-    hotAPI.reload("data-v-345589dd", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 218 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            selectedMateria: null,
-            selectedTag: null,
-            selectedLab: null
-        };
-    },
-    mounted: function mounted() {
-        // console.log('Component mounted.')
-    }
-});
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: { atributo: "Materia" },
-          model: {
-            value: _vm.selectedMateria,
-            callback: function($$v) {
-              _vm.selectedMateria = _vm._n($$v)
-            },
-            expression: "selectedMateria"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: { atributo: "Tag" },
-          model: {
-            value: _vm.selectedTag,
-            callback: function($$v) {
-              _vm.selectedTag = _vm._n($$v)
-            },
-            expression: "selectedTag"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: { atributo: "Laboratorio" },
-          model: {
-            value: _vm.selectedLab,
-            callback: function($$v) {
-              _vm.selectedLab = _vm._n($$v)
-            },
-            expression: "selectedLab"
-          }
-        })
-      ],
-      1
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-345589dd", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

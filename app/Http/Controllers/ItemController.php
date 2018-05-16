@@ -39,25 +39,10 @@ class ItemController extends Controller
     {
     	return view('items.show',compact('item'));
     }
-
-
-
-    public function createVue()
-    {
-      $materias = Materia::where('baja',false)->orderBy('nombre')->get();
-      $tags = Tag::where('baja',false)->orderBy('nombre')->get();
-      $laboratorios = Laboratorio::where('baja',false)->orderBy('nombre')->get();
-      
-      return view('items.create-vue',compact('materias','tags','laboratorios'));
-    }
-
+    
     public function create()
     {
-    	$materias = Materia::where('baja',false)->orderBy('nombre')->get();
-      $tags = Tag::where('baja',false)->orderBy('nombre')->get();
-      $laboratorios = Laboratorio::where('baja',false)->orderBy('nombre')->get();
-
-    	return view('items.create',compact('materias','tags','laboratorios'));
+    	return view('items.create');
     }
 
     public function store()
@@ -78,7 +63,6 @@ class ItemController extends Controller
 
     	auth()->user()->publish(new Item(compact('descripcion','materia_id','tag_id','laboratorio_id')));
 
-      $this->flash('El objeto ha sido registrado');
-    	return redirect('/');
+      return response()->json(['message' => 'El item ha sido registrado']);
     }
 }
