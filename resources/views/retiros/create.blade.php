@@ -54,13 +54,16 @@
 	                </span>
 	            @endif
 			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary">Registrar</button>
+			<hr>
+			<div class="form-group" style="text-align: right;">
+				<button type="submit" class="btn btn-primary">Aceptar</button>
 			</div>
 		</form>
 
 	</div>
-	<div class="filter-module filter-module-inset" style="word-wrap: break-word; width: 25vh;">
+	<div class="col-sm-1"></div>
+	<div class="col-sm-2">
+		<div class="filter-module filter-module-inset" style="word-wrap: break-word; width: 25vh;">
         <h4 style="text-align: center;">Pruebas Minimas</h4>
         <ul class="fa-ul">
         	@foreach($item->tag->pruebas as $prueba)
@@ -68,6 +71,7 @@
         	@endforeach
         </ul>
     </div>
+	</div>
 </div>
 		
 

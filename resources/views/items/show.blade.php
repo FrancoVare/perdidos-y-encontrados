@@ -44,9 +44,10 @@
         Entregado por {{$item->retiro->user->name}} en el laboratorio {{$item->retiro->laboratorio->nombre}} de {{$item->retiro->laboratorio->sede->nombre}}
       </p>
     @else
-    <form action="/retiros" method="GET">
+    <hr>
+    <form action="/retiros" method="GET" style="text-align: right;">
       <input type="hidden" name="item" value="{{$item->id}}" /> 
-      <button type="submit" class="btn btn-primary">Registrar</button>
+      <button type="submit" class="btn btn-primary">Retiro</button>
     </form>
     @endif
   </div>
