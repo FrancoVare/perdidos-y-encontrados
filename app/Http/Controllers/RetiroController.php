@@ -22,7 +22,7 @@ class RetiroController extends Controller
     	return view('retiros.create',compact('item','laboratorios'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
     	$this->validate(request(), [
 
@@ -31,8 +31,11 @@ class RetiroController extends Controller
     		'numeroDoc' => 'required|numeric',
     		'laboratorio_id' => 'required',
     		'item_id' => 'required',
+            'foto_retiro' => 'required | mimes:jpeg,jpg,png'
 
     	]);
+
+        $path = $request->file('foto_retiro')->store('images');
 
     	$r = Retiro::create([
 
@@ -40,12 +43,11 @@ class RetiroController extends Controller
     		'tipoDoc' => request('tipoDoc'),  
     		'numeroDoc' => request('numeroDoc'),   
     		'laboratorio_id' => request('laboratorio_id'),   
-    		'item_id' => request('item_id'),   
-    		'fechaEntregado' => date('Y-m-d H:i:s'),   
+    		'item_id' => request('item_id'),    
     		'tipoDoc' => request('tipoDoc'),   
-    		'user_id' => auth()->user()->id
+    		'user_id' => auth()->user()->id,
+            'foto_retiro' => $path
     	]);
-
 
     	$this->flash('El retiro ha sido registrado');
     	return redirect()->home();

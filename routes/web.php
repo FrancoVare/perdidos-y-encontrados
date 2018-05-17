@@ -15,7 +15,7 @@ use App\Http\Middleware\CheckFirstLogin;
 Auth::routes();
 
 Route::get('/', 'ItemController@index')->name('home')->middleware('first-login');
-//Route::get('/home', 'ItemController@index')->middleware('first-login');
+Route::get('/home', 'ItemController@index')->middleware('first-login');
 Route::post('/items', 'ItemController@store');
 Route::get('/api/items', 'ItemController@apiItems');
 Route::get('/items/create','ItemController@create')->middleware('first-login');
@@ -52,5 +52,21 @@ Route::post('/retiros', 'RetiroController@store');
 
 Route::get('/resetPassword', 'ResetPasswordController@create');
 Route::post('/resetPassword', 'ResetPasswordController@store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('images/{name}', function ($name) {
+        
+        if (!Storage::exists('images/'.$name)) {
+            return Response::make('File not found.', 404);
+        }
+
+        $file = Storage::get('images/'.$name);
+        $type = Storage::mimeType('images/'.$name);
+        $response = Response::make($file, 200)->header("Content-Type", $type);
+        
+        return $response;
+
+    });
+});
 
 

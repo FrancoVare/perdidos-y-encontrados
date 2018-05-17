@@ -21,7 +21,7 @@ class CreateRetirosTable extends Migration
             $table->string('tipoDoc');
             $table->string('numeroDoc');
             $table->string('nombre');
-            $table->string('fechaEntregado');
+            $table->string('foto_retiro');
             $table->timestamps();
 
 
