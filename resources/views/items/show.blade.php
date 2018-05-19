@@ -43,7 +43,7 @@
         por {{$item->retiro->nombre}}, {{$item->retiro->tipoDoc}}: {{$item->retiro->numeroDoc}}.
         Entregado por {{$item->retiro->user->name}} en el laboratorio {{$item->retiro->laboratorio->nombre}} de {{$item->retiro->laboratorio->sede->nombre}}
       </p>
-      <img src="{{url($item->retiro->foto_retiro)}}" style="max-width: 100%; max-height: 100%;">
+      <img src="{{url($item->retiro->foto_retiro)}}" style="max-width: 85%; max-height: 85%; margin: auto; display: block; border-radius: 15px;">
     @else
     <hr>
     <form action="/retiros" method="GET" style="text-align: right;">

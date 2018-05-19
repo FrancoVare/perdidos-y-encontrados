@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(213);
+module.exports = __webpack_require__(215);
 
 
 /***/ }),
@@ -67248,13 +67248,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(223)
+  __webpack_require__(211)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(211)
+var __vue_script__ = __webpack_require__(213)
 /* template */
-var __vue_template__ = __webpack_require__(212)
+var __vue_template__ = __webpack_require__(214)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67294,12 +67294,59 @@ module.exports = Component.exports
 
 /***/ }),
 /* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(212);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("2a7c0d1c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\n.btn{\r\n\tmax-height: 38px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -67361,6 +67408,8 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
     data: function data() {
         return {
             acceptedFiles: 'image/jpg,image/jpeg,image/png',
+            imagePreview: '',
+            showPreview: false,
             item: null,
             laboratorios: null,
             nombre: '',
@@ -67429,15 +67478,18 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         verFoto: function verFoto() {
             //Esto todavia no funciona bien, verificar bien los tipos
             var file = this.$refs.file.files[0];
-            console.log(file.type);
-            if (file.type == '') {
-                this.errors.foto_retiro = 'extension';
-                return;
-            }
-            if (this.acceptedFiles.includes(file.type)) {
-                this.foto_retiro = file;
-            } else {
-                this.errors.foto_retiro = 'extension';
+            var reader = new FileReader();
+            if (file) {
+                if (/\.(jpe?g|png)$/i.test(file.name)) {
+                    this.foto_retiro = file;
+                    reader.addEventListener("load", function () {
+                        this.showPreview = true;
+                        this.imagePreview = reader.result;
+                    }.bind(this), false);
+                    reader.readAsDataURL(this.foto_retiro);
+                } else {
+                    this.errors.foto_retiro = 'extension';
+                }
             }
         },
         addFiles: function addFiles() {
@@ -67445,12 +67497,19 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         },
         removeFile: function removeFile() {
             this.foto_retiro = null;
+            this.showPreview = null;
+            this.imagePreview = '';
+        },
+        nombreFoto: function nombreFoto() {
+            if (this.foto_retiro.name.length > 30) {
+                return this.foto_retiro.name.substring(0, 27) + ' ...';
+            } else return this.foto_retiro.name;
         }
     }
 });
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67656,7 +67715,7 @@ var render = function() {
                     "btn-secondary": !_vm.errors.foto_retiro,
                     "btn-danger": _vm.errors.foto_retiro
                   },
-                  staticStyle: { margin: "10px" },
+                  staticStyle: { margin: "auto 10px" },
                   on: { click: _vm.addFiles }
                 },
                 [_vm._v("Agregar foto")]
@@ -67664,7 +67723,7 @@ var render = function() {
               _vm._v(" "),
               _vm.foto_retiro
                 ? _c("div", { staticClass: "file-listing" }, [
-                    _vm._v(_vm._s(_vm.foto_retiro.name) + " "),
+                    _vm._v(_vm._s(this.nombreFoto()) + " \n\t            \t"),
                     _c(
                       "span",
                       {
@@ -67676,19 +67735,27 @@ var render = function() {
                         }
                       },
                       [_c("i", { staticClass: "fa fa-times-circle" })]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("img", { attrs: { src: _vm.imagePreview } })
                   ])
                 : _vm._e()
             ]
           ),
           _vm._v(" "),
-          _vm.errors.foto_retiro
+          _vm.errors.foto_retiro == "extension"
             ? _c("span", { staticClass: "invalid-feedback" }, [
                 _c("strong", [
-                  _vm._v("Debe cargar una foto que verifique el retiro.")
+                  _vm._v("Debe cargar un archivo de tipo jpg o png.")
                 ])
               ])
-            : _vm._e(),
+            : _vm.errors.foto_retiro
+              ? _c("span", { staticClass: "invalid-feedback" }, [
+                  _c("strong", [
+                    _vm._v("Debe cargar una foto que verifique el retiro.")
+                  ])
+                ])
+              : _vm._e(),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -67724,59 +67791,10 @@ if (false) {
 }
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(224);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(5)("2a7c0d1c", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 224 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\r\n", ""]);
-
-// exports
-
 
 /***/ })
 /******/ ]);
