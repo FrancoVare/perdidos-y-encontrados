@@ -41,9 +41,11 @@ Vue.component('items',require('./components/Items.vue'));
 Vue.component('registro',require('./components/Registro.vue'));
 Vue.component('registro-item',require('./components/RegistroItem.vue'));
 Vue.component('flash',require('./components/Flash.vue'));
+Vue.component('retiro',require('./components/Retiro.vue'));
 
 
 const app = new Vue({
       el: '#app'
 });
+
 

@@ -17,7 +17,7 @@ class RetiroController extends Controller
     public function create()
     {
     	$laboratorios = Laboratorio::where('baja',false)->orderBy('nombre')->get();
-    	$item = Item::find(request('item'));
+    	$item = Item::with(['tag','retiro'])->find(request('item'));
 
     	return view('retiros.create',compact('item','laboratorios'));
     }
@@ -49,7 +49,6 @@ class RetiroController extends Controller
             'foto_retiro' => $path
     	]);
 
-    	$this->flash('El retiro ha sido registrado');
-    	return redirect()->home();
+        return response()->json(['message' => 'El retiro ha sido registrado']);
     }
 }

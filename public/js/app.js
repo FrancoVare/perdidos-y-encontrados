@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(210);
+module.exports = __webpack_require__(213);
 
 
 /***/ }),
@@ -30689,9 +30689,9 @@ module.exports = __webpack_require__(210);
 __webpack_require__(141);
 
 $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
 });
 
 window.Vue = __webpack_require__(163);
@@ -30699,7 +30699,7 @@ window.Vue = __webpack_require__(163);
 window.events = new Vue();
 
 window.flash = function (message, type) {
-    window.events.$emit('flash', message, type);
+  window.events.$emit('flash', message, type);
 };
 
 /**
@@ -30722,9 +30722,10 @@ Vue.component('items', __webpack_require__(191));
 Vue.component('registro', __webpack_require__(197));
 Vue.component('registro-item', __webpack_require__(202));
 Vue.component('flash', __webpack_require__(205));
+Vue.component('retiro', __webpack_require__(210));
 
 var app = new Vue({
-    el: '#app'
+  el: '#app'
 });
 
 /***/ }),
@@ -67242,6 +67243,442 @@ if (false) {
 
 /***/ }),
 /* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(211)
+/* template */
+var __vue_template__ = __webpack_require__(212)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Retiro.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7ad907dc", Component.options)
+  } else {
+    hotAPI.reload("data-v-7ad907dc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 211 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+__WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            item: null,
+            laboratorios: null,
+            nombre: '',
+            tipoDoc: 'DNI',
+            numeroDoc: '',
+            laboratorio_id: null,
+            foto_retiro: null,
+            submit: null,
+            errors: {
+                nombre: null,
+                numeroDoc: null,
+                laboratorio_id: null,
+                foto_retiro: null
+            }
+        };
+    },
+
+    props: ['pItem'],
+    created: function created() {
+        this.item = JSON.parse(this.pItem);
+        this.getLaboratorios();
+        this.submit = this.item.retiro;
+    },
+
+    methods: {
+        getLaboratorios: function getLaboratorios() {
+            var _this = this;
+
+            axios.get("/api/laboratorios").then(function (_ref) {
+                var data = _ref.data;
+
+                _this.laboratorios = data;
+                _this.laboratorio_id = _this.laboratorios[0].id;
+            });
+        },
+        registrarRetiro: function registrarRetiro() {
+            var _this2 = this;
+
+            var formData = new FormData();
+            formData.append('foto_retiro', this.foto_retiro);
+            formData.append('nombre', this.nombre);
+            formData.append('tipoDoc', this.tipoDoc);
+            formData.append('numeroDoc', this.numeroDoc);
+            formData.append('laboratorio_id', this.laboratorio_id);
+            formData.append('item_id', this.item.id);
+
+            axios.post('/retiros', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function (response) {
+                flash(response.data.message, 'success');
+                _this2.foto_retiro = null;
+                _this2.nombre = null;
+                _this2.tipoDoc = '';
+                _this2.numeroDoc = '';
+                _this2.laboratorio_id = null;
+                _this2.submit = true;
+                setTimeout(function () {
+                    window.location.href = "/";
+                }, 5000);
+            }).catch(function (error) {
+                _this2.errors = error.response.data.errors;
+            });
+        },
+        verFoto: function verFoto() {
+            this.foto_retiro = this.$refs.file.files[0];
+        }
+    }
+});
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-sm-8" }, [
+    !_vm.submit
+      ? _c("div", [
+          _c("h1", [
+            _vm._v("Registrar retiro de " + _vm._s(_vm.item.tag.nombre))
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "nombre" } }, [
+              _vm._v("Nombre de quien retira:")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.nombre,
+                  expression: "nombre"
+                }
+              ],
+              class: { "form-control": true, "is-invalid": _vm.errors.nombre },
+              attrs: { type: "text" },
+              domProps: { value: _vm.nombre },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.nombre = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.nombre
+              ? _c("span", { staticClass: "invalid-feedback" }, [
+                  _c("strong", [_vm._v("Debe ingresar un nombre")])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("label", [_vm._v("Identificacion:")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group", staticStyle: { display: "flex" } },
+            [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.tipoDoc,
+                      expression: "tipoDoc"
+                    }
+                  ],
+                  class: {
+                    "form-control": true,
+                    "is-invalid": _vm.errors.numeroDoc
+                  },
+                  staticStyle: { width: "15%" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.tipoDoc = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", [_vm._v("DNI")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Legajo")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.numeroDoc,
+                    expression: "numeroDoc"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-invalid": _vm.errors.numeroDoc
+                },
+                staticStyle: { width: "85%" },
+                attrs: { type: "text" },
+                domProps: { value: _vm.numeroDoc },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.numeroDoc = $event.target.value
+                  }
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _vm.errors.numeroDoc
+            ? _c(
+                "span",
+                {
+                  staticClass: "invalid-feedback",
+                  staticStyle: { display: "block" }
+                },
+                [_c("strong", [_vm._v("Debe ingresar un numero de documento")])]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "laboratorio_id" } }, [
+              _vm._v("Laboratorio:")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.laboratorio_id,
+                    expression: "laboratorio_id"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-invalid": _vm.errors.laboratorio_id
+                },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.laboratorio_id = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.laboratorios, function(laboratorio) {
+                return _c("option", { domProps: { value: laboratorio.id } }, [
+                  _vm._v(
+                    _vm._s(laboratorio.nombre) +
+                      " en " +
+                      _vm._s(laboratorio.sede.nombre)
+                  )
+                ])
+              })
+            ),
+            _vm._v(" "),
+            _vm.errors.laboratorio_id
+              ? _c("span", { staticClass: "invalid-feedback" }, [
+                  _c("strong", [_vm._v("Debe seleccionar un laboratorio")])
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              ref: "file",
+              attrs: {
+                type: "file",
+                accept: "image/jpg,image/jpeg,image/png",
+                id: "file"
+              },
+              on: { change: _vm.verFoto }
+            }),
+            _vm._v(" "),
+            _vm.errors.foto_retiro
+              ? _c(
+                  "span",
+                  {
+                    staticClass: "invalid-feedback",
+                    staticStyle: { display: "block" }
+                  },
+                  [
+                    _c("strong", [
+                      _vm._v(
+                        "Debe seleccionar una foto para verificar el retiro."
+                      )
+                    ])
+                  ]
+                )
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "form-group",
+              staticStyle: { "text-align": "right" }
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.registrarRetiro }
+                },
+                [_vm._v("Aceptar")]
+              )
+            ]
+          )
+        ])
+      : _c("div", [_c("h1", [_vm._v("Este item ya ha sido retirado.")])])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7ad907dc", module.exports)
+  }
+}
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
