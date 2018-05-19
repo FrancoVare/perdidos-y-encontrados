@@ -22,7 +22,7 @@
 				</select>
 				<input v-model="numeroDoc" type="text" :class="{'form-control' : true, 'is-invalid': errors.numeroDoc}" style="width: 85%;">
 			</div>
-	        <span class="invalid-feedback" style="display: block;" v-if="errors.numeroDoc">
+	        <span class="invalid-feedback inv-reg" v-if="errors.numeroDoc">
 	            <strong>Debe ingresar un numero de documento</strong>
 	        </span>
 	          
@@ -35,15 +35,17 @@
 	                <strong>Debe seleccionar un laboratorio</strong>
 	            </span>
 			</div>
-			<div class="form-group">
-				<input @change="verFoto" ref="file" type="file" accept="image/jpg,image/jpeg,image/png" id="file">
-	            <span class="invalid-feedback" style="display: block;" v-if="errors.foto_retiro">
-	                <strong>Debe seleccionar una foto para verificar el retiro.</strong>
-	            </span>
+			<div :class="{'file-uploader' : true, 'uploader-invalid': errors.foto_retiro}">
+				<input @change="verFoto" ref="file" type="file" :accept="acceptedFiles" id="file">
+	            <button :class="{'btn' : true, 'btn-secondary': !errors.foto_retiro, 'btn-danger': errors.foto_retiro}" @click="addFiles" style="margin: 10px">Agregar foto</button>
+	            <div v-if="foto_retiro" class="file-listing">{{ foto_retiro.name }} <span class="remove-file" @click="removeFile()"><i class="fa fa-times-circle"></i></span></div>
 			</div>
+				<span class="invalid-feedback" v-if="errors.foto_retiro">
+	                <strong>Debe cargar una foto que verifique el retiro.</strong>
+	            </span>
 			<hr>
 			<div class="form-group" style="text-align: right;">
-				<button type="submit" class="btn btn-primary" @click="registrarRetiro">Aceptar</button>
+				<button class="btn btn-primary" @click="registrarRetiro">Aceptar</button>
 			</div>
 		</div>
 		<div v-else><h1>Este item ya ha sido retirado.</h1></div>
@@ -57,6 +59,7 @@ moment.locale('es');
 
         data() {
             return {
+            	acceptedFiles: 'image/jpg,image/jpeg,image/png',
             	item: null,
             	laboratorios: null,
             	nombre:'',
@@ -116,9 +119,62 @@ moment.locale('es');
                     this.errors = error.response.data.errors;
                 });
             },
-            verFoto(){
-            	this.foto_retiro = this.$refs.file.files[0];
-            }
+            verFoto(){ //Esto todavia no funciona bien, verificar bien los tipos
+            	var file = this.$refs.file.files[0];
+            	console.log(file.type);
+            	if(file.type == ''){
+            		this.errors.foto_retiro = 'extension';
+            		return;
+            	}
+            	if(this.acceptedFiles.includes(file.type)){
+            		this.foto_retiro = file;
+            	} else {
+            		this.errors.foto_retiro = 'extension';
+            	}
+            },
+            addFiles(){
+			  this.$refs.file.click();
+			},
+			removeFile(){
+				this.foto_retiro = null;
+			}
         },
     }
 </script>
+
+<style>
+input[type="file"]{
+    position: absolute;
+    top: -500px;
+ }
+div.file-listing{
+	margin:auto 5px;
+}
+
+span.remove-file{
+	cursor: pointer;
+	transition: ease .5s;
+}
+span.remove-file:hover{
+	color: red;
+}
+.invalid-feedback{
+	display: block;
+}
+.inv-reg{
+    top: -15px;
+    position: relative;
+}
+.file-uploader{
+	display: flex;
+    background: #cccccc;
+    border-style: dashed;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: darkslategray;
+}
+.uploader-invalid{
+    border-color: red;
+    background: #ffcdd2;
+}
+</style>

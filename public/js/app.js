@@ -67246,6 +67246,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(223)
+}
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(211)
@@ -67254,7 +67258,7 @@ var __vue_template__ = __webpack_require__(212)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -67348,12 +67352,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            acceptedFiles: 'image/jpg,image/jpeg,image/png',
             item: null,
             laboratorios: null,
             nombre: '',
@@ -67420,7 +67427,24 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
             });
         },
         verFoto: function verFoto() {
-            this.foto_retiro = this.$refs.file.files[0];
+            //Esto todavia no funciona bien, verificar bien los tipos
+            var file = this.$refs.file.files[0];
+            console.log(file.type);
+            if (file.type == '') {
+                this.errors.foto_retiro = 'extension';
+                return;
+            }
+            if (this.acceptedFiles.includes(file.type)) {
+                this.foto_retiro = file;
+            } else {
+                this.errors.foto_retiro = 'extension';
+            }
+        },
+        addFiles: function addFiles() {
+            this.$refs.file.click();
+        },
+        removeFile: function removeFile() {
+            this.foto_retiro = null;
         }
     }
 });
@@ -67550,14 +67574,9 @@ var render = function() {
           ),
           _vm._v(" "),
           _vm.errors.numeroDoc
-            ? _c(
-                "span",
-                {
-                  staticClass: "invalid-feedback",
-                  staticStyle: { display: "block" }
-                },
-                [_c("strong", [_vm._v("Debe ingresar un numero de documento")])]
-              )
+            ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
+                _c("strong", [_vm._v("Debe ingresar un numero de documento")])
+              ])
             : _vm._e(),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -67614,34 +67633,62 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("input", {
-              ref: "file",
-              attrs: {
-                type: "file",
-                accept: "image/jpg,image/jpeg,image/png",
-                id: "file"
-              },
-              on: { change: _vm.verFoto }
-            }),
-            _vm._v(" "),
-            _vm.errors.foto_retiro
-              ? _c(
-                  "span",
-                  {
-                    staticClass: "invalid-feedback",
-                    staticStyle: { display: "block" }
+          _c(
+            "div",
+            {
+              class: {
+                "file-uploader": true,
+                "uploader-invalid": _vm.errors.foto_retiro
+              }
+            },
+            [
+              _c("input", {
+                ref: "file",
+                attrs: { type: "file", accept: _vm.acceptedFiles, id: "file" },
+                on: { change: _vm.verFoto }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  class: {
+                    btn: true,
+                    "btn-secondary": !_vm.errors.foto_retiro,
+                    "btn-danger": _vm.errors.foto_retiro
                   },
-                  [
-                    _c("strong", [
-                      _vm._v(
-                        "Debe seleccionar una foto para verificar el retiro."
-                      )
-                    ])
-                  ]
-                )
-              : _vm._e()
-          ]),
+                  staticStyle: { margin: "10px" },
+                  on: { click: _vm.addFiles }
+                },
+                [_vm._v("Agregar foto")]
+              ),
+              _vm._v(" "),
+              _vm.foto_retiro
+                ? _c("div", { staticClass: "file-listing" }, [
+                    _vm._v(_vm._s(_vm.foto_retiro.name) + " "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "remove-file",
+                        on: {
+                          click: function($event) {
+                            _vm.removeFile()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-times-circle" })]
+                    )
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _vm.errors.foto_retiro
+            ? _c("span", { staticClass: "invalid-feedback" }, [
+                _c("strong", [
+                  _vm._v("Debe cargar una foto que verifique el retiro.")
+                ])
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -67656,7 +67703,6 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-primary",
-                  attrs: { type: "submit" },
                   on: { click: _vm.registrarRetiro }
                 },
                 [_vm._v("Aceptar")]
@@ -67682,6 +67728,55 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(224);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("2a7c0d1c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ad907dc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Retiro.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\r\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);
