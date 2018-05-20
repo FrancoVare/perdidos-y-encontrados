@@ -28,7 +28,7 @@
   	<hr>
     <h3>Descripcion</h3>
   	<p>{{$item->descripcion}}</p>
-
+    <img src="{{url($item->foto_item)}}" style="max-width: 85%; max-height: 85%; margin: auto; display: block; border-radius: 15px;">
     @if(!is_null($item->retiro))
       <hr>
       <h3>Retiro</h3>

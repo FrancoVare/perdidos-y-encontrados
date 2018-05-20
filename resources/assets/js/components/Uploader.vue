@@ -46,6 +46,7 @@
 					    }.bind(this), false);
 					    reader.readAsDataURL( this.file );
 					    this.$emit('input', value);
+					    this.errors.file = null;
 	            	} else {
 	            		this.errors.file = 'extension';
 	            	}
@@ -66,6 +67,11 @@
 				} else return this.file.name;
 			}
         },
+        watch: {
+        	value: function(newVal,oldVal){
+        		if(!newVal) this.removeFile();
+        	}
+        }
     }
 </script>
 
@@ -89,7 +95,7 @@ span.remove-file:hover{
 .invalid-feedback{
 	display: block;
 }
-.inv-reg{
+.inv-up{
     top: -15px;
     position: relative;
 }
@@ -103,6 +109,7 @@ span.remove-file:hover{
     min-height: 57px;
     max-width: 425px;
     margin: auto;
+    margin-top: 1rem;
 }
 .uploader-invalid{
     border-color: red;
@@ -114,9 +121,5 @@ img{
 	max-height: 150px;
 	margin: 5px;
 	border-radius: 15px;
-}
-
-.btn{
-	max-height: 38px;
 }
 </style>

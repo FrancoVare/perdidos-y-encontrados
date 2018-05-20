@@ -10,6 +10,7 @@ $factory->define(Item::class, function (Faker $faker) {
     	'materia_id' => $faker->numberBetween(1,3),
 	    'laboratorio_id' => $faker->numberBetween(1,7),
 	    'tag_id' => $faker->numberBetween(1,5),
-	    'user_id' => 1
+	    'user_id' => 1,
+	    'foto_item' => 'seed/Illidan.jpg'
     ];
 });

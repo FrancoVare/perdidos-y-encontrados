@@ -66383,10 +66383,6 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(198)
-}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(200)
@@ -66395,7 +66391,7 @@ var __vue_template__ = __webpack_require__(201)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -66430,46 +66426,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(199);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("1d70d6fe", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b639f5ac\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Registro.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b639f5ac\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Registro.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.inv-reg{\r\n    text-align: center;\r\n    top: -30px;\r\n    position: relative;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 198 */,
+/* 199 */,
 /* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -66477,6 +66435,8 @@ exports.push([module.i, "\n.inv-reg{\r\n    text-align: center;\r\n    top: -30p
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
 //
 //
 //
@@ -66579,77 +66539,87 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticStyle: { width: "100%" } }, [
     _c("div", { staticStyle: { display: "flex" } }, [
-      _c("label", { staticStyle: { margin: "auto .5em" } }, [
-        _vm._v(_vm._s(this.atributo) + ":")
-      ]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.selected,
-              expression: "selected"
-            }
-          ],
-          class: {
-            "form-control": true,
-            "is-invalid": _vm.errors.nombre || this.errorShow
-          },
-          staticStyle: { width: "100%", margin: "auto .5em" },
-          domProps: { value: _vm.value },
-          on: {
-            change: [
-              function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selected = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              },
-              function($event) {
-                _vm.updateValue($event.target.value)
+      _c("div", { staticClass: "container", staticStyle: { margin: "auto" } }, [
+        _c("label", { staticStyle: { margin: "auto .5em" } }, [
+          _vm._v(_vm._s(this.atributo))
+        ]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selected,
+                expression: "selected"
               }
-            ]
-          }
-        },
-        [
-          _c("option", { staticStyle: { display: "none" } }),
-          _vm._v(" "),
-          _vm._l(_vm.lista, function(materia) {
-            return _vm.atributo == "Materia"
-              ? _c("option", { domProps: { value: materia.id } }, [
-                  _vm._v(_vm._s(materia.nombre))
-                ])
-              : _vm._e()
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.lista, function(tag) {
-            return _vm.atributo == "Tag"
-              ? _c("option", { domProps: { value: tag.id } }, [
-                  _vm._v(_vm._s(tag.nombre))
-                ])
-              : _vm._e()
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.lista, function(lab) {
-            return _vm.atributo == "Laboratorio"
-              ? _c("option", { domProps: { value: lab.id } }, [
-                  _vm._v(_vm._s(lab.nombre) + " de " + _vm._s(lab.sede.nombre))
-                ])
-              : _vm._e()
-          })
-        ],
-        2
-      ),
+            ],
+            class: {
+              "form-control": true,
+              "is-invalid": _vm.errors.nombre || this.errorShow
+            },
+            staticStyle: { width: "100%", margin: "auto .5em" },
+            domProps: { value: _vm.value },
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.selected = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  _vm.updateValue($event.target.value)
+                }
+              ]
+            }
+          },
+          [
+            _c("option", { staticStyle: { display: "none" } }),
+            _vm._v(" "),
+            _vm._l(_vm.lista, function(materia) {
+              return _vm.atributo == "Materia"
+                ? _c("option", { domProps: { value: materia.id } }, [
+                    _vm._v(_vm._s(materia.nombre))
+                  ])
+                : _vm._e()
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.lista, function(tag) {
+              return _vm.atributo == "Tag"
+                ? _c("option", { domProps: { value: tag.id } }, [
+                    _vm._v(_vm._s(tag.nombre))
+                  ])
+                : _vm._e()
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.lista, function(lab) {
+              return _vm.atributo == "Laboratorio"
+                ? _c("option", { domProps: { value: lab.id } }, [
+                    _vm._v(
+                      _vm._s(lab.nombre) + " de " + _vm._s(lab.sede.nombre)
+                    )
+                  ])
+                : _vm._e()
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _vm.errors.nombre || this.errorShow
+          ? _c("span", { staticClass: "invalid-feedback" }, [
+              _c("strong", [_vm._v("Debe seleccionar una opcion.")])
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c("div", [
         _c(
@@ -66679,12 +66649,6 @@ var render = function() {
         )
       ])
     ]),
-    _vm._v(" "),
-    _vm.errors.nombre || this.errorShow
-      ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
-          _c("strong", [_vm._v("Debe seleccionar una opcion.")])
-        ])
-      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -66813,6 +66777,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -66821,11 +66789,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       selectedTag: null,
       selectedLab: null,
       descripcion: '',
+      foto_item: null,
       errors: {
         descripcion: null,
         materia_id: null,
         laboratorio_id: null,
-        tag_id: null
+        tag_id: null,
+        foto_item: null
       }
     };
   },
@@ -66845,18 +66815,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     descripcion: function descripcion(newVal, oldVal) {
       if (newVal.length) this.errors.descripcion = null;
+    },
+    foto_item: function foto_item(newVal, oldVal) {
+      if (newVal) this.errors.foto_item = null;
     }
   },
   methods: {
     guardarItem: function guardarItem() {
       var _this = this;
 
-      axios.post('/items', { descripcion: this.descripcion, materia_id: this.selectedMateria, tag_id: this.selectedTag, laboratorio_id: this.selectedLab }).then(function (response) {
+      var formData = new FormData();
+      formData.append('foto_item', this.foto_item);
+      formData.append('descripcion', this.descripcion);
+      formData.append('materia_id', this.selectedMateria);
+      formData.append('laboratorio_id', this.selectedLab);
+      formData.append('tag_id', this.selectedTag);
+
+      axios.post('/items', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         flash(response.data.message, 'success');
         _this.selectedMateria = null;
         _this.selectedTag = null;
         _this.selectedLab = null;
         _this.descripcion = '';
+        _this.foto_item = null;
+        _this.errors = {
+          descripcion: null,
+          materia_id: null,
+          laboratorio_id: null,
+          tag_id: null,
+          foto_item: null
+        };
       }).catch(function (error) {
         _this.errors = error.response.data.errors;
       });
@@ -66872,111 +66864,131 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: { "error-show": _vm.errors.materia_id, atributo: "Materia" },
-          model: {
-            value: _vm.selectedMateria,
-            callback: function($$v) {
-              _vm.selectedMateria = _vm._n($$v)
-            },
-            expression: "selectedMateria"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: { "error-show": _vm.errors.tag_id, atributo: "Tag" },
-          model: {
-            value: _vm.selectedTag,
-            callback: function($$v) {
-              _vm.selectedTag = _vm._n($$v)
-            },
-            expression: "selectedTag"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
-      [
-        _c("registro", {
-          attrs: {
-            "error-show": _vm.errors.laboratorio_id,
-            atributo: "Laboratorio"
-          },
-          model: {
-            value: _vm.selectedLab,
-            callback: function($$v) {
-              _vm.selectedLab = _vm._n($$v)
-            },
-            expression: "selectedLab"
-          }
-        })
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("label", [_vm._v("Descripcion")]),
-    _vm._v(" "),
-    _c("textarea", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.descripcion,
-          expression: "descripcion"
-        }
-      ],
-      class: { "form-control": true, "is-invalid": _vm.errors.descripcion },
-      domProps: { value: _vm.descripcion },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.descripcion = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _vm.errors.descripcion
-      ? _c("span", { staticClass: "invalid-feedback" }, [
-          _c("strong", [_vm._v("Debe proveer una descripcion")])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", { staticStyle: { "text-align": "right", width: "100%" } }, [
-      _c("hr"),
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+          [
+            _c("registro", {
+              attrs: {
+                "error-show": _vm.errors.materia_id,
+                atributo: "Materia"
+              },
+              model: {
+                value: _vm.selectedMateria,
+                callback: function($$v) {
+                  _vm.selectedMateria = _vm._n($$v)
+                },
+                expression: "selectedMateria"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+          [
+            _c("registro", {
+              attrs: { "error-show": _vm.errors.tag_id, atributo: "Tag" },
+              model: {
+                value: _vm.selectedTag,
+                callback: function($$v) {
+                  _vm.selectedTag = _vm._n($$v)
+                },
+                expression: "selectedTag"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-sm-4", staticStyle: { display: "flex" } },
+          [
+            _c("registro", {
+              attrs: {
+                "error-show": _vm.errors.laboratorio_id,
+                atributo: "Laboratorio"
+              },
+              model: {
+                value: _vm.selectedLab,
+                callback: function($$v) {
+                  _vm.selectedLab = _vm._n($$v)
+                },
+                expression: "selectedLab"
+              }
+            })
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-lg",
-          staticStyle: { margin: "0" },
-          on: {
-            click: function($event) {
-              _vm.guardarItem()
-            }
+      _c("label", [_vm._v("Descripcion")]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.descripcion,
+            expression: "descripcion"
           }
-        },
-        [_vm._v("Aceptar")]
-      )
-    ])
-  ])
+        ],
+        class: { "form-control": true, "is-invalid": _vm.errors.descripcion },
+        domProps: { value: _vm.descripcion },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.descripcion = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.errors.descripcion
+        ? _c("span", { staticClass: "invalid-feedback" }, [
+            _c("strong", [_vm._v("Debe proveer una descripcion")])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("uploader", {
+        attrs: { error: this.errors.foto_item },
+        model: {
+          value: _vm.foto_item,
+          callback: function($$v) {
+            _vm.foto_item = $$v
+          },
+          expression: "foto_item"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticStyle: { "text-align": "right", width: "100%" } }, [
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-lg",
+            staticStyle: { margin: "0" },
+            on: {
+              click: function($event) {
+                _vm.guardarItem()
+              }
+            }
+          },
+          [_vm._v("Aceptar")]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -67386,8 +67398,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
@@ -67397,7 +67407,7 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
             item: null,
             laboratorios: null,
             nombre: '',
-            tipoDoc: 'DNI',
+            tipoDoc: '',
             numeroDoc: '',
             laboratorio_id: null,
             foto_retiro: null,
@@ -67406,7 +67416,8 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 nombre: null,
                 numeroDoc: null,
                 laboratorio_id: null,
-                foto_retiro: null
+                foto_retiro: null,
+                tipoDoc: null
             }
         };
     },
@@ -67418,6 +67429,23 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         this.submit = this.item.retiro;
     },
 
+    watch: {
+        nombre: function nombre(newVal, oldVal) {
+            if (newVal) this.errors.nombre = null;
+        },
+        numeroDoc: function numeroDoc(newVal, oldVal) {
+            if (newVal) this.errors.numeroDoc = null;
+        },
+        tipoDoc: function tipoDoc(newVal, oldVal) {
+            if (newVal) this.errors.tipoDoc = null;
+        },
+        laboratorio_id: function laboratorio_id(newVal, oldVal) {
+            if (newVal) this.errors.laboratorio_id = null;
+        },
+        foto_retiro: function foto_retiro(newVal, oldVal) {
+            if (newVal) this.errors.foto_retiro = null;
+        }
+    },
     methods: {
         getLaboratorios: function getLaboratorios() {
             var _this = this;
@@ -67426,7 +67454,6 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 var data = _ref.data;
 
                 _this.laboratorios = data;
-                _this.laboratorio_id = _this.laboratorios[0].id;
             });
         },
         registrarRetiro: function registrarRetiro() {
@@ -67537,7 +67564,7 @@ var render = function() {
                     ],
                     class: {
                       "form-control": true,
-                      "is-invalid": _vm.errors.numeroDoc
+                      "is-invalid": _vm.errors.numeroDoc || _vm.errors.tipoDoc
                     },
                     staticStyle: { width: "15%" },
                     on: {
@@ -67574,7 +67601,7 @@ var render = function() {
                   ],
                   class: {
                     "form-control": true,
-                    "is-invalid": _vm.errors.numeroDoc
+                    "is-invalid": _vm.errors.numeroDoc || _vm.errors.tipoDoc
                   },
                   staticStyle: { width: "85%" },
                   attrs: { type: "text" },
@@ -67591,9 +67618,9 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm.errors.numeroDoc
+            _vm.errors.numeroDoc || _vm.errors.tipoDoc
               ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
-                  _c("strong", [_vm._v("Debe ingresar un numero de documento")])
+                  _c("strong", [_vm._v("Debe ingresar la identificacion.")])
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -67783,7 +67810,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\n.btn{\r\n\tmax-height: 38px;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-up{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\r\n    margin-top: 1rem;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\r\n", ""]);
 
 // exports
 
@@ -67816,52 +67843,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			acceptedFiles: 'image/jpg,image/jpeg,image/png',
-			imagePreview: '',
-			file: null,
-			showPreview: false,
-			errors: {
-				file: null
-			}
-		};
-	},
+  data: function data() {
+    return {
+      acceptedFiles: 'image/jpg,image/jpeg,image/png',
+      imagePreview: '',
+      file: null,
+      showPreview: false,
+      errors: {
+        file: null
+      }
+    };
+  },
 
-	props: ['value', 'error'],
-	methods: {
-		updateValue: function updateValue(value) {
-			var file = this.$refs.file.files[0];
-			var reader = new FileReader();
-			if (file) {
-				if (/\.(jpe?g|png)$/i.test(file.name)) {
-					this.file = file;
-					reader.addEventListener("load", function () {
-						this.showPreview = true;
-						this.imagePreview = reader.result;
-					}.bind(this), false);
-					reader.readAsDataURL(this.file);
-					this.$emit('input', value);
-				} else {
-					this.errors.file = 'extension';
-				}
-			}
-		},
-		addFiles: function addFiles() {
-			this.$refs.file.click();
-		},
-		removeFile: function removeFile() {
-			this.file = null;
-			this.showPreview = null;
-			this.imagePreview = '';
-			this.$emit('input', null);
-		},
-		nombreFoto: function nombreFoto() {
-			if (this.file.name.length > 30) {
-				return this.file.name.substring(0, 27) + ' ...';
-			} else return this.file.name;
-		}
-	}
+  props: ['value', 'error'],
+  methods: {
+    updateValue: function updateValue(value) {
+      var file = this.$refs.file.files[0];
+      var reader = new FileReader();
+      if (file) {
+        if (/\.(jpe?g|png)$/i.test(file.name)) {
+          this.file = file;
+          reader.addEventListener("load", function () {
+            this.showPreview = true;
+            this.imagePreview = reader.result;
+          }.bind(this), false);
+          reader.readAsDataURL(this.file);
+          this.$emit('input', value);
+          this.errors.file = null;
+        } else {
+          this.errors.file = 'extension';
+        }
+      }
+    },
+    addFiles: function addFiles() {
+      this.$refs.file.click();
+    },
+    removeFile: function removeFile() {
+      this.file = null;
+      this.showPreview = null;
+      this.imagePreview = '';
+      this.$emit('input', null);
+    },
+    nombreFoto: function nombreFoto() {
+      if (this.file.name.length > 30) {
+        return this.file.name.substring(0, 27) + ' ...';
+      } else return this.file.name;
+    }
+  },
+  watch: {
+    value: function value(newVal, oldVal) {
+      if (!newVal) this.removeFile();
+    }
+  }
 });
 
 /***/ }),

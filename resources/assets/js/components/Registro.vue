@@ -1,21 +1,23 @@
 <template>
     <div style="width: 100%">
       <div style="display: flex">
-        <label style="margin: auto .5em">{{this.atributo}}:</label>
-        <select v-bind:value="value" v-on:change="updateValue($event.target.value)" :class="{'form-control' : true, 'is-invalid': errors.nombre || this.errorShow}" v-model="selected" style="width: 100%; margin:auto .5em">
-          <option style="display:none"></option> 
-          <option v-if="atributo == 'Materia'" v-for="materia in lista" :value="materia.id">{{materia.nombre}}</option>
-          <option v-if="atributo == 'Tag'" v-for="tag in lista" :value="tag.id">{{tag.nombre}}</option>
-          <option v-if="atributo == 'Laboratorio'" v-for="lab in lista" :value="lab.id">{{lab.nombre}} de {{lab.sede.nombre}}</option>
-        </select>
+        <div class="container" style="margin: auto">
+          <label style="margin: auto .5em">{{this.atributo}}</label>
+          <select v-bind:value="value" v-on:change="updateValue($event.target.value)" :class="{'form-control' : true, 'is-invalid': errors.nombre || this.errorShow}" v-model="selected" style="width: 100%; margin:auto .5em">
+            <option style="display:none"></option> 
+            <option v-if="atributo == 'Materia'" v-for="materia in lista" :value="materia.id">{{materia.nombre}}</option>
+            <option v-if="atributo == 'Tag'" v-for="tag in lista" :value="tag.id">{{tag.nombre}}</option>
+            <option v-if="atributo == 'Laboratorio'" v-for="lab in lista" :value="lab.id">{{lab.nombre}} de {{lab.sede.nombre}}</option>
+          </select>
+          <span v-if="errors.nombre || this.errorShow" class="invalid-feedback">
+            <strong>Debe seleccionar una opcion.</strong>
+          </span>
+        </div>
         <div>
           <button class="btn btn-success rounded-circle btn-lg" @click="abrirModal()"><i class="fa fa-plus"></i></button>
           <button class="btn btn-danger rounded-circle btn-lg" @click="eliminarDato()"><i class="fa fa-times"></i></button>
         </div>
       </div>
-      <span v-if="errors.nombre || this.errorShow" class="invalid-feedback inv-reg">
-            <strong>Debe seleccionar una opcion.</strong>
-        </span>
       <div style="text-align: center;">
         
         <new-materia-modal v-if="atributo == 'Materia'" :show="showModal" @close="cerrarModal()"></new-materia-modal>
@@ -86,11 +88,3 @@ moment.locale('es');
         }
     }
 </script>
-
-<style>
-.inv-reg{
-    text-align: center;
-    top: -30px;
-    position: relative;
-}
-</style>

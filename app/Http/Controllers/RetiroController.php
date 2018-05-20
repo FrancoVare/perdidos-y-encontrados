@@ -29,8 +29,8 @@ class RetiroController extends Controller
     		'nombre' => 'required|string',
     		'tipoDoc' => 'required|string',
     		'numeroDoc' => 'required|numeric',
-    		'laboratorio_id' => 'required',
-    		'item_id' => 'required',
+    		'laboratorio_id' => 'required|numeric',
+    		'item_id' => 'required|numeric',
             'foto_retiro' => 'required | mimes:jpeg,jpg,png'
 
     	]);

@@ -67,6 +67,19 @@ Route::middleware(['auth'])->group(function () {
         return $response;
 
     });
+    Route::get('seed/{name}', function ($name) {
+        
+        if (!Storage::exists('seed/'.$name)) {
+            return Response::make('File not found.', 404);
+        }
+
+        $file = Storage::get('seed/'.$name);
+        $type = Storage::mimeType('seed/'.$name);
+        $response = Response::make($file, 200)->header("Content-Type", $type);
+        
+        return $response;
+
+    });
 });
 
 

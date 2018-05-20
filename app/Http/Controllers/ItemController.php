@@ -49,19 +49,22 @@ class ItemController extends Controller
     {
     	$this->validate(request(),[
 
-    		'descripcion' => 'required',
-    		'materia_id' => 'required',
-        'laboratorio_id' => 'required',
-        'tag_id' => 'required'
+    		'descripcion' => 'required|string',
+    		'materia_id' => 'required|numeric',
+        'laboratorio_id' => 'required|numeric',
+        'tag_id' => 'required|numeric',
+        'foto_item' => 'required | mimes:jpeg,jpg,png'
 
     	]);
+
+      $foto_item = request()->file('foto_item')->store('images');
 
     	$descripcion = request('descripcion');
     	$materia_id = request('materia_id');
       $laboratorio_id = request('laboratorio_id');
       $tag_id = request('tag_id');
 
-    	auth()->user()->publish(new Item(compact('descripcion','materia_id','tag_id','laboratorio_id')));
+    	auth()->user()->publish(new Item(compact('descripcion','materia_id','tag_id','laboratorio_id','foto_item')));
 
       return response()->json(['message' => 'El item ha sido registrado']);
     }

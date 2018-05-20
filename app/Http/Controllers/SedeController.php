@@ -42,7 +42,7 @@ class SedeController extends Controller
 
     	]);
 
-        return response()->json(['message' => 'La sede '. $sede->nombre .'ha sido agregada']);
+        return response()->json(['message' => 'La sede '. $sede->nombre .' ha sido agregada']);
     }
 
     public function destroy()

@@ -13,19 +13,17 @@
 	                <strong>Debe ingresar un nombre</strong>
 	            </span>
 			</div>
-
 			<label>Identificacion:</label>
 			<div class="form-group" style="display: flex;">
-				<select v-model="tipoDoc" :class="{'form-control' : true, 'is-invalid': errors.numeroDoc}" style="width: 15%;">
+				<select v-model="tipoDoc" :class="{'form-control' : true, 'is-invalid': errors.numeroDoc || errors.tipoDoc}" style="width: 15%;">
 					<option>DNI</option>
 					<option>Legajo</option>
 				</select>
-				<input v-model="numeroDoc" type="text" :class="{'form-control' : true, 'is-invalid': errors.numeroDoc}" style="width: 85%;">
+				<input v-model="numeroDoc" type="text" :class="{'form-control' : true, 'is-invalid': errors.numeroDoc || errors.tipoDoc}" style="width: 85%;">
 			</div>
-	        <span class="invalid-feedback inv-reg" v-if="errors.numeroDoc">
-	            <strong>Debe ingresar un numero de documento</strong>
+	        <span class="invalid-feedback inv-reg" v-if="errors.numeroDoc || errors.tipoDoc">
+	            <strong>Debe ingresar la identificacion.</strong>
 	        </span>
-	          
 			<div class="form-group">
 				<label for="laboratorio_id">Laboratorio:</label>
 				<select v-model="laboratorio_id" :class="{'form-control' : true, 'is-invalid': errors.laboratorio_id}">
@@ -55,7 +53,7 @@ moment.locale('es');
             	item: null,
             	laboratorios: null,
             	nombre:'',
-            	tipoDoc:'DNI',
+            	tipoDoc:'',
             	numeroDoc:'',
             	laboratorio_id:null,
             	foto_retiro:null,
@@ -65,6 +63,7 @@ moment.locale('es');
             		numeroDoc: null,
             		laboratorio_id: null,
             		foto_retiro:null,
+            		tipoDoc:null
             	}
             };
         },
@@ -72,14 +71,30 @@ moment.locale('es');
         created() {
             this.item = JSON.parse(this.pItem);
             this.getLaboratorios();
-            this.submit = this.item.retiro;
+        	this.submit = this.item.retiro;
+        },
+        watch: {
+          nombre: function (newVal,oldVal){
+            if(newVal) this.errors.nombre = null;
+          },
+          numeroDoc: function (newVal,oldVal){
+            if(newVal) this.errors.numeroDoc = null;
+          },
+          tipoDoc: function (newVal,oldVal){
+            if(newVal) this.errors.tipoDoc = null;
+          },
+          laboratorio_id: function (newVal,oldVal){
+            if(newVal) this.errors.laboratorio_id = null;
+          },
+          foto_retiro: function (newVal,oldVal){
+            if(newVal) this.errors.foto_retiro = null;
+          },
         },
         methods: {
             getLaboratorios() {
               axios.get("/api/laboratorios")
                     .then(({data}) => {
                         this.laboratorios = data;
-            			this.laboratorio_id = this.laboratorios[0].id;
                     });
             },
             registrarRetiro(){

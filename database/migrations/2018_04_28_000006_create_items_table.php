@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('materia_id');
             $table->unsignedInteger('laboratorio_id');
             $table->text('descripcion');
+            $table->string('foto_item');
             $table->timestamps();
 
 

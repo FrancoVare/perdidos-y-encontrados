@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="row">
         <div class="col-sm-4" style="display: flex;">
             <registro :error-show="errors.materia_id" v-model.number="selectedMateria" atributo="Materia"></registro>
@@ -9,16 +10,19 @@
         <div class="col-sm-4" style="display: flex;">
             <registro :error-show="errors.laboratorio_id" v-model.number="selectedLab" atributo="Laboratorio"></registro>
         </div>
+    </div>
         <label>Descripcion</label>
         <textarea v-model="descripcion" :class="{'form-control' : true, 'is-invalid': errors.descripcion}"></textarea>
         <span v-if="errors.descripcion" class="invalid-feedback">
             <strong>Debe proveer una descripcion</strong>
         </span>
+        <uploader v-model="foto_item" :error="this.errors.foto_item"></uploader>
         <div style="text-align: right; width:100%;">
             <hr>
             <button class="btn btn-primary btn-lg" style="margin: 0;" @click="guardarItem()">Aceptar</i></button>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -29,11 +33,13 @@
               selectedTag: null,
               selectedLab: null,
               descripcion: '',
+              foto_item:null,
               errors: {
                 descripcion: null,
                 materia_id: null,
                 laboratorio_id: null,
-                tag_id: null
+                tag_id: null,
+                foto_item: null,
               }
             };
         },
@@ -53,16 +59,39 @@
           descripcion: function (newVal,oldVal){
             if(newVal.length) this.errors.descripcion = null;
           },
+          foto_item: function (newVal,oldVal){
+            if(newVal) this.errors.foto_item = null;
+          },
         },
         methods: {
             guardarItem(){
-                axios.post('/items',{descripcion: this.descripcion,materia_id:this.selectedMateria,tag_id:this.selectedTag,laboratorio_id:this.selectedLab})
+                let formData = new FormData();
+                formData.append('foto_item',this.foto_item);
+                formData.append('descripcion',this.descripcion);
+                formData.append('materia_id',this.selectedMateria);
+                formData.append('laboratorio_id',this.selectedLab);
+                formData.append('tag_id',this.selectedTag);
+
+                axios.post('/items',formData,
+                {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                })
                 .then(response => {
                     flash(response.data.message,'success');
                     this.selectedMateria = null;
                     this.selectedTag = null;
                     this.selectedLab = null;
                     this.descripcion = '';
+                    this.foto_item = null;
+                    this.errors = {
+                      descripcion: null,
+                      materia_id: null,
+                      laboratorio_id: null,
+                      tag_id: null,
+                      foto_item: null,
+                    }
                 })
                 .catch(error =>{
                     this.errors = error.response.data.errors;
