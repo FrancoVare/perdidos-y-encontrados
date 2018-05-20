@@ -84,6 +84,10 @@
           })
           .catch(error =>{
             this.errors = error.response.data.errors;
+            if(!this.errors) this.errors = {
+                                  nombre:null,
+                                  pruebas:null
+                              }
           });
 	    },
       eliminarPrueba() {
@@ -96,6 +100,10 @@
             })
            .catch(error =>{
               this.errors = error.response.data.errors;
+              if(!this.errors) this.errors = {
+                      nombre:null,
+                      pruebas:null
+                  }
            });
       }
     }

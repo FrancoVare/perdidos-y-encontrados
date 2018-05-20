@@ -107,6 +107,13 @@
                     this.errors = error.response.data.errors;
                     // this.uploadPercentage = 0;
                     this.cargando = false;
+                    if(!this.errors) this.errors = {
+                      descripcion: null,
+                      materia_id: null,
+                      laboratorio_id: null,
+                      tag_id: null,
+                      foto_item: null,
+                    }
                 });
             }
         }

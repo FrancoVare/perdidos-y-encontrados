@@ -84,6 +84,10 @@
           })
           .catch(error =>{
             this.errors = error.response.data.errors;
+            if(!this.errors) this.errors = {
+                              nombreLab:null,
+                              sedes:null
+                            }
           });
       },
       eliminarSede() {
@@ -96,6 +100,10 @@
             })
            .catch(error =>{
               this.errors = error.response.data.errors;
+              if(!this.errors) this.errors = {
+                                  nombreLab:null,
+                                  sedes:null
+                                }
            });
       }
     }
