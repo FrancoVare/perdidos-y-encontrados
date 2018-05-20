@@ -4578,6 +4578,115 @@
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4887,143 +4996,7 @@ module.exports = {
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports) {
 
 /*
@@ -5105,7 +5078,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -5333,13 +5306,40 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 var normalizeHeaderName = __webpack_require__(148);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -7991,7 +7991,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
 
 /***/ }),
 /* 9 */
@@ -18579,7 +18579,7 @@ process.umask = function() { return 0; };
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 var settle = __webpack_require__(149);
 var buildURL = __webpack_require__(151);
 var parseHeaders = __webpack_require__(152);
@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(215);
+module.exports = __webpack_require__(220);
 
 
 /***/ }),
@@ -30723,6 +30723,7 @@ Vue.component('registro', __webpack_require__(197));
 Vue.component('registro-item', __webpack_require__(202));
 Vue.component('flash', __webpack_require__(205));
 Vue.component('retiro', __webpack_require__(210));
+Vue.component('uploader', __webpack_require__(215));
 
 var app = new Vue({
   el: '#app'
@@ -47900,7 +47901,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(7)(module)))
 
 /***/ }),
 /* 143 */
@@ -51846,7 +51847,7 @@ module.exports = __webpack_require__(145);
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 var bind = __webpack_require__(10);
 var Axios = __webpack_require__(147);
 var defaults = __webpack_require__(6);
@@ -51933,7 +51934,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(6);
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 var InterceptorManager = __webpack_require__(156);
 var dispatchRequest = __webpack_require__(157);
 
@@ -52018,7 +52019,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -52098,7 +52099,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -52171,7 +52172,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -52231,7 +52232,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -52349,7 +52350,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -52409,7 +52410,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -52468,7 +52469,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 var transformData = __webpack_require__(158);
 var isCancel = __webpack_require__(14);
 var defaults = __webpack_require__(6);
@@ -52561,7 +52562,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(1);
+var utils = __webpack_require__(2);
 
 /**
  * Transform the data for a request or a response
@@ -63685,7 +63686,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(164).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(164).setImmediate))
 
 /***/ }),
 /* 164 */
@@ -63755,7 +63756,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 165 */
@@ -63948,14 +63949,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(11)))
 
 /***/ }),
 /* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(167)
 /* template */
@@ -64078,7 +64079,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(170)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(173)
 /* template */
@@ -64131,7 +64132,7 @@ var content = __webpack_require__(171);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("595b8d37", content, false, {});
+var update = __webpack_require__(4)("595b8d37", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -64150,7 +64151,7 @@ if(false) {
 /* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
@@ -64398,7 +64399,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(176)
 /* template */
@@ -64577,7 +64578,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(179)
 /* template */
@@ -64896,7 +64897,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(182)
 /* template */
@@ -65075,7 +65076,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(185)
 /* template */
@@ -65292,7 +65293,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(188)
 /* template */
@@ -65623,7 +65624,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(192)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(194)
 /* template */
@@ -65676,7 +65677,7 @@ var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("2cf0d474", content, false, {});
+var update = __webpack_require__(4)("2cf0d474", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65695,7 +65696,7 @@ if(false) {
 /* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
@@ -66386,7 +66387,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(198)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(200)
 /* template */
@@ -66439,7 +66440,7 @@ var content = __webpack_require__(199);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("1d70d6fe", content, false, {});
+var update = __webpack_require__(4)("1d70d6fe", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -66458,7 +66459,7 @@ if(false) {
 /* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
@@ -66741,7 +66742,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(203)
 /* template */
@@ -66996,7 +66997,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(206)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(208)
 /* template */
@@ -67049,7 +67050,7 @@ var content = __webpack_require__(207);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("4f30c49e", content, false, {});
+var update = __webpack_require__(4)("4f30c49e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67068,7 +67069,7 @@ if(false) {
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
@@ -67250,7 +67251,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(211)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(213)
 /* template */
@@ -67303,7 +67304,7 @@ var content = __webpack_require__(212);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(5)("2a7c0d1c", content, false, {});
+var update = __webpack_require__(4)("2a7c0d1c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67322,12 +67323,12 @@ if(false) {
 /* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)(false);
+exports = module.exports = __webpack_require__(3)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\n.btn{\r\n\tmax-height: 38px;\n}\r\n", ""]);
+exports.push([module.i, "\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\r\n", ""]);
 
 // exports
 
@@ -67387,29 +67388,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            acceptedFiles: 'image/jpg,image/jpeg,image/png',
-            imagePreview: '',
-            showPreview: false,
             item: null,
             laboratorios: null,
             nombre: '',
@@ -67474,36 +67458,6 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
             }).catch(function (error) {
                 _this2.errors = error.response.data.errors;
             });
-        },
-        verFoto: function verFoto() {
-            //Esto todavia no funciona bien, verificar bien los tipos
-            var file = this.$refs.file.files[0];
-            var reader = new FileReader();
-            if (file) {
-                if (/\.(jpe?g|png)$/i.test(file.name)) {
-                    this.foto_retiro = file;
-                    reader.addEventListener("load", function () {
-                        this.showPreview = true;
-                        this.imagePreview = reader.result;
-                    }.bind(this), false);
-                    reader.readAsDataURL(this.foto_retiro);
-                } else {
-                    this.errors.foto_retiro = 'extension';
-                }
-            }
-        },
-        addFiles: function addFiles() {
-            this.$refs.file.click();
-        },
-        removeFile: function removeFile() {
-            this.foto_retiro = null;
-            this.showPreview = null;
-            this.imagePreview = '';
-        },
-        nombreFoto: function nombreFoto() {
-            if (this.foto_retiro.name.length > 30) {
-                return this.foto_retiro.name.substring(0, 27) + ' ...';
-            } else return this.foto_retiro.name;
         }
     }
 });
@@ -67518,53 +67472,136 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-sm-8" }, [
     !_vm.submit
-      ? _c("div", [
-          _c("h1", [
-            _vm._v("Registrar retiro de " + _vm._s(_vm.item.tag.nombre))
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "nombre" } }, [
-              _vm._v("Nombre de quien retira:")
+      ? _c(
+          "div",
+          [
+            _c("h1", [
+              _vm._v("Registrar retiro de " + _vm._s(_vm.item.tag.nombre))
             ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.nombre,
-                  expression: "nombre"
-                }
-              ],
-              class: { "form-control": true, "is-invalid": _vm.errors.nombre },
-              attrs: { type: "text" },
-              domProps: { value: _vm.nombre },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.nombre = $event.target.value
-                }
-              }
-            }),
+            _c("hr"),
             _vm._v(" "),
-            _vm.errors.nombre
-              ? _c("span", { staticClass: "invalid-feedback" }, [
-                  _c("strong", [_vm._v("Debe ingresar un nombre")])
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "nombre" } }, [
+                _vm._v("Nombre de quien retira:")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.nombre,
+                    expression: "nombre"
+                  }
+                ],
+                class: {
+                  "form-control": true,
+                  "is-invalid": _vm.errors.nombre
+                },
+                attrs: { type: "text" },
+                domProps: { value: _vm.nombre },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.nombre = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.nombre
+                ? _c("span", { staticClass: "invalid-feedback" }, [
+                    _c("strong", [_vm._v("Debe ingresar un nombre")])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("label", [_vm._v("Identificacion:")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group", staticStyle: { display: "flex" } },
+              [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tipoDoc,
+                        expression: "tipoDoc"
+                      }
+                    ],
+                    class: {
+                      "form-control": true,
+                      "is-invalid": _vm.errors.numeroDoc
+                    },
+                    staticStyle: { width: "15%" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.tipoDoc = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c("option", [_vm._v("DNI")]),
+                    _vm._v(" "),
+                    _c("option", [_vm._v("Legajo")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.numeroDoc,
+                      expression: "numeroDoc"
+                    }
+                  ],
+                  class: {
+                    "form-control": true,
+                    "is-invalid": _vm.errors.numeroDoc
+                  },
+                  staticStyle: { width: "85%" },
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.numeroDoc },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.numeroDoc = $event.target.value
+                    }
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _vm.errors.numeroDoc
+              ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
+                  _c("strong", [_vm._v("Debe ingresar un numero de documento")])
                 ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("label", [_vm._v("Identificacion:")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group", staticStyle: { display: "flex" } },
-            [
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "laboratorio_id" } }, [
+                _vm._v("Laboratorio:")
+              ]),
+              _vm._v(" "),
               _c(
                 "select",
                 {
@@ -67572,15 +67609,14 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.tipoDoc,
-                      expression: "tipoDoc"
+                      value: _vm.laboratorio_id,
+                      expression: "laboratorio_id"
                     }
                   ],
                   class: {
                     "form-control": true,
-                    "is-invalid": _vm.errors.numeroDoc
+                    "is-invalid": _vm.errors.laboratorio_id
                   },
-                  staticStyle: { width: "15%" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -67591,192 +67627,63 @@ var render = function() {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.tipoDoc = $event.target.multiple
+                      _vm.laboratorio_id = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     }
                   }
                 },
-                [
-                  _c("option", [_vm._v("DNI")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("Legajo")])
-                ]
+                _vm._l(_vm.laboratorios, function(laboratorio) {
+                  return _c("option", { domProps: { value: laboratorio.id } }, [
+                    _vm._v(
+                      _vm._s(laboratorio.nombre) +
+                        " en " +
+                        _vm._s(laboratorio.sede.nombre)
+                    )
+                  ])
+                })
               ),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.numeroDoc,
-                    expression: "numeroDoc"
-                  }
-                ],
-                class: {
-                  "form-control": true,
-                  "is-invalid": _vm.errors.numeroDoc
-                },
-                staticStyle: { width: "85%" },
-                attrs: { type: "text" },
-                domProps: { value: _vm.numeroDoc },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.numeroDoc = $event.target.value
-                  }
-                }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _vm.errors.numeroDoc
-            ? _c("span", { staticClass: "invalid-feedback inv-reg" }, [
-                _c("strong", [_vm._v("Debe ingresar un numero de documento")])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "laboratorio_id" } }, [
-              _vm._v("Laboratorio:")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.laboratorio_id,
-                    expression: "laboratorio_id"
-                  }
-                ],
-                class: {
-                  "form-control": true,
-                  "is-invalid": _vm.errors.laboratorio_id
-                },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.laboratorio_id = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              _vm._l(_vm.laboratorios, function(laboratorio) {
-                return _c("option", { domProps: { value: laboratorio.id } }, [
-                  _vm._v(
-                    _vm._s(laboratorio.nombre) +
-                      " en " +
-                      _vm._s(laboratorio.sede.nombre)
-                  )
-                ])
-              })
-            ),
-            _vm._v(" "),
-            _vm.errors.laboratorio_id
-              ? _c("span", { staticClass: "invalid-feedback" }, [
-                  _c("strong", [_vm._v("Debe seleccionar un laboratorio")])
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              class: {
-                "file-uploader": true,
-                "uploader-invalid": _vm.errors.foto_retiro
-              }
-            },
-            [
-              _c("input", {
-                ref: "file",
-                attrs: { type: "file", accept: _vm.acceptedFiles, id: "file" },
-                on: { change: _vm.verFoto }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  class: {
-                    btn: true,
-                    "btn-secondary": !_vm.errors.foto_retiro,
-                    "btn-danger": _vm.errors.foto_retiro
-                  },
-                  staticStyle: { margin: "auto 10px" },
-                  on: { click: _vm.addFiles }
-                },
-                [_vm._v("Agregar foto")]
-              ),
-              _vm._v(" "),
-              _vm.foto_retiro
-                ? _c("div", { staticClass: "file-listing" }, [
-                    _vm._v(_vm._s(this.nombreFoto()) + " \n\t            \t"),
-                    _c(
-                      "span",
-                      {
-                        staticClass: "remove-file",
-                        on: {
-                          click: function($event) {
-                            _vm.removeFile()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-times-circle" })]
-                    ),
-                    _vm._v(" "),
-                    _c("img", { attrs: { src: _vm.imagePreview } })
+              _vm.errors.laboratorio_id
+                ? _c("span", { staticClass: "invalid-feedback" }, [
+                    _c("strong", [_vm._v("Debe seleccionar un laboratorio")])
                   ])
                 : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _vm.errors.foto_retiro == "extension"
-            ? _c("span", { staticClass: "invalid-feedback" }, [
-                _c("strong", [
-                  _vm._v("Debe cargar un archivo de tipo jpg o png.")
-                ])
-              ])
-            : _vm.errors.foto_retiro
-              ? _c("span", { staticClass: "invalid-feedback" }, [
-                  _c("strong", [
-                    _vm._v("Debe cargar una foto que verifique el retiro.")
-                  ])
-                ])
-              : _vm._e(),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "form-group",
-              staticStyle: { "text-align": "right" }
-            },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: { click: _vm.registrarRetiro }
+            ]),
+            _vm._v(" "),
+            _c("uploader", {
+              attrs: { error: this.errors.foto_retiro },
+              model: {
+                value: _vm.foto_retiro,
+                callback: function($$v) {
+                  _vm.foto_retiro = $$v
                 },
-                [_vm._v("Aceptar")]
-              )
-            ]
-          )
-        ])
+                expression: "foto_retiro"
+              }
+            }),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "form-group",
+                staticStyle: { "text-align": "right" }
+              },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.registrarRetiro }
+                  },
+                  [_vm._v("Aceptar")]
+                )
+              ]
+            )
+          ],
+          1
+        )
       : _c("div", [_c("h1", [_vm._v("Este item ya ha sido retirado.")])])
   ])
 }
@@ -67792,6 +67699,272 @@ if (false) {
 
 /***/ }),
 /* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(216)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(218)
+/* template */
+var __vue_template__ = __webpack_require__(219)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Uploader.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a2d04436", Component.options)
+  } else {
+    hotAPI.reload("data-v-a2d04436", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(217);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("04334ee9", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a2d04436\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Uploader.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a2d04436\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Uploader.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\n.btn{\r\n\tmax-height: 38px;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 218 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			acceptedFiles: 'image/jpg,image/jpeg,image/png',
+			imagePreview: '',
+			file: null,
+			showPreview: false,
+			errors: {
+				file: null
+			}
+		};
+	},
+
+	props: ['value', 'error'],
+	methods: {
+		updateValue: function updateValue(value) {
+			var file = this.$refs.file.files[0];
+			var reader = new FileReader();
+			if (file) {
+				if (/\.(jpe?g|png)$/i.test(file.name)) {
+					this.file = file;
+					reader.addEventListener("load", function () {
+						this.showPreview = true;
+						this.imagePreview = reader.result;
+					}.bind(this), false);
+					reader.readAsDataURL(this.file);
+					this.$emit('input', value);
+				} else {
+					this.errors.file = 'extension';
+				}
+			}
+		},
+		addFiles: function addFiles() {
+			this.$refs.file.click();
+		},
+		removeFile: function removeFile() {
+			this.file = null;
+			this.showPreview = null;
+			this.imagePreview = '';
+			this.$emit('input', null);
+		},
+		nombreFoto: function nombreFoto() {
+			if (this.file.name.length > 30) {
+				return this.file.name.substring(0, 27) + ' ...';
+			} else return this.file.name;
+		}
+	}
+});
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        class: {
+          "file-uploader": true,
+          "uploader-invalid": _vm.errors.file || this.error
+        }
+      },
+      [
+        _c("input", {
+          ref: "file",
+          attrs: { type: "file", accept: _vm.acceptedFiles, id: "file" },
+          on: {
+            change: function($event) {
+              _vm.updateValue($event.target.files[0])
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            class: {
+              btn: true,
+              "btn-secondary": !_vm.errors.file && !this.error,
+              "btn-danger": _vm.errors.file || this.error
+            },
+            staticStyle: { margin: "auto 10px" },
+            on: { click: _vm.addFiles }
+          },
+          [_vm._v("Agregar foto")]
+        ),
+        _vm._v(" "),
+        _vm.file
+          ? _c("div", { staticClass: "file-listing" }, [
+              _vm._v(_vm._s(this.nombreFoto()) + " \n\t        \t"),
+              _c(
+                "span",
+                {
+                  staticClass: "remove-file",
+                  on: {
+                    click: function($event) {
+                      _vm.removeFile()
+                    }
+                  }
+                },
+                [_c("i", { staticClass: "fa fa-times-circle" })]
+              ),
+              _vm._v(" "),
+              _c("img", { attrs: { src: _vm.imagePreview } })
+            ])
+          : _vm._e()
+      ]
+    ),
+    _vm._v(" "),
+    _vm.errors.file == "extension"
+      ? _c(
+          "span",
+          {
+            staticClass: "invalid-feedback",
+            staticStyle: { "text-align": "center" }
+          },
+          [_c("strong", [_vm._v("Debe cargar un archivo de tipo jpg o png.")])]
+        )
+      : _vm.error
+        ? _c(
+            "span",
+            {
+              staticClass: "invalid-feedback",
+              staticStyle: { "text-align": "center" }
+            },
+            [
+              _c("strong", [
+                _vm._v("Debe cargar una foto que verifique el retiro.")
+              ])
+            ]
+          )
+        : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a2d04436", module.exports)
+  }
+}
+
+/***/ }),
+/* 220 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

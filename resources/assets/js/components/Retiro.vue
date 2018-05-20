@@ -35,21 +35,7 @@
 	                <strong>Debe seleccionar un laboratorio</strong>
 	            </span>
 			</div>
-			<div :class="{'file-uploader' : true, 'uploader-invalid': errors.foto_retiro}">
-				<input @change="verFoto" ref="file" type="file" :accept="acceptedFiles" id="file">
-	            <button :class="{'btn' : true, 'btn-secondary': !errors.foto_retiro, 'btn-danger': errors.foto_retiro}" @click="addFiles" style="margin: auto 10px">Agregar foto</button>
-	            <div v-if="foto_retiro" class="file-listing">{{ this.nombreFoto() }} 
-	            	<span class="remove-file" @click="removeFile()"><i class="fa fa-times-circle"></i></span>
-	            	<img :src="imagePreview"/>
-	            </div>
-	            
-			</div>
-			<span class="invalid-feedback" v-if="errors.foto_retiro == 'extension'">
-                <strong>Debe cargar un archivo de tipo jpg o png.</strong>
-            </span>
-			<span class="invalid-feedback" v-else-if="errors.foto_retiro">
-                <strong>Debe cargar una foto que verifique el retiro.</strong>
-            </span>
+            <uploader v-model="foto_retiro" :error="this.errors.foto_retiro"></uploader>
 			<hr>
 			<div class="form-group" style="text-align: right;">
 				<button class="btn btn-primary" @click="registrarRetiro">Aceptar</button>
@@ -66,9 +52,6 @@ moment.locale('es');
 
         data() {
             return {
-            	acceptedFiles: 'image/jpg,image/jpeg,image/png',
-            	imagePreview: '',
-            	showPreview: false,
             	item: null,
             	laboratorios: null,
             	nombre:'',
@@ -128,87 +111,16 @@ moment.locale('es');
                     this.errors = error.response.data.errors;
                 });
             },
-            verFoto(){ //Esto todavia no funciona bien, verificar bien los tipos
-            	var file = this.$refs.file.files[0];
-            	let reader = new FileReader();
-            	if(file){
-            		if(/\.(jpe?g|png)$/i.test(file.name)){
-	            		this.foto_retiro = file;
-	            		reader.addEventListener("load", function () {
-					      this.showPreview = true;
-					      this.imagePreview = reader.result;
-					    }.bind(this), false);
-					    reader.readAsDataURL( this.foto_retiro );
-	            	} else {
-	            		this.errors.foto_retiro = 'extension';
-	            	}
-            	}
-            },
-            addFiles(){
-			  this.$refs.file.click();
-			},
-			removeFile(){
-				this.foto_retiro = null;
-				this.showPreview = null;
-				this.imagePreview = '';
-			},
-			nombreFoto(){
-				if(this.foto_retiro.name.length > 30){
-					return this.foto_retiro.name.substring(0,27) + ' ...';
-				} else return this.foto_retiro.name;
-			}
         },
     }
 </script>
 
 <style>
-input[type="file"]{
-    position: absolute;
-    top: -500px;
- }
-div.file-listing{
-	margin:auto 5px;
-	text-align: center;
-}
-
-span.remove-file{
-	cursor: pointer;
-	transition: ease .5s;
-}
-span.remove-file:hover{
-	color: red;
-}
 .invalid-feedback{
 	display: block;
 }
 .inv-reg{
     top: -15px;
     position: relative;
-}
-.file-uploader{
-	display: flex;
-    background: #cccccc;
-    border-style: dashed;
-    border-radius: 10px;
-    border-width: 2px;
-    border-color: darkslategray;
-    min-height: 57px;
-    max-width: 425px;
-    margin: auto;
-}
-.uploader-invalid{
-    border-color: red;
-    background: #ffcdd2;
-}
-
-img{
-	max-width: 150px; 
-	max-height: 150px;
-	margin: 5px;
-	border-radius: 15px;
-}
-
-.btn{
-	max-height: 38px;
 }
 </style>
