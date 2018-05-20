@@ -53,7 +53,7 @@ class ItemController extends Controller
     		'materia_id' => 'required|numeric',
         'laboratorio_id' => 'required|numeric',
         'tag_id' => 'required|numeric',
-        'foto_item' => 'required | mimes:jpeg,jpg,png'
+        'foto_item' => 'required | mimes:jpeg,jpg,png| max:15360'
 
     	]);
 

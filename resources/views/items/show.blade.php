@@ -40,7 +40,7 @@
           \Carbon\Carbon::setUtf8(true);
           echo $item->retiro->created_at->formatLocalized('%A %d de %B de %Y alrededor de las %R'); 
         ?> 
-        por {{$item->retiro->nombre}}, {{$item->retiro->tipoDoc}}: {{$item->retiro->numeroDoc}}.
+        por {{$item->retiro->nombre}} ({{$item->retiro->email}}), {{$item->retiro->tipoDoc}}: {{$item->retiro->numeroDoc}}.
         Entregado por {{$item->retiro->user->name}} en el laboratorio {{$item->retiro->laboratorio->nombre}} de {{$item->retiro->laboratorio->sede->nombre}}
       </p>
       <img src="{{url($item->retiro->foto_retiro)}}" style="max-width: 85%; max-height: 85%; margin: auto; display: block; border-radius: 15px;">

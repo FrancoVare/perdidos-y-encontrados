@@ -4999,6 +4999,33 @@ module.exports = {
 /* 3 */
 /***/ (function(module, exports) {
 
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -5078,7 +5105,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -5303,33 +5330,6 @@ function applyToTag (styleElement, obj) {
     styleElement.appendChild(document.createTextNode(css))
   }
 }
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
@@ -7991,7 +7991,7 @@ Popper.Defaults = Defaults;
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
 //# sourceMappingURL=popper.js.map
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
 /* 9 */
@@ -30672,7 +30672,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(220);
+module.exports = __webpack_require__(218);
 
 
 /***/ }),
@@ -30720,10 +30720,10 @@ Vue.component('new-tag-modal', __webpack_require__(187));
 Vue.component('paginate', __webpack_require__(190));
 Vue.component('items', __webpack_require__(191));
 Vue.component('registro', __webpack_require__(197));
-Vue.component('registro-item', __webpack_require__(202));
-Vue.component('flash', __webpack_require__(205));
-Vue.component('retiro', __webpack_require__(210));
-Vue.component('uploader', __webpack_require__(215));
+Vue.component('registro-item', __webpack_require__(200));
+Vue.component('flash', __webpack_require__(203));
+Vue.component('retiro', __webpack_require__(208));
+Vue.component('uploader', __webpack_require__(213));
 
 var app = new Vue({
   el: '#app'
@@ -47901,7 +47901,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(7)(module)))
 
 /***/ }),
 /* 143 */
@@ -63686,7 +63686,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(164).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(164).setImmediate))
 
 /***/ }),
 /* 164 */
@@ -63756,7 +63756,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
 /* 165 */
@@ -63949,7 +63949,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(11)))
 
 /***/ }),
 /* 166 */
@@ -64132,7 +64132,7 @@ var content = __webpack_require__(171);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("595b8d37", content, false, {});
+var update = __webpack_require__(5)("595b8d37", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -64151,7 +64151,7 @@ if(false) {
 /* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -65677,7 +65677,7 @@ var content = __webpack_require__(193);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("2cf0d474", content, false, {});
+var update = __webpack_require__(5)("2cf0d474", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -65696,7 +65696,7 @@ if(false) {
 /* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -66385,9 +66385,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(200)
+var __vue_script__ = __webpack_require__(198)
 /* template */
-var __vue_template__ = __webpack_require__(201)
+var __vue_template__ = __webpack_require__(199)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66426,9 +66426,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 198 */,
-/* 199 */,
-/* 200 */
+/* 198 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66530,7 +66528,7 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 });
 
 /***/ }),
-/* 201 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66702,15 +66700,15 @@ if (false) {
 }
 
 /***/ }),
-/* 202 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(203)
+var __vue_script__ = __webpack_require__(201)
 /* template */
-var __vue_template__ = __webpack_require__(204)
+var __vue_template__ = __webpack_require__(202)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -66749,7 +66747,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 203 */
+/* 201 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -66790,6 +66788,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       selectedLab: null,
       descripcion: '',
       foto_item: null,
+      uploadPercentage: 0,
+      cargando: false,
       errors: {
         descripcion: null,
         materia_id: null,
@@ -66817,7 +66817,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (newVal.length) this.errors.descripcion = null;
     },
     foto_item: function foto_item(newVal, oldVal) {
-      if (newVal) this.errors.foto_item = null;
+      if (newVal) {
+        this.errors.foto_item = null;
+        this.uploadPercentage = 0;
+      }
     }
   },
   methods: {
@@ -66830,13 +66833,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       formData.append('materia_id', this.selectedMateria);
       formData.append('laboratorio_id', this.selectedLab);
       formData.append('tag_id', this.selectedTag);
-
+      this.cargando = true;
       axios.post('/items', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-        }
+        },
+        onUploadProgress: function (progressEvent) {
+          this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
       }).then(function (response) {
         flash(response.data.message, 'success');
+        // this.uploadPercentage = 0;
+        _this.cargando = false;
         _this.selectedMateria = null;
         _this.selectedTag = null;
         _this.selectedLab = null;
@@ -66851,13 +66859,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
       }).catch(function (error) {
         _this.errors = error.response.data.errors;
+        // this.uploadPercentage = 0;
+        _this.cargando = false;
       });
     }
   }
 });
 
 /***/ }),
-/* 204 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66959,7 +66969,10 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("uploader", {
-        attrs: { error: this.errors.foto_item },
+        attrs: {
+          error: this.errors.foto_item,
+          "upload-percentage": _vm.uploadPercentage
+        },
         model: {
           value: _vm.foto_item,
           callback: function($$v) {
@@ -66977,6 +66990,7 @@ var render = function() {
           {
             staticClass: "btn btn-primary btn-lg",
             staticStyle: { margin: "0" },
+            attrs: { disabled: _vm.cargando },
             on: {
               click: function($event) {
                 _vm.guardarItem()
@@ -67001,19 +67015,19 @@ if (false) {
 }
 
 /***/ }),
-/* 205 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(206)
+  __webpack_require__(204)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(208)
+var __vue_script__ = __webpack_require__(206)
 /* template */
-var __vue_template__ = __webpack_require__(209)
+var __vue_template__ = __webpack_require__(207)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67052,17 +67066,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 206 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(207);
+var content = __webpack_require__(205);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("4f30c49e", content, false, {});
+var update = __webpack_require__(5)("4f30c49e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67078,10 +67092,10 @@ if(false) {
 }
 
 /***/ }),
-/* 207 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -67092,7 +67106,7 @@ exports.push([module.i, "\n.alert-wrap[data-v-24005b09] {\n    position: fixed;\
 
 
 /***/ }),
-/* 208 */
+/* 206 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67212,7 +67226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 209 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67255,19 +67269,19 @@ if (false) {
 }
 
 /***/ }),
-/* 210 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(211)
+  __webpack_require__(209)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(213)
+var __vue_script__ = __webpack_require__(211)
 /* template */
-var __vue_template__ = __webpack_require__(214)
+var __vue_template__ = __webpack_require__(212)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67306,17 +67320,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 211 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(212);
+var content = __webpack_require__(210);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("2a7c0d1c", content, false, {});
+var update = __webpack_require__(5)("2a7c0d1c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67332,10 +67346,10 @@ if(false) {
 }
 
 /***/ }),
-/* 212 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -67346,7 +67360,7 @@ exports.push([module.i, "\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-reg{
 
 
 /***/ }),
-/* 213 */
+/* 211 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67398,99 +67412,133 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            item: null,
-            laboratorios: null,
-            nombre: '',
-            tipoDoc: '',
-            numeroDoc: '',
-            laboratorio_id: null,
-            foto_retiro: null,
-            submit: null,
-            errors: {
-                nombre: null,
-                numeroDoc: null,
-                laboratorio_id: null,
-                foto_retiro: null,
-                tipoDoc: null
-            }
-        };
+  data: function data() {
+    return {
+      item: null,
+      laboratorios: null,
+      nombre: '',
+      tipoDoc: '',
+      numeroDoc: '',
+      laboratorio_id: null,
+      foto_retiro: null,
+      uploadPercentage: 0,
+      submit: null,
+      cargando: false,
+      email: '',
+      errors: {
+        nombre: null,
+        numeroDoc: null,
+        laboratorio_id: null,
+        foto_retiro: null,
+        tipoDoc: null,
+        mail: null
+      }
+    };
+  },
+
+  props: ['pItem'],
+  created: function created() {
+    this.item = JSON.parse(this.pItem);
+    this.getLaboratorios();
+    this.submit = this.item.retiro;
+  },
+
+  watch: {
+    nombre: function nombre(newVal, oldVal) {
+      if (newVal) this.errors.nombre = null;
     },
-
-    props: ['pItem'],
-    created: function created() {
-        this.item = JSON.parse(this.pItem);
-        this.getLaboratorios();
-        this.submit = this.item.retiro;
+    numeroDoc: function numeroDoc(newVal, oldVal) {
+      if (newVal) this.errors.numeroDoc = null;
     },
-
-    watch: {
-        nombre: function nombre(newVal, oldVal) {
-            if (newVal) this.errors.nombre = null;
-        },
-        numeroDoc: function numeroDoc(newVal, oldVal) {
-            if (newVal) this.errors.numeroDoc = null;
-        },
-        tipoDoc: function tipoDoc(newVal, oldVal) {
-            if (newVal) this.errors.tipoDoc = null;
-        },
-        laboratorio_id: function laboratorio_id(newVal, oldVal) {
-            if (newVal) this.errors.laboratorio_id = null;
-        },
-        foto_retiro: function foto_retiro(newVal, oldVal) {
-            if (newVal) this.errors.foto_retiro = null;
-        }
+    tipoDoc: function tipoDoc(newVal, oldVal) {
+      if (newVal) this.errors.tipoDoc = null;
     },
-    methods: {
-        getLaboratorios: function getLaboratorios() {
-            var _this = this;
-
-            axios.get("/api/laboratorios").then(function (_ref) {
-                var data = _ref.data;
-
-                _this.laboratorios = data;
-            });
-        },
-        registrarRetiro: function registrarRetiro() {
-            var _this2 = this;
-
-            var formData = new FormData();
-            formData.append('foto_retiro', this.foto_retiro);
-            formData.append('nombre', this.nombre);
-            formData.append('tipoDoc', this.tipoDoc);
-            formData.append('numeroDoc', this.numeroDoc);
-            formData.append('laboratorio_id', this.laboratorio_id);
-            formData.append('item_id', this.item.id);
-
-            axios.post('/retiros', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(function (response) {
-                flash(response.data.message, 'success');
-                _this2.foto_retiro = null;
-                _this2.nombre = null;
-                _this2.tipoDoc = '';
-                _this2.numeroDoc = '';
-                _this2.laboratorio_id = null;
-                _this2.submit = true;
-                setTimeout(function () {
-                    window.location.href = "/";
-                }, 5000);
-            }).catch(function (error) {
-                _this2.errors = error.response.data.errors;
-            });
-        }
+    laboratorio_id: function laboratorio_id(newVal, oldVal) {
+      if (newVal) this.errors.laboratorio_id = null;
+    },
+    foto_retiro: function foto_retiro(newVal, oldVal) {
+      if (newVal) {
+        this.errors.foto_retiro = null;
+        this.uploadPercentage = 0;
+      }
+    },
+    email: function email(newVal, oldVal) {
+      if (newVal) this.errors.mail = null;
     }
+  },
+  methods: {
+    getLaboratorios: function getLaboratorios() {
+      var _this = this;
+
+      axios.get("/api/laboratorios").then(function (_ref) {
+        var data = _ref.data;
+
+        _this.laboratorios = data;
+      });
+    },
+    registrarRetiro: function registrarRetiro() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('foto_retiro', this.foto_retiro);
+      formData.append('nombre', this.nombre);
+      formData.append('tipoDoc', this.tipoDoc);
+      formData.append('numeroDoc', this.numeroDoc);
+      formData.append('laboratorio_id', this.laboratorio_id);
+      formData.append('item_id', this.item.id);
+      formData.append('mail', this.email);
+      this.cargando = true;
+      axios.post('/retiros', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: function (progressEvent) {
+          this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
+      }).then(function (response) {
+        flash(response.data.message, 'success');
+        _this2.foto_retiro = null;
+        _this2.nombre = null;
+        _this2.tipoDoc = '';
+        _this2.numeroDoc = '';
+        _this2.laboratorio_id = null;
+        _this2.submit = true;
+        _this2.email = '';
+        _this2.cargando = false;
+        // this.uploadPercentage = 0;
+        setTimeout(function () {
+          window.location.href = "/";
+        }, 5000);
+      }).catch(function (error) {
+        _this2.errors = error.response.data.errors;
+        _this2.cargando = false;
+        // this.uploadPercentage = 0;
+        if (!_this2.errors) _this2.errors = {
+          nombre: null,
+          numeroDoc: null,
+          laboratorio_id: null,
+          foto_retiro: null,
+          tipoDoc: null,
+          mail: null
+        };
+      });
+    }
+  }
 });
 
 /***/ }),
-/* 214 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67510,7 +67558,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "nombre" } }, [
-                _vm._v("Nombre de quien retira:")
+                _vm._v("Nombre de quien retira")
               ]),
               _vm._v(" "),
               _c("input", {
@@ -67545,7 +67593,39 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("label", [_vm._v("Identificacion:")]),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "nombre" } }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.email,
+                    expression: "email"
+                  }
+                ],
+                class: { "form-control": true, "is-invalid": _vm.errors.mail },
+                attrs: { type: "email" },
+                domProps: { value: _vm.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.email = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.mail
+                ? _c("span", { staticClass: "invalid-feedback" }, [
+                    _c("strong", [_vm._v("Debe ingresar un email valido.")])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("label", [_vm._v("Identificacion")]),
             _vm._v(" "),
             _c(
               "div",
@@ -67626,7 +67706,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "laboratorio_id" } }, [
-                _vm._v("Laboratorio:")
+                _vm._v("Laboratorio")
               ]),
               _vm._v(" "),
               _c(
@@ -67679,7 +67759,10 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("uploader", {
-              attrs: { error: this.errors.foto_retiro },
+              attrs: {
+                error: this.errors.foto_retiro,
+                "upload-percentage": _vm.uploadPercentage
+              },
               model: {
                 value: _vm.foto_retiro,
                 callback: function($$v) {
@@ -67702,6 +67785,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-primary",
+                    attrs: { disabled: _vm.cargando },
                     on: { click: _vm.registrarRetiro }
                   },
                   [_vm._v("Aceptar")]
@@ -67725,19 +67809,19 @@ if (false) {
 }
 
 /***/ }),
-/* 215 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(216)
+  __webpack_require__(214)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(218)
+var __vue_script__ = __webpack_require__(216)
 /* template */
-var __vue_template__ = __webpack_require__(219)
+var __vue_template__ = __webpack_require__(217)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -67776,17 +67860,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 216 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(217);
+var content = __webpack_require__(215);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("04334ee9", content, false, {});
+var update = __webpack_require__(5)("04334ee9", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -67802,21 +67886,21 @@ if(false) {
 }
 
 /***/ }),
-/* 217 */
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto 5px;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-up{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\r\n    margin-top: 1rem;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\r\n", ""]);
+exports.push([module.i, "\ninput[type=\"file\"]{\r\n    position: absolute;\r\n    top: -500px;\n}\ndiv.file-listing{\r\n\tmargin:auto;\r\n\ttext-align: center;\n}\nspan.remove-file{\r\n\tcursor: pointer;\r\n\t-webkit-transition: ease .5s;\r\n\ttransition: ease .5s;\n}\nspan.remove-file:hover{\r\n\tcolor: red;\n}\n.invalid-feedback{\r\n\tdisplay: block;\n}\n.inv-up{\r\n    top: -15px;\r\n    position: relative;\n}\n.file-uploader{\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -ms-flexbox;\r\n\tdisplay: flex;\r\n    background: #cccccc;\r\n    border-style: dashed;\r\n    border-radius: 10px;\r\n    border-width: 2px;\r\n    border-color: darkslategray;\r\n    min-height: 57px;\r\n    max-width: 425px;\r\n    margin: auto;\r\n    margin-top: 1rem;\n}\n.uploader-invalid{\r\n    border-color: red;\r\n    background: #ffcdd2;\n}\nimg{\r\n\tmax-width: 150px; \r\n\tmax-height: 150px;\r\n\tmargin: 5px;\r\n\tborder-radius: 15px;\n}\n.progress{\r\n\theight: 10px;\r\n    width: 150px;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n    margin-bottom: 5px;\n}\n.progress-bar{\r\n\t-webkit-transition: none;\r\n\ttransition: none;\n}\r\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 218 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67841,64 +67925,75 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      acceptedFiles: 'image/jpg,image/jpeg,image/png',
-      imagePreview: '',
-      file: null,
-      showPreview: false,
-      errors: {
-        file: null
-      }
-    };
-  },
+	data: function data() {
+		return {
+			acceptedFiles: 'image/jpg,image/jpeg,image/png',
+			imagePreview: '',
+			file: null,
+			showPreview: false,
+			errors: {
+				file: null
+			}
+		};
+	},
+	mounted: function mounted() {},
 
-  props: ['value', 'error'],
-  methods: {
-    updateValue: function updateValue(value) {
-      var file = this.$refs.file.files[0];
-      var reader = new FileReader();
-      if (file) {
-        if (/\.(jpe?g|png)$/i.test(file.name)) {
-          this.file = file;
-          reader.addEventListener("load", function () {
-            this.showPreview = true;
-            this.imagePreview = reader.result;
-          }.bind(this), false);
-          reader.readAsDataURL(this.file);
-          this.$emit('input', value);
-          this.errors.file = null;
-        } else {
-          this.errors.file = 'extension';
-        }
-      }
-    },
-    addFiles: function addFiles() {
-      this.$refs.file.click();
-    },
-    removeFile: function removeFile() {
-      this.file = null;
-      this.showPreview = null;
-      this.imagePreview = '';
-      this.$emit('input', null);
-    },
-    nombreFoto: function nombreFoto() {
-      if (this.file.name.length > 30) {
-        return this.file.name.substring(0, 27) + ' ...';
-      } else return this.file.name;
-    }
-  },
-  watch: {
-    value: function value(newVal, oldVal) {
-      if (!newVal) this.removeFile();
-    }
-  }
+	props: ['value', 'error', 'uploadPercentage'],
+	methods: {
+		updateValue: function updateValue(value) {
+			var file = this.$refs.file.files[0];
+			var reader = new FileReader();
+			if (file) {
+				if (/\.(jpe?g|png)$/i.test(file.name)) {
+					if (file.size / 1024 < 15360) {
+						this.file = file;
+						reader.addEventListener("load", function () {
+							this.showPreview = true;
+							this.imagePreview = reader.result;
+							this.$emit('input', value);
+							this.errors.file = null;
+						}.bind(this), false);
+						reader.readAsDataURL(this.file);
+					} else {
+						this.errors.file = 'size';
+					}
+				} else {
+					this.errors.file = 'extension';
+				}
+			}
+		},
+		addFiles: function addFiles() {
+			this.$refs.file.click();
+		},
+		removeFile: function removeFile() {
+			this.file = null;
+			this.showPreview = null;
+			this.imagePreview = '';
+			this.$emit('input', null);
+			this.$refs.file.value = "";
+		},
+		nombreFoto: function nombreFoto() {
+			if (this.file.name.length > 30) {
+				return this.file.name.substring(0, 27) + ' ...';
+			} else return this.file.name;
+		}
+	},
+	watch: {
+		value: function value(newVal, oldVal) {
+			if (!newVal) this.removeFile();
+		}
+	}
 });
 
 /***/ }),
-/* 219 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -67915,16 +68010,6 @@ var render = function() {
         }
       },
       [
-        _c("input", {
-          ref: "file",
-          attrs: { type: "file", accept: _vm.acceptedFiles, id: "file" },
-          on: {
-            change: function($event) {
-              _vm.updateValue($event.target.files[0])
-            }
-          }
-        }),
-        _vm._v(" "),
         _c(
           "button",
           {
@@ -67939,23 +68024,53 @@ var render = function() {
           [_vm._v("Agregar foto")]
         ),
         _vm._v(" "),
-        _vm.file
+        _c("input", {
+          ref: "file",
+          attrs: { type: "file", accept: _vm.acceptedFiles, id: "file" },
+          on: {
+            change: function($event) {
+              _vm.updateValue($event.target.files[0])
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm.showPreview
           ? _c("div", { staticClass: "file-listing" }, [
-              _vm._v(_vm._s(this.nombreFoto()) + " \n\t        \t"),
-              _c(
-                "span",
-                {
-                  staticClass: "remove-file",
-                  on: {
-                    click: function($event) {
-                      _vm.removeFile()
+              _c("p", { staticStyle: { margin: "0" } }, [
+                _vm._v(_vm._s(this.nombreFoto()) + " "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "remove-file",
+                    on: {
+                      click: function($event) {
+                        _vm.removeFile()
+                      }
                     }
-                  }
-                },
-                [_c("i", { staticClass: "fa fa-times-circle" })]
-              ),
+                  },
+                  [_c("i", { staticClass: "fa fa-times-circle" })]
+                )
+              ]),
               _vm._v(" "),
-              _c("img", { attrs: { src: _vm.imagePreview } })
+              _c("img", { attrs: { src: _vm.imagePreview } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "progress" }, [
+                _c("div", {
+                  staticClass: "progress-bar progress-bar-striped",
+                  class: {
+                    "progress-bar": true,
+                    "progress-bar-striped": true,
+                    "bg-success": _vm.uploadPercentage == 100
+                  },
+                  style: { "min-width": _vm.uploadPercentage + "%" },
+                  attrs: {
+                    role: "progressbar",
+                    "aria-valuenow": _vm.uploadPercentage,
+                    "aria-valuemin": "0",
+                    "aria-valuemax": "100"
+                  }
+                })
+              ])
             ])
           : _vm._e()
       ]
@@ -67970,7 +68085,7 @@ var render = function() {
           },
           [_c("strong", [_vm._v("Debe cargar un archivo de tipo jpg o png.")])]
         )
-      : _vm.error
+      : _vm.errors.file == "size"
         ? _c(
             "span",
             {
@@ -67979,11 +68094,24 @@ var render = function() {
             },
             [
               _c("strong", [
-                _vm._v("Debe cargar una foto que verifique el retiro.")
+                _vm._v("El tamaño maximo para los archivos es de 15MB.")
               ])
             ]
           )
-        : _vm._e()
+        : _vm.error
+          ? _c(
+              "span",
+              {
+                staticClass: "invalid-feedback",
+                staticStyle: { "text-align": "center" }
+              },
+              [
+                _c("strong", [
+                  _vm._v("Debe cargar una foto que verifique el retiro.")
+                ])
+              ]
+            )
+          : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -67997,7 +68125,7 @@ if (false) {
 }
 
 /***/ }),
-/* 220 */
+/* 218 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

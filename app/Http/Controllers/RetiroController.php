@@ -28,10 +28,11 @@ class RetiroController extends Controller
 
     		'nombre' => 'required|string',
     		'tipoDoc' => 'required|string',
+            'mail' => 'required|email',
     		'numeroDoc' => 'required|numeric',
     		'laboratorio_id' => 'required|numeric',
     		'item_id' => 'required|numeric',
-            'foto_retiro' => 'required | mimes:jpeg,jpg,png'
+            'foto_retiro' => 'required | mimes:jpeg,jpg,png| max:15360'
 
     	]);
 
@@ -46,6 +47,7 @@ class RetiroController extends Controller
     		'item_id' => request('item_id'),    
     		'tipoDoc' => request('tipoDoc'),   
     		'user_id' => auth()->user()->id,
+            'email' => request('mail'),
             'foto_retiro' => $path
     	]);
 

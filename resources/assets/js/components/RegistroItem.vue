@@ -16,10 +16,10 @@
         <span v-if="errors.descripcion" class="invalid-feedback">
             <strong>Debe proveer una descripcion</strong>
         </span>
-        <uploader v-model="foto_item" :error="this.errors.foto_item"></uploader>
+        <uploader v-model="foto_item" :error="this.errors.foto_item" :upload-percentage="uploadPercentage"></uploader>
         <div style="text-align: right; width:100%;">
             <hr>
-            <button class="btn btn-primary btn-lg" style="margin: 0;" @click="guardarItem()">Aceptar</i></button>
+            <button :disabled="cargando" class="btn btn-primary btn-lg" style="margin: 0;" @click="guardarItem()">Aceptar</i></button>
         </div>
     </div>
   </div>
@@ -34,6 +34,8 @@
               selectedLab: null,
               descripcion: '',
               foto_item:null,
+              uploadPercentage: 0,
+              cargando: false,
               errors: {
                 descripcion: null,
                 materia_id: null,
@@ -60,7 +62,10 @@
             if(newVal.length) this.errors.descripcion = null;
           },
           foto_item: function (newVal,oldVal){
-            if(newVal) this.errors.foto_item = null;
+            if(newVal) {
+              this.errors.foto_item = null;
+              this.uploadPercentage = 0;
+            }
           },
         },
         methods: {
@@ -71,15 +76,20 @@
                 formData.append('materia_id',this.selectedMateria);
                 formData.append('laboratorio_id',this.selectedLab);
                 formData.append('tag_id',this.selectedTag);
-
+                this.cargando = true;
                 axios.post('/items',formData,
                 {
                   headers: {
                     'Content-Type': 'multipart/form-data'
-                  }
+                  },
+                  onUploadProgress: function( progressEvent ) {
+                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ) );
+                  }.bind(this)
                 })
                 .then(response => {
                     flash(response.data.message,'success');
+                    // this.uploadPercentage = 0;
+                    this.cargando = false;
                     this.selectedMateria = null;
                     this.selectedTag = null;
                     this.selectedLab = null;
@@ -95,6 +105,8 @@
                 })
                 .catch(error =>{
                     this.errors = error.response.data.errors;
+                    // this.uploadPercentage = 0;
+                    this.cargando = false;
                 });
             }
         }

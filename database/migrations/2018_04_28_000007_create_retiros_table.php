@@ -20,6 +20,7 @@ class CreateRetirosTable extends Migration
             $table->unsignedInteger('item_id');
             $table->string('tipoDoc');
             $table->string('numeroDoc');
+            $table->string('email');
             $table->string('nombre');
             $table->string('foto_retiro');
             $table->timestamps();
