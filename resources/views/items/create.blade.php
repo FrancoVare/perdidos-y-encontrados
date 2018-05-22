@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-sm-1"></div>
-	<div class="col-sm-10">
+	<div class="col-sm-10 lg-card">
 	
 		<h1>Registrar un objeto perdido</h1>
 

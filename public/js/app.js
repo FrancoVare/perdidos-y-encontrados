@@ -64498,6 +64498,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.close();
       }).catch(function (error) {
         _this.errors = error.response.data.errors;
+        if (!_this.errors) _this.errors = {
+          nombreMateria: null
+        };
       });
     }
   }
@@ -64551,7 +64554,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-secondary",
           on: {
             click: function($event) {
               _vm.savePost()
@@ -64716,6 +64719,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.close();
       }).catch(function (error) {
         _this2.errors = error.response.data.errors;
+        if (!_this2.errors) _this2.errors = {
+          nombreLab: null,
+          sedes: null
+        };
       });
     },
     eliminarSede: function eliminarSede() {
@@ -64728,6 +64735,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.selected = null;
       }).catch(function (error) {
         _this3.errors = error.response.data.errors;
+        if (!_this3.errors) _this3.errors = {
+          nombreLab: null,
+          sedes: null
+        };
       });
     }
   }
@@ -64870,7 +64881,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-secondary",
           on: {
             click: function($event) {
               _vm.savePost()
@@ -64996,6 +65007,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.close();
       }).catch(function (error) {
         _this.errors = error.response.data.errors;
+        if (!_this.errors) _this.errors = {
+          nombre: null
+        };
       });
     }
   }
@@ -65049,7 +65063,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-secondary",
           on: {
             click: function($event) {
               _vm.savePost()
@@ -65184,6 +65198,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.close();
             }).catch(function (error) {
                 _this.errors = error.response.data.errors;
+                if (!_this.errors) _this.errors = {
+                    nombreSede: null,
+                    direccion: null
+                };
             });
         }
     }
@@ -65266,7 +65284,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-secondary",
           on: {
             click: function($event) {
               _vm.savePost()
@@ -65431,6 +65449,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.close();
       }).catch(function (error) {
         _this2.errors = error.response.data.errors;
+        if (!_this2.errors) _this2.errors = {
+          nombre: null,
+          pruebas: null
+        };
       });
     },
     eliminarPrueba: function eliminarPrueba() {
@@ -65443,6 +65465,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.selected = [];
       }).catch(function (error) {
         _this3.errors = error.response.data.errors;
+        if (!_this3.errors) _this3.errors = {
+          nombre: null,
+          pruebas: null
+        };
       });
     }
   }
@@ -65587,7 +65613,7 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-primary",
+          staticClass: "btn btn-secondary",
           on: {
             click: function($event) {
               _vm.savePost()
@@ -65701,7 +65727,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #fafafa;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\r\n    background-color: #fafafa;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #fafafa;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\r\n  background: #fafafa;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -65714,14 +65740,6 @@ exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n   
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -65835,6 +65853,9 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 _this2.total = data.total;
                 _this2.perPage = data.to - data.from + 1;
             });
+        },
+        blogMeta: function blogMeta(item) {
+            return 'Lo encontro ' + item.user.name + ' el ' + this.getHumanDate(item.created_at) + ' despues de la cursada de ' + item.materia.nombre + ' en el laboratorio ' + item.laboratorio.nombre + ' de ' + item.laboratorio.sede.nombre + '.';
         },
         getHumanDate: function getHumanDate(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, 'YYYY-MM-DD H:m:s').format('dddd, D [de] MMMM [de] YYYY [a alrededor de las] H:mm');
@@ -66179,17 +66200,9 @@ var render = function() {
                   _vm._v(" "),
                   _c("p", { staticClass: "blog-post-meta" }, [
                     _vm._v(
-                      "\n\n            Lo encontro " +
-                        _vm._s(item.user.name) +
-                        " el " +
-                        _vm._s(_vm.getHumanDate(item.created_at)) +
-                        "\n            despues de la cursada de \n            " +
-                        _vm._s(item.materia.nombre) +
-                        " en el laboratorio \n            " +
-                        _vm._s(item.laboratorio.nombre) +
-                        " de \n            " +
-                        _vm._s(item.laboratorio.sede.nombre) +
-                        ".\n\n          "
+                      "\n\n            " +
+                        _vm._s(_vm.blogMeta(item)) +
+                        "\n\n          "
                     )
                   ])
                 ])
@@ -66217,17 +66230,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "blog-post-meta" }, [
                   _vm._v(
-                    "\n\n            Lo encontro " +
-                      _vm._s(item.user.name) +
-                      " el " +
-                      _vm._s(_vm.getHumanDate(item.created_at)) +
-                      "\n            despues de la cursada de \n            " +
-                      _vm._s(item.materia.nombre) +
-                      " en el laboratorio \n            " +
-                      _vm._s(item.laboratorio.nombre) +
-                      " de \n            " +
-                      _vm._s(item.laboratorio.sede.nombre) +
-                      ".\n\n          "
+                    "\n\n            " +
+                      _vm._s(_vm.blogMeta(item)) +
+                      "\n\n          "
                   )
                 ])
               ])
@@ -66515,6 +66520,9 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         flash(response.data.message, 'success');
       }).catch(function (error) {
         _this2.errors = error.response.data.errors;
+        if (!_this2.errors) _this2.errors = {
+          nombre: null
+        };
       });
     },
     abrirModal: function abrirModal() {
@@ -66861,6 +66869,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.errors = error.response.data.errors;
         // this.uploadPercentage = 0;
         _this.cargando = false;
+        if (!_this.errors) _this.errors = {
+          descripcion: null,
+          materia_id: null,
+          laboratorio_id: null,
+          tag_id: null,
+          foto_item: null
+        };
       });
     }
   }
@@ -66988,7 +67003,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary btn-lg",
+            staticClass: "btn btn-secondary btn-lg",
             staticStyle: { margin: "0" },
             attrs: { disabled: _vm.cargando },
             on: {
@@ -67545,7 +67560,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-sm-8" }, [
+  return _c("div", { staticClass: "col-sm-8 lg-card" }, [
     !_vm.submit
       ? _c(
           "div",
@@ -67784,7 +67799,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
+                    staticClass: "btn btn-secondary btn-lg",
                     attrs: { disabled: _vm.cargando },
                     on: { click: _vm.registrarRetiro }
                   },

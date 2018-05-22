@@ -17,7 +17,7 @@ class CreateRetirosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('laboratorio_id');
-            $table->unsignedInteger('item_id');
+            $table->unsignedInteger('item_id')->unique();
             $table->string('tipoDoc');
             $table->string('numeroDoc');
             $table->string('email');

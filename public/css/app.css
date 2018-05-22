@@ -3053,6 +3053,53 @@
   clip: auto;
 }
 
+.lf-back {
+  height: 100vh;
+  width: 75vw;
+  position: fixed;
+  z-index: 0;
+  background: #343a40;
+  margin-left: 12.5vw;
+  border-left: black solid 5px;
+  border-right: black solid 5px;
+}
+
+@media (max-width: 1465px) {
+  .lf-back {
+    width: 80vw;
+    margin-left: 10vw;
+  }
+}
+
+@media (max-width: 1375px) {
+  .lf-back {
+    width: 85vw;
+    margin-left: 7.5vw;
+  }
+}
+
+@media (max-width: 1300px) {
+  .lf-back {
+    width: 90vw;
+    margin-left: 5vw;
+  }
+}
+
+@media (max-width: 1100px) {
+  .lf-back {
+    width: 100vw;
+    margin-left: 0vw;
+    border: none;
+  }
+}
+
+.lg-card {
+  background: #fafafa;
+  border-radius: 15px;
+  padding: 10px;
+  border: 3px black solid;
+}
+
 #app {
   margin-top: 50px;
 }

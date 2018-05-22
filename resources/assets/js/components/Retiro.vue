@@ -1,5 +1,5 @@
 <template>
-    <div class="col-sm-8" >
+    <div class="col-sm-8 lg-card">
 		
 		<div v-if="!submit">
 			<h1>Registrar retiro de {{item.tag.nombre}}</h1>
@@ -43,7 +43,7 @@
             <uploader v-model="foto_retiro" :error="this.errors.foto_retiro" :upload-percentage="uploadPercentage"></uploader>
 			<hr>
 			<div class="form-group" style="text-align: right;">
-				<button :disabled="cargando" class="btn btn-primary" @click="registrarRetiro">Aceptar</button>
+				<button :disabled="cargando" class="btn btn-secondary btn-lg" @click="registrarRetiro">Aceptar</button>
 			</div>
 		</div>
 		<div v-else><h1>Este item ya ha sido retirado.</h1></div>

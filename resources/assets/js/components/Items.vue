@@ -12,11 +12,7 @@
 
               <p class="blog-post-meta">
 
-                Lo encontro {{item.user.name}} el {{getHumanDate(item.created_at)}}
-                despues de la cursada de 
-                {{item.materia.nombre}} en el laboratorio 
-                {{item.laboratorio.nombre}} de 
-                {{item.laboratorio.sede.nombre}}.
+                {{blogMeta(item)}}
 
               </p>
 
@@ -30,11 +26,7 @@
 
               <p class="blog-post-meta">
 
-                Lo encontro {{item.user.name}} el {{getHumanDate(item.created_at)}}
-                despues de la cursada de 
-                {{item.materia.nombre}} en el laboratorio 
-                {{item.laboratorio.nombre}} de 
-                {{item.laboratorio.sede.nombre}}.
+                {{blogMeta(item)}}
 
               </p>
 
@@ -111,6 +103,9 @@ moment.locale('es');
                         this.perPage = data.to - data.from + 1;
                     });
             },
+            blogMeta(item){
+               return 'Lo encontro '+item.user.name+' el '+this.getHumanDate(item.created_at)+' despues de la cursada de '+item.materia.nombre+' en el laboratorio '+item.laboratorio.nombre+' de '+item.laboratorio.sede.nombre+'.'
+            },
             getHumanDate(date){
                 return moment(date,'YYYY-MM-DD H:m:s').format('dddd, D [de] MMMM [de] YYYY [a alrededor de las] H:mm');
             },
@@ -154,6 +149,7 @@ moment.locale('es');
     border-radius: 5px;
     box-shadow: 0 0 3px black;
     margin: 3px;
+    background-color: #fafafa;
 }
 
 .pagination li.active {
@@ -187,6 +183,7 @@ moment.locale('es');
   padding:15px;
   border-radius: 15px;
   box-shadow: 0 0 3px black;
+  background: #fafafa;
 }
 
 a > .blog-post:hover {

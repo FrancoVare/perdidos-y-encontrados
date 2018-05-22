@@ -8,6 +8,7 @@ use App\Tag;
 use App\Sede;
 use App\Laboratorio;
 use App\Item;
+use App\Retiro;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
     		'name' => 'Franco',
             'email' => 'vare.franco@gmail.com',
             'password' => bcrypt('password'),
+            'firstLogin' => false
     	]);
 
 
@@ -142,6 +144,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(Item::class,120)->create();
+        $retiros = factory(Retiro::class,60)->make();
 
+        foreach ($retiros as $retiro) {
+            repeat:
+            try {
+                $retiro->save();
+            } catch (\Illuminate\Database\QueryException $e) {
+                $retiro = factory(App\Retiro::class)->make();
+                goto repeat;
+            }
+        }
     }
 }

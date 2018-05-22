@@ -31,7 +31,7 @@ class ItemController extends Controller
                         ->estado(request('estado'))
                         ->paginate(15);
 
-
+                          
       return json_encode($items);
    }
 

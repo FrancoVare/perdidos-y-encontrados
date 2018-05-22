@@ -44,8 +44,7 @@ class RetiroController extends Controller
     		'tipoDoc' => request('tipoDoc'),  
     		'numeroDoc' => request('numeroDoc'),   
     		'laboratorio_id' => request('laboratorio_id'),   
-    		'item_id' => request('item_id'),    
-    		'tipoDoc' => request('tipoDoc'),   
+    		'item_id' => request('item_id'),   
     		'user_id' => auth()->user()->id,
             'email' => request('mail'),
             'foto_retiro' => $path

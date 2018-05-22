@@ -7,7 +7,7 @@
   <div class="col-sm-1">
     
   </div>
-  <div class="col-sm-10">
+  <div class="col-sm-10 lg-card">
 
   	<h1>{{$item->tag->nombre}}</h1>
   	<p class="blog-post-meta">
@@ -48,7 +48,7 @@
     <hr>
     <form action="/retiros" method="GET" style="text-align: right;">
       <input type="hidden" name="item" value="{{$item->id}}" /> 
-      <button type="submit" class="btn btn-primary">Retiro</button>
+      <button type="submit" class="btn btn-secondary btn-lg">Retiro</button>
     </form>
     @endif
   </div>

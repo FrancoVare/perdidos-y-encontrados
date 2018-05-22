@@ -18,7 +18,7 @@
             </span>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" @click="savePost()">
+            <button class="btn btn-secondary" @click="savePost()">
                 Aceptar
             </button>
         </div>

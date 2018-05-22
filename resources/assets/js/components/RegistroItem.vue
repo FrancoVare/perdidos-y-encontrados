@@ -19,7 +19,7 @@
         <uploader v-model="foto_item" :error="this.errors.foto_item" :upload-percentage="uploadPercentage"></uploader>
         <div style="text-align: right; width:100%;">
             <hr>
-            <button :disabled="cargando" class="btn btn-primary btn-lg" style="margin: 0;" @click="guardarItem()">Aceptar</i></button>
+            <button :disabled="cargando" class="btn btn-secondary btn-lg" style="margin: 0;" @click="guardarItem()">Aceptar</i></button>
         </div>
     </div>
   </div>
