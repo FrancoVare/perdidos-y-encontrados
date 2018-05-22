@@ -14,9 +14,6 @@
 
     	Lo encontro {{$item->user->name}} el 
       <?php 
-        setlocale(LC_TIME, 'Spanish');
-          \Carbon\Carbon::setLocale('es');
-          \Carbon\Carbon::setUtf8(true);
         echo $item->created_at->formatLocalized('%A %d de %B de %Y alrededor de las %R,'); 
       ?>
       despues de la cursada de 
@@ -35,9 +32,6 @@
       <p>
         Retirado el 
         <?php 
-          setlocale(LC_TIME, 'Spanish');
-          \Carbon\Carbon::setLocale('es');
-          \Carbon\Carbon::setUtf8(true);
           echo $item->retiro->created_at->formatLocalized('%A %d de %B de %Y alrededor de las %R'); 
         ?> 
         por {{$item->retiro->nombre}} ({{$item->retiro->email}}), {{$item->retiro->tipoDoc}}: {{$item->retiro->numeroDoc}}.

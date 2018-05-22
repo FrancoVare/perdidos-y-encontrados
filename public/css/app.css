@@ -3062,6 +3062,8 @@
   margin-left: 12.5vw;
   border-left: black solid 5px;
   border-right: black solid 5px;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
 }
 
 @media (max-width: 1465px) {
@@ -3107,12 +3109,6 @@
 body {
   padding-top: 56px;
   background: #fafafa;
-}
-
-@media (min-width: 767px) and (max-width: 991px) {
-  body {
-    padding-top: 70px;
-  }
 }
 
 a {

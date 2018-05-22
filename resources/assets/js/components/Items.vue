@@ -164,6 +164,8 @@ moment.locale('es');
 
 .pagination li.disabled > a{
   cursor: default;
+  background: #343a40;
+  border-radius: 0px;
 }
 
 .pagination li.active > a {
@@ -175,7 +177,7 @@ moment.locale('es');
 }
 
 .pagination li.disabled > a:hover:not(.active) {
-    background-color: #fafafa;
+    background-color: #343a40;
 }
 
 .blog-post {
