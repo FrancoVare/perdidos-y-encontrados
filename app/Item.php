@@ -14,34 +14,41 @@ class Item extends Model
         $terms = [];
 
         //dia
-        $terms[] = $this->created_at->formatLocalized('%A');
+        $terms[] = explode('-',str_slug($this->created_at->formatLocalized('%A')));
 
         //mes
-        $terms[] = $this->created_at->formatLocalized('%B');
+        $terms[] = explode('-',str_slug($this->created_at->formatLocalized('%B')));
 
         //año
-        $terms[] = $this->created_at->year;
-
-        //dia de mes
-        $terms[] = $this->created_at->formatLocalized('%d de %B');
+        $terms[] = explode('-',str_slug($this->created_at->year));
 
         //tag
-        $terms[] = $this->tag->nombre;
+        $terms[] = explode('-',str_slug($this->tag->nombre));
 
         //laboratorio
-        $terms[] = $this->laboratorio->nombre;
+        $terms[] = explode('-',str_slug($this->laboratorio->nombre));
 
         //sede
-        $terms[] = $this->laboratorio->sede->nombre;
+        $terms[] = explode('-',str_slug($this->laboratorio->sede->nombre));
 
         //materia
-        $terms[] = $this->materia->nombre;
+        $terms[] = explode('-',str_slug($this->materia->nombre));
 
-        return $terms;
+        if($this->retiro){
+            $terms[] = explode('-',str_slug($this->retiro->created_at->formatLocalized('%A')));
+            $terms[] = explode('-',str_slug($this->retiro->created_at->formatLocalized('%B')));
+            $terms[] = explode('-',str_slug($this->retiro->created_at->year));
+            $terms[] = explode('-',str_slug($this->retiro->laboratorio->nombre));
+            $terms[] = explode('-',str_slug($this->retiro->laboratorio->sede->nombre));
+            $terms[] = explode('-',str_slug($this->retiro->laboratorio->sede->nombre));
+        }
+
+        return array_where(array_flatten($terms),function($str){return strlen($str)>2;});
     }
 
     public function filtrar($searchQuery)
     {
+        
         $dateFormats = [
                         'd/m/y',
                         'd-m-y',
@@ -54,15 +61,22 @@ class Item extends Model
         $date = null;
         foreach ($dateFormats as $dateFormat) {
             try {
-                $date = Carbon::createFromFormat($dateFormat,$date);
+                $date = Carbon::createFromFormat($dateFormat,$searchQuery);
                 break;
             } catch (\InvalidArgumentException $e){}
         }
     
-        //aca ya tengo la fecha en $date, compararla con created_at
-        //si es null comparar $searchQuery con los $item->busqueda
-
-        return true;
+        if($date) {//aca ya tengo la fecha en $date, compararla con created_at
+            $ret = $this->created_at->toDateString() == $date->toDateString();
+            if($this->retiro) $ret = $ret || $this->retiro->created_at->toDateString() == $date->toDateString();
+            if($ret) return 1; 
+            else return 0;
+        } else { //si es null comparar $searchQuery con los $item->busqueda
+            $searchQuery = str_slug($searchQuery);
+            $searchQuery = explode('-',$searchQuery);
+            $searchQuery = array_where($searchQuery,function($str){return strlen($str)>2;});
+            return count(array_intersect($searchQuery,$this->busqueda));
+        } 
     }
 
     public function user()

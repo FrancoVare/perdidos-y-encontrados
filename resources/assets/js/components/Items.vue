@@ -3,33 +3,20 @@
       <div class="col-sm-1"></div>
 
       <div class="col-sm-8">
-        <div class="container" style="text-align: right;"><p class="blog-post-meta">Mostrando {{Math.min(this.perPage,this.total)}} de {{this.total}}</p></div>
-          <a v-for="item in items" v-if="authCheck" :href="'/items/'+item.id">
-            <div class="blog-post">
-              <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
-
-              <p v-if="item.retiro != null">Retirado el {{getHumanDate(item.retiro.created_at)}} por {{item.retiro.nombre}}</p>
-
-              <p class="blog-post-meta">
-
-                {{blogMeta(item)}}
-
-              </p>
-
-            </div>
+        <div v-if="total" class="container" style="text-align: right;"><p class="blog-post-meta">Mostrando {{Math.min(this.perPage,this.total)}} de {{this.total}}</p></div>
+        <div v-else class="blog-post">
+          <h2 class="blog-post-title">No se encontro nada con esas caracteristicas...</h2>
+        </div>
+        <a v-for="item in items" v-if="authCheck" :href="'/items/'+item.id">
+          <div class="blog-post" v-if="!authCheck" v-for="item in items">
+            <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
+            <p class="blog-post-meta" v-html="highlight(item)"></p>
+          </div>
         </a>
 
         <div class="blog-post" v-if="!authCheck" v-for="item in items">
               <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
-
-              <p v-if="item.retiro != null">Retirado el {{getHumanDate(item.retiro.created_at)}} por {{item.retiro.nombre}}</p>
-
-              <p class="blog-post-meta">
-
-                {{blogMeta(item)}}
-
-              </p>
-
+              <p class="blog-post-meta" v-html="highlight(item)"></p>
         </div>
 
         <paginate
@@ -38,7 +25,8 @@
             :prev-text="'Anterior'"
             :next-text="'Siguiente'"
             :container-class="'pagination'"
-            ref="paginate">
+            ref="paginate"
+            v-if="total">
 
             <span slot="prevContent"><i class="fa fa-angle-left fa-lg"></i></span>
             <span slot="nextContent"><i class="fa fa-angle-right fa-lg"></i></span>
@@ -60,6 +48,13 @@
             <li><a :class="{active : estadoActive == 'Perdidos'}" href="#" @click="addEstado('Perdidos')"><i class="fa-li fa fa-chevron-circle-right"></i>Perdidos</a></li>
             <li><a :class="{active : estadoActive == 'Encontrados'}" href="#" @click="addEstado('Encontrados')"><i class="fa-li fa fa-chevron-circle-right"></i>Encontrados</a></li>
           </ul>
+          <hr>
+          <div class="input-group">
+            <input v-model="searchQuery" type="text" class="form-control" placeholder="Buscar..." @keyup.enter="addSearch">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary btn-search" type="button" @click="addSearch"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -77,6 +72,8 @@ moment.locale('es');
                 total:0,
                 perPage:0,
                 pageCount: 1,
+                searchQuery: '',
+                searchActive:'',
                 endpoint: '/api/items?page=',
                 tagActive: 'Todos',
                 estadoActive: 'Perdidos'
@@ -93,9 +90,15 @@ moment.locale('es');
                     });
         },
 
+        watch:{
+          searchQuery: function(newVal,oldVal){
+            if (!newVal.length) this.addSearch();
+          }
+        },
+
         methods: {
             fetch(page = 1) {
-                axios.get(this.endpoint + page + '&tag=' + this.tagActive + '&estado=' + this.estadoActive)
+                axios.get(this.endpoint + page + '&tag=' + this.tagActive + '&estado=' + this.estadoActive + '&q=' + this.searchActive)
                     .then(({data}) => {
                         this.items = data.data;
                         this.pageCount = data.last_page;
@@ -104,7 +107,12 @@ moment.locale('es');
                     });
             },
             blogMeta(item){
-               return 'Lo encontro '+item.user.name+' el '+this.getHumanDate(item.created_at)+' despues de la cursada de '+item.materia.nombre+' en el laboratorio '+item.laboratorio.nombre+' de '+item.laboratorio.sede.nombre+'.'
+              var ret = '';
+              if(item.retiro){
+                ret = 'Retirado el '+this.getHumanDate(item.retiro.created_at)+' por '+item.retiro.nombre+'\n\n';
+              }
+               ret = ret + 'Lo encontro '+item.user.name+' el '+this.getHumanDate(item.created_at)+' despues de la cursada de '+item.materia.nombre+' en el laboratorio '+item.laboratorio.nombre+' de '+item.laboratorio.sede.nombre+'.';
+               return ret;
             },
             getHumanDate(date){
                 return moment(date,'YYYY-MM-DD H:m:s').format('dddd, D [de] MMMM [de] YYYY [a alrededor de las] H:mm');
@@ -116,7 +124,13 @@ moment.locale('es');
                     this.tagActive = tag;
                 }
                 this.fetch(1);
-                this.$refs.paginate.selected=0;
+                if(this.total) this.$refs.paginate.selected=0;
+                this.searchQuery = this.searchActive;
+            },
+            addSearch(){
+                this.searchActive = this.searchQuery;
+                this.fetch(1);
+                if(this.total) this.$refs.paginate.selected=0;
             },
             addEstado(estado){
                 if(estado == ''){
@@ -125,7 +139,23 @@ moment.locale('es');
                     this.estadoActive = estado;
                 }
                 this.fetch(1);
-                this.$refs.paginate.selected=0;
+                if(this.total) this.$refs.paginate.selected=0;
+                this.searchQuery = this.searchActive;
+            },
+            highlight(item) {
+                if(!this.searchActive) {
+                    return this.blogMeta(item);
+                }
+                return this.blogMeta(item).replace(new RegExp(this.searchRegular(), "gi"), (match,string) => {
+                    return '<span class="highlightText">' + match + '</span>';
+                });
+            },
+            searchRegular(){
+              return this.searchActive.replace(/\s+/g,'|').replace(new RegExp('á|a','gi'),'(á|a)')
+                                                             .replace(new RegExp('é|e','gi'),'(é|e)')
+                                                             .replace(new RegExp('í|i','gi'),'(í|i)')
+                                                             .replace(new RegExp('ó|o','gi'),'(ó|o)')
+                                                             .replace(new RegExp('ú|u','gi'),'(ú|u)');
             }
         }
     }
@@ -134,6 +164,10 @@ moment.locale('es');
 <style>
 .pagination {
     justify-content: center;
+}
+
+.highlightText{
+  background: yellow;
 }
 
 .pagination li > a {
@@ -200,6 +234,7 @@ a > .blog-post:hover {
 .blog-post-meta {
   margin-bottom: 0px;
   color: #999;
+  white-space: pre-wrap;
 }
 
 a:hover{
@@ -227,5 +262,11 @@ a.active{
 .filter-module-inset ul:last-child,
 .filter-module-inset ol:last-child {
   margin-bottom: 0;
+}
+
+.btn-search{
+  margin:0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 </style>

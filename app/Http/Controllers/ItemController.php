@@ -29,10 +29,13 @@ class ItemController extends Controller
                         ->latest()
                         ->tag(request('tag'))
                         ->estado(request('estado'))
-                        ->get()
-                        ->filter(function($item){return $item->filtrar(request('q'));});
+                        ->get();
 
-      $items = $items->paginate(15);  
+                        if(request('q')){
+                          $items = $items->filter(function($item){return $item->filtrar(request('q'));});
+                                         // ->sortByDesc(function($item){return $item->filtrar(request('q'));});
+                        }
+      $items = $items->paginate(15);             
       return json_encode($items);
    }
 

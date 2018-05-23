@@ -65727,7 +65727,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\r\n    background-color: #fafafa;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\r\n  background: #343a40;\r\n  border-radius: 0px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #343a40;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\r\n  background: #fafafa;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.highlightText{\r\n  background: yellow;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\r\n    background-color: #fafafa;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\r\n  background: #343a40;\r\n  border-radius: 0px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #343a40;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\r\n  background: #fafafa;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\r\n  white-space: pre-wrap;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\n.btn-search{\r\n  margin:0;\r\n  border-top-left-radius: 0px;\r\n  border-bottom-left-radius: 0px;\n}\r\n", ""]);
 
 // exports
 
@@ -65802,11 +65802,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
@@ -65818,6 +65813,8 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
             total: 0,
             perPage: 0,
             pageCount: 1,
+            searchQuery: '',
+            searchActive: '',
             endpoint: '/api/items?page=',
             tagActive: 'Todos',
             estadoActive: 'Perdidos'
@@ -65839,13 +65836,19 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
     },
 
 
+    watch: {
+        searchQuery: function searchQuery(newVal, oldVal) {
+            if (!newVal.length) this.addSearch();
+        }
+    },
+
     methods: {
         fetch: function fetch() {
             var _this2 = this;
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            axios.get(this.endpoint + page + '&tag=' + this.tagActive + '&estado=' + this.estadoActive).then(function (_ref2) {
+            axios.get(this.endpoint + page + '&tag=' + this.tagActive + '&estado=' + this.estadoActive + '&q=' + this.searchActive).then(function (_ref2) {
                 var data = _ref2.data;
 
                 _this2.items = data.data;
@@ -65855,7 +65858,12 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
             });
         },
         blogMeta: function blogMeta(item) {
-            return 'Lo encontro ' + item.user.name + ' el ' + this.getHumanDate(item.created_at) + ' despues de la cursada de ' + item.materia.nombre + ' en el laboratorio ' + item.laboratorio.nombre + ' de ' + item.laboratorio.sede.nombre + '.';
+            var ret = '';
+            if (item.retiro) {
+                ret = 'Retirado el ' + this.getHumanDate(item.retiro.created_at) + ' por ' + item.retiro.nombre + '\n\n';
+            }
+            ret = ret + 'Lo encontro ' + item.user.name + ' el ' + this.getHumanDate(item.created_at) + ' despues de la cursada de ' + item.materia.nombre + ' en el laboratorio ' + item.laboratorio.nombre + ' de ' + item.laboratorio.sede.nombre + '.';
+            return ret;
         },
         getHumanDate: function getHumanDate(date) {
             return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, 'YYYY-MM-DD H:m:s').format('dddd, D [de] MMMM [de] YYYY [a alrededor de las] H:mm');
@@ -65867,7 +65875,13 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 this.tagActive = tag;
             }
             this.fetch(1);
-            this.$refs.paginate.selected = 0;
+            if (this.total) this.$refs.paginate.selected = 0;
+            this.searchQuery = this.searchActive;
+        },
+        addSearch: function addSearch() {
+            this.searchActive = this.searchQuery;
+            this.fetch(1);
+            if (this.total) this.$refs.paginate.selected = 0;
         },
         addEstado: function addEstado(estado) {
             if (estado == '') {
@@ -65876,7 +65890,19 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 this.estadoActive = estado;
             }
             this.fetch(1);
-            this.$refs.paginate.selected = 0;
+            if (this.total) this.$refs.paginate.selected = 0;
+            this.searchQuery = this.searchActive;
+        },
+        highlight: function highlight(item) {
+            if (!this.searchActive) {
+                return this.blogMeta(item);
+            }
+            return this.blogMeta(item).replace(new RegExp(this.searchRegular(), "gi"), function (match, string) {
+                return '<span class="highlightText">' + match + '</span>';
+            });
+        },
+        searchRegular: function searchRegular() {
+            return this.searchActive.replace(/\s+/g, '|').replace(new RegExp('á|a', 'gi'), '(á|a)').replace(new RegExp('é|e', 'gi'), '(é|e)').replace(new RegExp('í|i', 'gi'), '(í|i)').replace(new RegExp('ó|o', 'gi'), '(ó|o)').replace(new RegExp('ú|u', 'gi'), '(ú|u)');
         }
     }
 });
@@ -66164,49 +66190,50 @@ var render = function() {
       "div",
       { staticClass: "col-sm-8" },
       [
-        _c(
-          "div",
-          { staticClass: "container", staticStyle: { "text-align": "right" } },
-          [
-            _c("p", { staticClass: "blog-post-meta" }, [
-              _vm._v(
-                "Mostrando " +
-                  _vm._s(Math.min(this.perPage, this.total)) +
-                  " de " +
-                  _vm._s(this.total)
-              )
-            ])
-          ]
-        ),
+        _vm.total
+          ? _c(
+              "div",
+              {
+                staticClass: "container",
+                staticStyle: { "text-align": "right" }
+              },
+              [
+                _c("p", { staticClass: "blog-post-meta" }, [
+                  _vm._v(
+                    "Mostrando " +
+                      _vm._s(Math.min(this.perPage, this.total)) +
+                      " de " +
+                      _vm._s(this.total)
+                  )
+                ])
+              ]
+            )
+          : _c("div", { staticClass: "blog-post" }, [
+              _c("h2", { staticClass: "blog-post-title" }, [
+                _vm._v("No se encontro nada con esas caracteristicas...")
+              ])
+            ]),
         _vm._v(" "),
         _vm._l(_vm.items, function(item) {
           return _vm.authCheck
-            ? _c("a", { attrs: { href: "/items/" + item.id } }, [
-                _c("div", { staticClass: "blog-post" }, [
-                  _c("h2", { staticClass: "blog-post-title" }, [
-                    _vm._v(_vm._s(item.tag.nombre))
-                  ]),
-                  _vm._v(" "),
-                  item.retiro != null
-                    ? _c("p", [
-                        _vm._v(
-                          "Retirado el " +
-                            _vm._s(_vm.getHumanDate(item.retiro.created_at)) +
-                            " por " +
-                            _vm._s(item.retiro.nombre)
-                        )
+            ? _c(
+                "a",
+                { attrs: { href: "/items/" + item.id } },
+                _vm._l(_vm.items, function(item) {
+                  return !_vm.authCheck
+                    ? _c("div", { staticClass: "blog-post" }, [
+                        _c("h2", { staticClass: "blog-post-title" }, [
+                          _vm._v(_vm._s(item.tag.nombre))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", {
+                          staticClass: "blog-post-meta",
+                          domProps: { innerHTML: _vm._s(_vm.highlight(item)) }
+                        })
                       ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "blog-post-meta" }, [
-                    _vm._v(
-                      "\n\n            " +
-                        _vm._s(_vm.blogMeta(item)) +
-                        "\n\n          "
-                    )
-                  ])
-                ])
-              ])
+                    : _vm._e()
+                })
+              )
             : _vm._e()
         }),
         _vm._v(" "),
@@ -66217,54 +66244,42 @@ var render = function() {
                   _vm._v(_vm._s(item.tag.nombre))
                 ]),
                 _vm._v(" "),
-                item.retiro != null
-                  ? _c("p", [
-                      _vm._v(
-                        "Retirado el " +
-                          _vm._s(_vm.getHumanDate(item.retiro.created_at)) +
-                          " por " +
-                          _vm._s(item.retiro.nombre)
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("p", { staticClass: "blog-post-meta" }, [
-                  _vm._v(
-                    "\n\n            " +
-                      _vm._s(_vm.blogMeta(item)) +
-                      "\n\n          "
-                  )
-                ])
+                _c("p", {
+                  staticClass: "blog-post-meta",
+                  domProps: { innerHTML: _vm._s(_vm.highlight(item)) }
+                })
               ])
             : _vm._e()
         }),
         _vm._v(" "),
-        _c(
-          "paginate",
-          {
-            ref: "paginate",
-            attrs: {
-              "page-count": _vm.pageCount,
-              "click-handler": _vm.fetch,
-              "prev-text": "Anterior",
-              "next-text": "Siguiente",
-              "container-class": "pagination"
-            }
-          },
-          [
-            _c(
-              "span",
-              { attrs: { slot: "prevContent" }, slot: "prevContent" },
-              [_c("i", { staticClass: "fa fa-angle-left fa-lg" })]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              { attrs: { slot: "nextContent" }, slot: "nextContent" },
-              [_c("i", { staticClass: "fa fa-angle-right fa-lg" })]
+        _vm.total
+          ? _c(
+              "paginate",
+              {
+                ref: "paginate",
+                attrs: {
+                  "page-count": _vm.pageCount,
+                  "click-handler": _vm.fetch,
+                  "prev-text": "Anterior",
+                  "next-text": "Siguiente",
+                  "container-class": "pagination"
+                }
+              },
+              [
+                _c(
+                  "span",
+                  { attrs: { slot: "prevContent" }, slot: "prevContent" },
+                  [_c("i", { staticClass: "fa fa-angle-left fa-lg" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { attrs: { slot: "nextContent" }, slot: "nextContent" },
+                  [_c("i", { staticClass: "fa fa-angle-right fa-lg" })]
+                )
+              ]
             )
-          ]
-        )
+          : _vm._e()
       ],
       2
     ),
@@ -66366,6 +66381,53 @@ var render = function() {
                 _c("i", { staticClass: "fa-li fa fa-chevron-circle-right" }),
                 _vm._v("Encontrados")
               ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchQuery,
+                expression: "searchQuery"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Buscar..." },
+            domProps: { value: _vm.searchQuery },
+            on: {
+              keyup: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.addSearch($event)
+              },
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.searchQuery = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "input-group-btn" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary btn-search",
+                attrs: { type: "button" },
+                on: { click: _vm.addSearch }
+              },
+              [_c("i", { staticClass: "fa fa-search" })]
             )
           ])
         ])
