@@ -53,6 +53,10 @@ Route::post('/retiros', 'RetiroController@store');
 Route::get('/resetPassword', 'ResetPasswordController@create');
 Route::post('/resetPassword', 'ResetPasswordController@store');
 
+Route::get('/reportes', 'ReporteController@index');
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('images/{name}', function ($name) {
         

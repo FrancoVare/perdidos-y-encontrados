@@ -10,7 +10,10 @@
               
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="@if(auth()->guard()->user()->firstLogin){{'/resetPassword'}} @else {{'/items/create'}} @endif">Nuevo Item</a>
+              <a class="nav-link" href="/items/create">Nuevo Item</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reportes">Reportes</a>
             </li>
           </ul>
 

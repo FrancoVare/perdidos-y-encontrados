@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
     		'name' => 'Franco',
             'email' => 'vare.franco@gmail.com',
             'password' => bcrypt('password'),
-            'firstLogin' => false
+            // 'firstLogin' => false
     	]);
 
 

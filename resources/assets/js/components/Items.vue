@@ -8,7 +8,7 @@
           <h2 class="blog-post-title">No se encontro nada con esas caracteristicas...</h2>
         </div>
         <a v-for="item in items" v-if="authCheck" :href="'/items/'+item.id">
-          <div class="blog-post" v-if="!authCheck" v-for="item in items">
+          <div class="blog-post" v-for="item in items">
             <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
             <p class="blog-post-meta" v-html="highlight(item)"></p>
           </div>
