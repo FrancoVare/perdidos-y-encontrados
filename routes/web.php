@@ -57,6 +57,7 @@ Route::get('/reportes', 'ReporteController@index');
 
 
 
+
 Route::middleware(['auth'])->group(function () {
     Route::get('images/{name}', function ($name) {
         

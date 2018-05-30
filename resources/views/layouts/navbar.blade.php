@@ -13,7 +13,7 @@
               <a class="nav-link" href="/items/create">Nuevo Item</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/reportes">Reportes</a>
+              <a class="nav-link" href="/reportes?atributo=tag">Reportes</a>
             </li>
           </ul>
 
