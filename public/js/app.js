@@ -66216,22 +66216,18 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.items, function(item) {
           return _vm.authCheck
-            ? _c(
-                "a",
-                { attrs: { href: "/items/" + item.id } },
-                _vm._l(_vm.items, function(item) {
-                  return _c("div", { staticClass: "blog-post" }, [
-                    _c("h2", { staticClass: "blog-post-title" }, [
-                      _vm._v(_vm._s(item.tag.nombre))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", {
-                      staticClass: "blog-post-meta",
-                      domProps: { innerHTML: _vm._s(_vm.highlight(item)) }
-                    })
-                  ])
-                })
-              )
+            ? _c("a", { attrs: { href: "/items/" + item.id } }, [
+                _c("div", { staticClass: "blog-post" }, [
+                  _c("h2", { staticClass: "blog-post-title" }, [
+                    _vm._v(_vm._s(item.tag.nombre))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", {
+                    staticClass: "blog-post-meta",
+                    domProps: { innerHTML: _vm._s(_vm.highlight(item)) }
+                  })
+                ])
+              ])
             : _vm._e()
         }),
         _vm._v(" "),
