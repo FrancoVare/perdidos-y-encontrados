@@ -68449,7 +68449,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -68468,6 +68468,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -68477,16 +68483,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        var _this = this;
-
-        axios.get('/reportes/ppa?atributo=' + this.atributo).then(function (_ref) {
-            var data = _ref.data;
-
-            _this.reportes = data;
-        });
+        this.getReporte();
     },
 
-    methods: {}
+    methods: {
+        getReporte: function getReporte() {
+            var _this = this;
+
+            axios.get('/reportes/ppa?atributo=' + this.atributo).then(function (_ref) {
+                var data = _ref.data;
+
+                _this.reportes = data;
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -68499,9 +68509,56 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "lg-card" }, [
     _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.atributo,
+            expression: "atributo"
+          }
+        ],
+        on: {
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.atributo = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            function($event) {
+              _vm.getReporte()
+            }
+          ]
+        }
+      },
+      [
+        _c("option", { attrs: { value: "tag" } }, [_vm._v("Tag")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "sede" } }, [_vm._v("Sede")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "laboratorio" } }, [
+          _vm._v("Laboratorio")
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "materia" } }, [_vm._v("Materia")])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
       "ul",
       _vm._l(_vm.reportes, function(reporte) {
-        return _c("li", [_vm._v(_vm._s(reporte))])
+        return _c("li", [
+          _vm._v(_vm._s(reporte.nombre) + ": " + _vm._s(reporte.cantidad))
+        ])
       })
     )
   ])

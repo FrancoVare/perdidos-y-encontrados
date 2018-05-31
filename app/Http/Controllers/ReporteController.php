@@ -48,7 +48,7 @@ class ReporteController extends Controller
 	    	});
     	}
     	
-    	$items = $items->map(function($atributo){return $atributo->count();});
+    	$items = $items->map(function($atributo, $key){return ['cantidad' => $atributo->count(),'nombre'=>$key];});
       	return $items;
     }
 
