@@ -1,27 +1,39 @@
-<template>
-<div class="lg-card">
-    <select v-model="atributo" @change="getReporte()">
-        <option value="tag">Tag</option>
-        <option value="sede">Sede</option>
-        <option value="laboratorio">Laboratorio</option>
-        <option value="materia">Materia</option>
-    </select>
-<ul>
-    <li v-for="reporte in reportes">{{reporte.nombre}}: {{reporte.cantidad}}</li>
-</ul>
-</div>
-</template>
-
 <script>
+import { HorizontalBar,mixins } from 'vue-chartjs'
     export default {
-
+        extends: HorizontalBar,
+        props: ['atributo'],
+        mixins:[mixins.reactiveData],
         data() {
             return {
                 reportes: [],
-                atributo: 'tag',
+                options: {
+                    responsive:true,
+                    scales : {
+                        xAxes : [{
+                            ticks : {
+                                beginAtZero : true
+                            }   
+                        }],
+                        yAxes: [{
+                            stacked: false,
+                            categoryPercentage:0.5,
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }]
+                    }},
             };
         },
-
+        mounted () {
+            // Overwriting base render method with actual data.
+            this.renderChart(this.chartData,this.options);
+        },
+        watch:{
+            atributo(){
+                this.getReporte();
+            }
+        },
         created() {
             this.getReporte();
         },
@@ -29,13 +41,23 @@
             getReporte(){
                 axios.get('/reportes/ppa?atributo=' + this.atributo)
                     .then(({data}) => {
-                        this.reportes = data;
+                        this.reportes = Object.values(data);
+                        this.chartData = {
+                                  labels: this.reportes.map(function(reporte){return reporte.nombre;}),
+                                  datasets: [{
+                                                      label: 'Objetos perdidos por ' + this.atributo,
+                                                      backgroundColor: '#6c757d',
+                                                      borderColor: '#000000',
+                                                      borderWidth: '4',
+                                                      data: this.reportes.map(function(reporte){return reporte.cantidad;})
+                                                     }]
+                                };
                     });
-            }
+            },
         }
     }
 </script>
-
+<!-- 
 <style>
 
-</style>
+</style> -->

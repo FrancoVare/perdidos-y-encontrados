@@ -49,11 +49,20 @@ class ReporteController extends Controller
     	}
     	
     	$items = $items->map(function($atributo, $key){return ['cantidad' => $atributo->count(),'nombre'=>$key];});
+    	// dd($items);
       	return $items;
     }
 
     public function perdidoPorDia()
     {
     	//TODO: hacer para mes tambien?
+    }
+
+    public function perdidoEncontrado()
+    {
+    	$perdidos = Item::has('retiro','<',1)->count();
+    	$encontrados = Item::has('retiro')->count();
+
+    	return [['Perdidos',$perdidos],['Encontrados',$encontrados]];
     }
 }
