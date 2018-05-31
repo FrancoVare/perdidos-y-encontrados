@@ -54,6 +54,8 @@ Route::get('/resetPassword', 'ResetPasswordController@create');
 Route::post('/resetPassword', 'ResetPasswordController@store');
 
 Route::get('/reportes', 'ReporteController@index');
+Route::get('/reportes/ptp', 'ReporteController@promedioTiempoPerdido');
+Route::get('/reportes/ppa', 'ReporteController@perdidosPorAtributo');
 
 
 

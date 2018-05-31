@@ -15,9 +15,7 @@ class ReporteController extends Controller
 
     public function index()
     {  
-    	$ptp = $this->promedioTiempoPerdido();
-    	$ppa = $this->perdidoPorAtributo(request('atributo'));
-      	return view('reportes.index')->with(compact('ptp','ppa'));
+      	return view('reportes.index');
     }
 
     public function promedioTiempoPerdido()
@@ -31,13 +29,14 @@ class ReporteController extends Controller
       	return $reporte;
     }
 
-    public function perdidoPorAtributo($atributo)
+    public function perdidosPorAtributo()
     {  
     	//atributos validos:
     	//laboratorio
     	//sede
     	//tag
     	//materia
+    	$atributo = request('atributo');
     	$items = Item::all();
     	if($atributo == 'sede'){
     		$items = $items->groupBy(function($item){

@@ -43,6 +43,8 @@ Vue.component('registro-item',require('./components/RegistroItem.vue'));
 Vue.component('flash',require('./components/Flash.vue'));
 Vue.component('retiro',require('./components/Retiro.vue'));
 Vue.component('uploader',require('./components/Uploader.vue'));
+Vue.component('ptp',require('./components/ReportePromedioTiempoPerdido.vue'));
+Vue.component('ppa',require('./components/ReportePerdidosPorAtributo.vue'));
 
 
 const app = new Vue({
