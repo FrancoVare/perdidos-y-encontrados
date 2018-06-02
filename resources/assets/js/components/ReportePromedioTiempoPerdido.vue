@@ -1,6 +1,8 @@
 <template>
-<div class="lg-card">
-    En un total de {{this.reporte.cantidad}} items, el promedio de tiempo que permanecen perdidos es de {{this.reporte.promedio}} dias.
+<div class="lg-card" style="text-align: center">
+  <h3>Promedio de tiempo perdido</h3>
+  <hr>
+    <h1>{{this.reporte.promedio}} dias</h1>
 </div>
 </template>
 

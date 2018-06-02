@@ -9,6 +9,9 @@ import { HorizontalBar,mixins } from 'vue-chartjs'
                 reportes: [],
                 options: {
                     responsive:true,
+                    legend: {
+                        display: false
+                    },
                     scales : {
                         xAxes : [{
                             ticks : {

@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
         setlocale(LC_TIME, 'Spanish');
         Carbon::setLocale('es');
         Carbon::setUtf8(true);
-        
         if (!Collection::hasMacro('paginate')) {
 
         Collection::macro('paginate', 

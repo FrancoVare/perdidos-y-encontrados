@@ -31693,15 +31693,15 @@ module.exports = Cancel;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_index_js__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__BaseCharts__ = __webpack_require__(238);
 /* unused harmony reexport Bar */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["d"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["c"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["d"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["c"]; });
 /* unused harmony reexport Line */
 /* unused harmony reexport Pie */
 /* unused harmony reexport PolarArea */
 /* unused harmony reexport Radar */
-/* unused harmony reexport Bubble */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__BaseCharts__["b"]; });
 /* unused harmony reexport Scatter */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__mixins_index_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_0__mixins_index_js__["a"]; });
 /* unused harmony reexport generateChart */
 
 
@@ -33079,6 +33079,7 @@ Vue.component('uploader', __webpack_require__(225));
 Vue.component('ptp', __webpack_require__(230));
 Vue.component('ppa', __webpack_require__(235));
 Vue.component('pe', __webpack_require__(285));
+Vue.component('ppd', __webpack_require__(302));
 Vue.component('reportes', __webpack_require__(287));
 
 var app = new Vue({
@@ -70637,7 +70638,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -70648,6 +70649,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -70682,15 +70685,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "lg-card" }, [
-    _vm._v(
-      "\r\n    En un total de " +
-        _vm._s(this.reporte.cantidad) +
-        " items, el promedio de tiempo que permanecen perdidos es de " +
-        _vm._s(this.reporte.promedio) +
-        " dias.\r\n"
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "lg-card", staticStyle: { "text-align": "center" } },
+    [
+      _c("h3", [_vm._v("Promedio de tiempo perdido")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h1", [_vm._v(_vm._s(this.reporte.promedio) + " dias")])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70759,14 +70764,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["b" /* HorizontalBar */],
+    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["c" /* HorizontalBar */],
     props: ['atributo'],
-    mixins: [__WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["c" /* mixins */].reactiveData],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["d" /* mixins */].reactiveData],
     data: function data() {
         return {
             reportes: [],
             options: {
                 responsive: true,
+                legend: {
+                    display: false
+                },
                 scales: {
                     xAxes: [{
                         ticks: {
@@ -83411,7 +83419,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["a" /* Doughnut */],
+    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["b" /* Doughnut */],
     data: function data() {
         return {
             reportes: [],
@@ -83539,7 +83547,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -83550,6 +83558,23 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -83605,78 +83630,115 @@ var render = function() {
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-sm-1" }),
     _vm._v(" "),
-    _c("div", { staticClass: "col-sm-10" }, [
-      _c("div", { staticClass: "row" }, [
-        _c(
-          "div",
-          { staticClass: "col-sm-6" },
-          [
-            _c("ptp"),
-            _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-sm-10" },
+      [
+        _c("ptp"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
             _c(
               "div",
               {
                 staticClass: "lg-card",
-                staticStyle: { "text-align": "right" }
+                staticStyle: { "text-align": "center" }
               },
               [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.atributoSeleccionado,
-                        expression: "atributoSeleccionado"
+                _c("div", { staticStyle: { display: "flex" } }, [
+                  _c("h3", { staticStyle: { "margin-right": "10px" } }, [
+                    _vm._v("Objetos perdidos por")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.atributoSeleccionado,
+                          expression: "atributoSeleccionado"
+                        }
+                      ],
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.atributoSeleccionado = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    ],
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.atributoSeleccionado = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "tag" } }, [_vm._v("Tag")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "materia" } }, [
-                      _vm._v("Materia")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "sede" } }, [
-                      _vm._v("Sede")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "laboratorio" } }, [
-                      _vm._v("Laboratorio")
-                    ])
-                  ]
-                ),
+                    },
+                    [
+                      _c("option", { attrs: { value: "tag" } }, [
+                        _vm._v("Tag")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "materia" } }, [
+                        _vm._v("Materia")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "sede" } }, [
+                        _vm._v("Sede")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "laboratorio" } }, [
+                        _vm._v("Laboratorio")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("ppa", { attrs: { atributo: _vm.atributoSeleccionado } })
               ],
               1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c(
+              "div",
+              {
+                staticClass: "lg-card",
+                staticStyle: { "text-align": "center" }
+              },
+              [
+                _c("h3", [_vm._v("Perdidos y encontrados")]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("pe")
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "lg-card", staticStyle: { "text-align": "center" } },
+          [
+            _c("h3", [_vm._v("Perdidos por dia")]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("ppd")
           ],
           1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c("div", { staticClass: "lg-card" }, [_c("pe")], 1)
-        ])
-      ])
-    ])
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -83694,6 +83756,226 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(303)
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ReportePerdidosPorDia.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e07acce", Component.options)
+  } else {
+    hotAPI.reload("data-v-2e07acce", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 303 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__ = __webpack_require__(146);
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    extends: __WEBPACK_IMPORTED_MODULE_0_vue_chartjs__["a" /* Bubble */],
+    data: function data() {
+        return {
+            reportes: [],
+            chartData: { labels: [], datasets: [] },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                layout: {
+                    padding: {
+                        top: 21,
+                        right: 21
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 23,
+                            callback: function callback(value, index, values) {
+                                if (value == -1) return '';
+                                return value + 'hs';
+                            },
+                            autoSkip: false,
+                            fixedStepSize: 1,
+                            padding: 15
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            // offsetGridLines:true,
+                        },
+                        ticks: {
+                            min: 1,
+                            max: 7,
+                            reverse: true,
+                            callback: function callback(value, index, values) {
+                                var ret = '';
+                                switch (value) {
+                                    case 1:
+                                        ret = 'Lunes';
+                                        break;
+                                    case 2:
+                                        ret = 'Martes';
+                                        break;
+                                    case 3:
+                                        ret = 'Miércoles';
+                                        break;
+                                    case 4:
+                                        ret = 'Jueves';
+                                        break;
+                                    case 5:
+                                        ret = 'Viernes';
+                                        break;
+                                    case 6:
+                                        ret = 'Sábado';
+                                        break;
+                                    case 7:
+                                        ret = 'Domingo';
+                                        break;
+                                }
+                                return ret;
+                            },
+                            autoSkip: false,
+                            fixedStepSize: 1,
+                            padding: 15
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function label(item, data) {
+                            var text = data.datasets[item.datasetIndex].data[item.index].value;
+                            var ret = '';
+                            switch (data.datasets[item.datasetIndex].data[item.index].y) {
+                                case 1:
+                                    ret = 'Lunes';
+                                    break;
+                                case 2:
+                                    ret = 'Martes';
+                                    break;
+                                case 3:
+                                    ret = 'Miércoles';
+                                    break;
+                                case 4:
+                                    ret = 'Jueves';
+                                    break;
+                                case 5:
+                                    ret = 'Viernes';
+                                    break;
+                                case 6:
+                                    ret = 'Sábado';
+                                    break;
+                                case 7:
+                                    ret = 'Domingo';
+                                    break;
+                            }
+                            if (text > 1) text = text + ' objetos perdidos, ';else text = text + ' objeto perdido, ';
+                            return ' ' + text + ' ' + ret + ' ' + data.datasets[item.datasetIndex].data[item.index].x + 'hs';
+                        }
+                    }
+                },
+                elements: {
+                    point: {
+                        radius: function radius(context) {
+                            var circGrande = context.chart.width / 50.0 - 1;
+                            var circChico = circGrande / 4.0;
+                            var maxValue = Math.max.apply(Math, context.dataset.data.map(function (x) {
+                                return x.value;
+                            }));
+                            var a = (circGrande - circChico) / (maxValue - 1);
+                            var b = circChico - a;
+                            return context.dataset.data[context.dataIndex].value * a + b;
+                        }
+                    }
+                }
+            }
+        };
+    },
+    mounted: function mounted() {
+        // // Overwriting base render method with actual data.
+        // this.renderChart(this.chartData);
+    },
+
+    watch: {},
+    created: function created() {
+        this.getReporte();
+    },
+
+    methods: {
+        getReporte: function getReporte() {
+            var _this = this;
+
+            axios.get('/reportes/ppd').then(function (_ref) {
+                var data = _ref.data;
+
+                _this.reportes = data;
+                _this.chartData = {
+                    labels: 'Perdidos por dia',
+                    datasets: [{
+                        label: ['Perdidos por dia'],
+                        data: _this.reportes,
+                        backgroundColor: 'red'
+                    }]
+                };
+                _this.renderChart(_this.chartData, _this.options);
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

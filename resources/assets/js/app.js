@@ -46,6 +46,7 @@ Vue.component('uploader',require('./components/Uploader.vue'));
 Vue.component('ptp',require('./components/ReportePromedioTiempoPerdido.vue'));
 Vue.component('ppa',require('./components/ReportePerdidosPorAtributo.vue'));
 Vue.component('pe',require('./components/ReportePerdidoEncontrado.vue'));
+Vue.component('ppd',require('./components/ReportePerdidosPorDia.vue'));
 Vue.component('reportes',require('./components/Reportes.vue'));
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use Carbon\Carbon;
 
 class ReporteController extends Controller
 {
@@ -55,7 +56,22 @@ class ReporteController extends Controller
 
     public function perdidoPorDia()
     {
-    	//TODO: hacer para mes tambien?
+    	$items = Item::all();
+    	$items = $items->groupBy(function($item){
+    		$ret = $item->created_at->dayOfWeek;
+    		if($ret == 0) return 7;
+    		else return $ret;
+    	})->sortBy(function($item,$key){return $key;})
+    	  ->map(function($items,$key){
+    		return [collect([$key]),$items->groupBy(function($item){
+    			return $item->created_at->hour;
+    		})->map(function($it,$key){return [$key,$it->count()];})
+    			->sortBy(function($item,$key){return $key;})];
+    	});
+    	$items = $items->map(function($item){
+    		return $item[0]->crossJoin($item[1])->map(function($i){return collect($i)->flatten();});
+    	})->collapse()->map(function($item){return collect(['y','x','value'])->combine($item);})->toArray();
+    	return $items;
     }
 
     public function perdidoEncontrado()
