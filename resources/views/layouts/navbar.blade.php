@@ -20,13 +20,13 @@
           <ul class="navbar-nav ml-auto" style="margin-right: 30px">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <div class="dropdown-menu" aria-labelledby="dropdown01" style="left: -120px;">
                   <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">Logout</a>
                   <a class="dropdown-item" href="/resetPassword">Cambiar Contraseña</a>
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="@if(auth()->guard()->user()->firstLogin){{'/resetPassword'}} @else {{route('register')}} @endif">Registrar</a>
+                <a style="display: @if(!auth()->guard()->user()->esAdmin){{'none'}} @else {{'inherit'}} @endif" class="nav-link" href="{{route('register')}}">Registrar</a>
               </li>
               <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                   {{ csrf_field() }}

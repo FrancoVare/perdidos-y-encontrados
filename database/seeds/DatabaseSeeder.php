@@ -24,8 +24,14 @@ class DatabaseSeeder extends Seeder
     		'name' => 'Franco',
             'email' => 'vare.franco@gmail.com',
             'password' => bcrypt('password'),
-            // 'firstLogin' => false
+            'esAdmin' => true
     	]);
+
+        User::create([
+            'name' => 'Carlitox',
+            'email' => 'carli@to.x',
+            'password' => bcrypt('password'),
+        ]);
 
 
         Materia::create([

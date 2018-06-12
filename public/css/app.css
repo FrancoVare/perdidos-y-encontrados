@@ -3053,6 +3053,10 @@
   clip: auto;
 }
 
+.dropdown-item:active {
+  background: lightgrey;
+}
+
 .lf-back {
   height: 100vh;
   width: 75vw;

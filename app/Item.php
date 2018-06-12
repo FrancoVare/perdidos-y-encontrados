@@ -114,6 +114,26 @@ class Item extends Model
         
     }
 
+    public function scopeMateria($query,$materia)
+    {
+        if($materia == 'Todas'){
+            return $query;
+        } else {
+            return $query->where('materia_id','=',Materia::where('nombre','=',$materia)->first()->id);
+        }
+        
+    }
+
+    public function scopeLaboratorio($query,$laboratorio)
+    {
+        if($laboratorio == 'Todos'){
+            return $query;
+        } else {
+            return $query->where('laboratorio_id','=',Laboratorio::where('nombre','=',$laboratorio)->first()->id);
+        }
+        
+    }
+
     public function scopeTag($query,$tag)
     {
         if($tag == 'Todos'){

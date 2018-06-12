@@ -9,7 +9,7 @@ class MateriaController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware(['auth','first-login']);
+        return $this->middleware(['auth','first-login'])->except('apiMaterias');
     }
 
     public function apiMaterias()

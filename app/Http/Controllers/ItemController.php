@@ -29,10 +29,16 @@ class ItemController extends Controller
                         ->latest()
                         ->tag(request('tag'))
                         ->estado(request('estado'))
+                        ->materia(request('materia'))
+                        ->laboratorio(request('laboratorio'))
                         ->get();
-
                         if(request('q')){
                           $items = $items->filter(function($item){return $item->filtrar(request('q'));});
+                                         // ->sortByDesc(function($item){return $item->filtrar(request('q'));});
+                        }
+
+                        if(request('sede') != 'Todas'){
+                          $items = $items->filter(function($item){return $item->laboratorio->sede->nombre == request('sede');});
                                          // ->sortByDesc(function($item){return $item->filtrar(request('q'));});
                         }
       $items = $items->paginate(15);             

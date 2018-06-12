@@ -10,7 +10,7 @@ class LaboratorioController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware(['auth','first-login']);
+        return $this->middleware(['auth','first-login'])->except('apiLaboratorios');
     }
 
     public function index()

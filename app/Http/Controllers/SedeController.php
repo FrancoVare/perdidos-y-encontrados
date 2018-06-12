@@ -9,7 +9,7 @@ class SedeController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware(['auth','first-login']);
+        return $this->middleware(['auth','first-login'])->except('apiSedes');
     }
 
     public function index()
