@@ -3062,6 +3062,7 @@
   width: 75vw;
   position: fixed;
   z-index: 0;
+  top: 0;
   background: #343a40;
   margin-left: 12.5vw;
   border-left: black solid 5px;
@@ -3107,11 +3108,10 @@
 }
 
 #app {
-  margin-top: 50px;
+  margin-top: 180px;
 }
 
 body {
-  padding-top: 56px;
   background: #fafafa;
 }
 
@@ -3170,5 +3170,47 @@ a:hover {
 .filter-module-inset ul:last-child,
 .filter-module-inset ol:last-child {
   margin-bottom: 0;
+}
+
+.fl-page {
+  position: relative;
+  min-height: 87vh;
+  padding-bottom: 55px;
+  /* Should be equal to the height of your footer */
+}
+
+.fl-page-footer-wrap {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  color: gray;
+}
+
+@media (max-width: 767px) {
+  .fl-page {
+    padding-bottom: 85px;
+  }
+}
+
+#top-logo {
+  background: url(/images/logo_disi.png) 50% 0 no-repeat !important;
+  width: 396px;
+  height: 77px;
+  display: block;
+  margin: 0 25px;
+}
+
+.top-container {
+  padding: 15px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 107px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background: white;
+  z-index: 10;
 }
 

@@ -1,4 +1,7 @@
-<div class="navbar navbar-expand-md navbar-dark fixed-top" style="background: #24292d">
+<div class="top-container">
+  <a href="/" id="top-logo"></a>
+</div>
+<div class="navbar navbar-expand-md navbar-dark" style="background: #24292d;position: fixed;width: 100%;top:107px; z-index: 10">
       <a class="navbar-brand" href="/">Lost & Found</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
