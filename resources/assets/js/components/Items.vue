@@ -350,6 +350,10 @@ select option{
   color: gray;
 }
 
+select option:hover{
+  cursor:pointer;
+}
+
 hr{
   margin:0;
 }

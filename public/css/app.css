@@ -3062,7 +3062,7 @@
   width: 75vw;
   position: fixed;
   z-index: 0;
-  top: 0;
+  top: 0px;
   background: #343a40;
   margin-left: 12.5vw;
   border-left: black solid 5px;
@@ -3174,7 +3174,7 @@ a:hover {
 
 .fl-page {
   position: relative;
-  min-height: 87vh;
+  min-height: 80vh;
   padding-bottom: 55px;
   /* Should be equal to the height of your footer */
 }
@@ -3212,5 +3212,30 @@ a:hover {
   top: 0;
   background: white;
   z-index: 10;
+}
+
+.top-social {
+  float: right;
+  margin: 0;
+}
+
+.top-btn {
+  color: white;
+  background: #E10A30;
+  margin: 2px;
+  border-radius: 3px;
+  float: left;
+  font-size: 1em;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.top-btn:hover {
+  background: #c9092b;
+  color: white;
 }
 

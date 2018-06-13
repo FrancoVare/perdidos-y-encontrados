@@ -1,5 +1,22 @@
 <div class="top-container">
-  <a href="/" id="top-logo"></a>
+  <div class="row" style="width: 100%">
+    <div class="col-sm-6">
+      <a href="http://www.sistemas.frba.utn.edu.ar/" id="top-logo"></a>
+    </div>
+    <div class="col-sm-6">
+      <div class="top-social">
+        <a class="top-btn" href="https://twitter.com/disifrba" target="_blank">
+          <span class="fa fa-twitter"></span>
+        </a>
+        <a class="top-btn" href="http://www.linkedin.com/pub/prensa-utn-buenos-aires/2b/1a3/967" target="_blank">
+          <span class="fa fa-linkedin"></span>
+        </a>
+        <a class="top-btn" href="https://www.youtube.com/user/utnbuenosaires1" target="_blank">
+          <span class="fa fa-youtube"></span>
+        </a>
+      </div>
+    </div>
+  </div>      
 </div>
 <div class="navbar navbar-expand-md navbar-dark" style="background: #24292d;position: fixed;width: 100%;top:107px; z-index: 10">
       <a class="navbar-brand" href="/">Lost & Found</a>
