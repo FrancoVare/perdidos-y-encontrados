@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-      <div class="col-sm-1"></div>
+      <div class="col-sm-1"><pes id="reporte"></pes></div>
 
       <div class="col-sm-8">
         <div v-if="total" class="container" style="text-align: right;"><p class="blog-post-meta">Mostrando {{Math.min(this.perPage,this.total)}} de {{this.total}}</p></div>
@@ -9,13 +9,13 @@
         </div>
         <a v-for="item in items" v-if="authCheck" :href="'/items/'+item.id">
           <div class="blog-post">
-            <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
+            <h3 class="blog-post-title">{{itemTitle(item)}}</h3>
             <p class="blog-post-meta" v-html="highlight(item)"></p>
           </div>
         </a>
 
         <div class="blog-post" v-if="!authCheck" v-for="item in items">
-              <h2 class="blog-post-title">{{item.tag.nombre}}</h2>
+              <h3 class="blog-post-title">{{itemTitle(item)}}</h3>
               <p class="blog-post-meta" v-html="highlight(item)"></p>
         </div>
 
@@ -71,8 +71,8 @@
           <hr>
           <h4>Estado</h4>
           <select size="2" v-model="estadoActive" @change="fetchChangeSelect()">
-            <option>Perdidos</option>
             <option>Encontrados</option>
+            <option>Perdidos</option>
           </select>
           <div class="input-group">
             <input v-model="searchQuery" type="text" class="form-control" placeholder="Buscar..." @keyup.enter="addSearch">
@@ -117,19 +117,43 @@ moment.locale('es');
             this.fetch();
             axios.get('/api/tags?side=1')
                     .then(({data}) => {
-                        this.tags = data;
+                        this.tags = data.sort(function compare(a,b) {
+                                              if (a.nombre < b.nombre)
+                                                return -1;
+                                              if (a.nombre > b.nombre)
+                                                return 1;
+                                              return 0;
+                                            });
                     });
             axios.get('/api/materias')
                     .then(({data}) => {
-                        this.materias = data;
+                        this.materias = data.sort(function compare(a,b) {
+                                              if (a.nombre < b.nombre)
+                                                return -1;
+                                              if (a.nombre > b.nombre)
+                                                return 1;
+                                              return 0;
+                                            });
                     });
             axios.get('/api/laboratorios')
                     .then(({data}) => {
-                        this.laboratorios = data;
+                        this.laboratorios = data.sort(function compare(a,b) {
+                                              if (a.nombre < b.nombre)
+                                                return -1;
+                                              if (a.nombre > b.nombre)
+                                                return 1;
+                                              return 0;
+                                            });
                     });
             axios.get('/api/sedes')
                     .then(({data}) => {
-                        this.sedes = data;
+                        this.sedes = data.sort(function compare(a,b) {
+                                              if (a.nombre < b.nombre)
+                                                return -1;
+                                              if (a.nombre > b.nombre)
+                                                return 1;
+                                              return 0;
+                                            });
                     });
         },
 
@@ -154,6 +178,21 @@ moment.locale('es');
                         this.total = data.total;
                         this.perPage = data.to - data.from + 1;
                     });
+            },
+            itemTitle(item){
+              var man1 = moment('7:45','HH:mm');
+              var man2 = moment('13:15','HH:mm');
+              var tar1 = moment('13:30','HH:mm');
+              var tar2 = moment('19:00','HH:mm');
+              var noc1 = moment('18:15','HH:mm');
+              var noc2 = moment('23:00','HH:mm');
+              var itemTime = moment(moment(item.created_at).format('HH:mm'),'HH:mm');
+              var turno = itemTime.format('HH:mm');
+              if(itemTime.isBetween(man1,man2)) turno = 'Mañana';
+              if(itemTime.isBetween(tar1,tar2)) turno = 'Tarde';
+              if(itemTime.isBetween(noc1,noc2)) turno = 'Noche';
+              
+              return item.tag.nombre + ' - ' +moment(item.created_at).format('D/M/YY') + ' - ' + turno;
             },
             fetchSede(){
               this.laboratorioActive = 'Todos';
@@ -356,5 +395,16 @@ select option:hover{
 
 hr{
   margin:0;
+}
+
+h3{
+  text-align: center;
+}
+
+#reporte{
+  width: 150px;
+  position:fixed;
+  top: 195px;
+  left:30px;
 }
 </style>

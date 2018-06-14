@@ -58,7 +58,7 @@ Route::get('/reportes/ptp', 'ReporteController@promedioTiempoPerdido');
 Route::get('/reportes/ppa', 'ReporteController@perdidosPorAtributo');
 Route::get('/reportes/pe', 'ReporteController@perdidoEncontrado');
 Route::get('/reportes/ppd', 'ReporteController@perdidoPorDia');
-
+Route::get('/reportes/pes', 'ReporteController@perdidoEncontradoSemana');
 
 
 

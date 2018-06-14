@@ -10,7 +10,7 @@ class ReporteController extends Controller
 {
     public function __construct()
    	{
-   		return $this->middleware(['first-login','auth']);
+   		return $this->middleware(['first-login','auth'])->except('perdidoEncontradoSemana');
    	}
 
 
@@ -80,5 +80,21 @@ class ReporteController extends Controller
     	$encontrados = Item::has('retiro')->count();
 
     	return [['Perdidos',$perdidos],['Encontrados',$encontrados]];
+    }
+
+    public function perdidoEncontradoSemana()
+    {
+        $perdidos = Item::all();
+        $encontrados = Item::has('retiro')->get();
+
+        $perdidos = $perdidos->filter(function($p){
+            return $p->created_at->between(Carbon::now(),Carbon::now()->subDays(7));
+        });
+
+        $encontrados = $encontrados->filter(function($p){
+            return $p->retiro->created_at->between(Carbon::now(),Carbon::now()->subDays(7));
+        });
+
+        return [['Perdidos',$perdidos->count()],['Encontrados',$encontrados->count()]];
     }
 }

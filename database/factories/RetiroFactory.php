@@ -9,7 +9,7 @@ $factory->define(Retiro::class, function (Faker $faker) {
     		'tipoDoc' => 'DNI',  
     		'numeroDoc' => mt_rand(10000000, 99999999),   
     		'laboratorio_id' => $faker->numberBetween(1,7),   
-    		'item_id' => $faker->numberBetween(1,120),     
+    		'item_id' => $faker->numberBetween(1,24),     
     		'user_id' => 1,
             'email' => $faker->safeEmail,
             'foto_retiro' => 'seed/Malfurion.png',

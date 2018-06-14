@@ -33080,6 +33080,7 @@ Vue.component('ptp', __webpack_require__(230));
 Vue.component('ppa', __webpack_require__(235));
 Vue.component('pe', __webpack_require__(285));
 Vue.component('ppd', __webpack_require__(287));
+Vue.component('pes', __webpack_require__(304));
 Vue.component('reportes', __webpack_require__(289));
 
 var app = new Vue({
@@ -68084,7 +68085,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.highlightText{\r\n  background: yellow;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\r\n    background-color: #fafafa;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\r\n  background: #343a40;\r\n  border-radius: 0px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #343a40;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\r\n  background: #fafafa;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\r\n  white-space: pre-wrap;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\n.btn-search{\r\n  margin:0;\r\n  border-top-left-radius: 0px;\r\n  border-bottom-left-radius: 0px;\n}\nselect {\r\n  border: 0;\r\n  background: #f0f0f0;\r\n  width:100%;\n}\nselect::-webkit-scrollbar {\r\n    width: .5em;\n}\nselect::-webkit-scrollbar-thumb {\r\n  background-color: darkgrey;\r\n  outline: 1px solid slategrey;\r\n  border-radius: 5px;\n}\nselect:focus{\r\n  outline:none;\n}\nselect option:checked{ \r\n  -webkit-box-shadow: 0 0 0 15px lightgreen inset; \r\n          box-shadow: 0 0 0 15px lightgreen inset;\r\n  color:red;\n}\nselect option{\r\n  color: gray;\n}\nselect option:hover{\r\n  cursor:pointer;\n}\nhr{\r\n  margin:0;\n}\r\n", ""]);
+exports.push([module.i, "\n.pagination {\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\n}\n.highlightText{\r\n  background: yellow;\n}\n.pagination li > a {\r\n    color: black;\r\n    float: left;\r\n    padding: 8px 16px;\r\n    text-decoration: none;\r\n    border-radius: 5px;\n}\n.pagination li {\r\n    color: white;\r\n    border-radius: 5px;\r\n    -webkit-box-shadow: 0 0 3px black;\r\n            box-shadow: 0 0 3px black;\r\n    margin: 3px;\r\n    background-color: #fafafa;\n}\n.pagination li.active {\r\n    background-color: #4b4b4b;\r\n    -webkit-text-decoration-color: white;\r\n            text-decoration-color: white;\r\n    border-radius: 5px;\n}\n.pagination li.disabled {\r\n  -webkit-box-shadow: none;\r\n          box-shadow: none;\n}\n.pagination li.disabled > a{\r\n  cursor: default;\r\n  background: #343a40;\r\n  border-radius: 0px;\n}\n.pagination li.active > a {\r\n    color: white;\n}\n.pagination li > a:hover:not(.active) {\r\n    background-color: #ddd;\n}\n.pagination li.disabled > a:hover:not(.active) {\r\n    background-color: #343a40;\n}\n.blog-post {\r\n  margin-bottom:30px;\r\n  padding:15px;\r\n  border-radius: 15px;\r\n  -webkit-box-shadow: 0 0 3px black;\r\n          box-shadow: 0 0 3px black;\r\n  background: #fafafa;\n}\na > .blog-post:hover {\r\n  background-color: #434343;\n}\n.blog-post-title {\r\n  margin-bottom: 5px;\r\n  font-size: 40px;\n}\n.blog-post-meta {\r\n  margin-bottom: 0px;\r\n  color: #999;\r\n  white-space: pre-wrap;\n}\na:hover{\r\n  color:#999999;\r\n  text-decoration: none;\n}\na.active{\r\n    border-radius: 5px;\r\n  -webkit-box-shadow: 0 0 5px green;\r\n          box-shadow: 0 0 5px green;\r\n  background-color: #bef7b7;\n}\r\n\r\n/* Sidebar modules for boxing content */\n.filter-module {\r\n  padding: 15px;\r\n  position: fixed;\n}\n.filter-module-inset {\r\n  padding: 15px;\r\n  background-color: #f0f0f0;\r\n  border-radius: 15px;\n}\n.filter-module-inset p:last-child,\r\n.filter-module-inset ul:last-child,\r\n.filter-module-inset ol:last-child {\r\n  margin-bottom: 0;\n}\n.btn-search{\r\n  margin:0;\r\n  border-top-left-radius: 0px;\r\n  border-bottom-left-radius: 0px;\n}\nselect {\r\n  border: 0;\r\n  background: #f0f0f0;\r\n  width:100%;\n}\nselect::-webkit-scrollbar {\r\n    width: .5em;\n}\nselect::-webkit-scrollbar-thumb {\r\n  background-color: darkgrey;\r\n  outline: 1px solid slategrey;\r\n  border-radius: 5px;\n}\nselect:focus{\r\n  outline:none;\n}\nselect option:checked{ \r\n  -webkit-box-shadow: 0 0 0 15px lightgreen inset; \r\n          box-shadow: 0 0 0 15px lightgreen inset;\r\n  color:red;\n}\nselect option{\r\n  color: gray;\n}\nselect option:hover{\r\n  cursor:pointer;\n}\nhr{\r\n  margin:0;\n}\nh3{\r\n  text-align: center;\n}\n#reporte{\r\n  width: 150px;\r\n  position:fixed;\r\n  top: 195px;\r\n  left:30px;\n}\r\n", ""]);
 
 // exports
 
@@ -68219,22 +68220,38 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
         axios.get('/api/tags?side=1').then(function (_ref) {
             var data = _ref.data;
 
-            _this.tags = data;
+            _this.tags = data.sort(function compare(a, b) {
+                if (a.nombre < b.nombre) return -1;
+                if (a.nombre > b.nombre) return 1;
+                return 0;
+            });
         });
         axios.get('/api/materias').then(function (_ref2) {
             var data = _ref2.data;
 
-            _this.materias = data;
+            _this.materias = data.sort(function compare(a, b) {
+                if (a.nombre < b.nombre) return -1;
+                if (a.nombre > b.nombre) return 1;
+                return 0;
+            });
         });
         axios.get('/api/laboratorios').then(function (_ref3) {
             var data = _ref3.data;
 
-            _this.laboratorios = data;
+            _this.laboratorios = data.sort(function compare(a, b) {
+                if (a.nombre < b.nombre) return -1;
+                if (a.nombre > b.nombre) return 1;
+                return 0;
+            });
         });
         axios.get('/api/sedes').then(function (_ref4) {
             var data = _ref4.data;
 
-            _this.sedes = data;
+            _this.sedes = data.sort(function compare(a, b) {
+                if (a.nombre < b.nombre) return -1;
+                if (a.nombre > b.nombre) return 1;
+                return 0;
+            });
         });
     },
 
@@ -68259,6 +68276,21 @@ __WEBPACK_IMPORTED_MODULE_0_moment___default.a.locale('es');
                 _this2.total = data.total;
                 _this2.perPage = data.to - data.from + 1;
             });
+        },
+        itemTitle: function itemTitle(item) {
+            var man1 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('7:45', 'HH:mm');
+            var man2 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('13:15', 'HH:mm');
+            var tar1 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('13:30', 'HH:mm');
+            var tar2 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('19:00', 'HH:mm');
+            var noc1 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('18:15', 'HH:mm');
+            var noc2 = __WEBPACK_IMPORTED_MODULE_0_moment___default()('23:00', 'HH:mm');
+            var itemTime = __WEBPACK_IMPORTED_MODULE_0_moment___default()(__WEBPACK_IMPORTED_MODULE_0_moment___default()(item.created_at).format('HH:mm'), 'HH:mm');
+            var turno = itemTime.format('HH:mm');
+            if (itemTime.isBetween(man1, man2)) turno = 'Mañana';
+            if (itemTime.isBetween(tar1, tar2)) turno = 'Tarde';
+            if (itemTime.isBetween(noc1, noc2)) turno = 'Noche';
+
+            return item.tag.nombre + ' - ' + __WEBPACK_IMPORTED_MODULE_0_moment___default()(item.created_at).format('D/M/YY') + ' - ' + turno;
         },
         fetchSede: function fetchSede() {
             this.laboratorioActive = 'Todos';
@@ -68588,7 +68620,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-sm-1" }),
+    _c(
+      "div",
+      { staticClass: "col-sm-1" },
+      [_c("pes", { attrs: { id: "reporte" } })],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -68622,8 +68659,8 @@ var render = function() {
           return _vm.authCheck
             ? _c("a", { attrs: { href: "/items/" + item.id } }, [
                 _c("div", { staticClass: "blog-post" }, [
-                  _c("h2", { staticClass: "blog-post-title" }, [
-                    _vm._v(_vm._s(item.tag.nombre))
+                  _c("h3", { staticClass: "blog-post-title" }, [
+                    _vm._v(_vm._s(_vm.itemTitle(item)))
                   ]),
                   _vm._v(" "),
                   _c("p", {
@@ -68638,8 +68675,8 @@ var render = function() {
         _vm._l(_vm.items, function(item) {
           return !_vm.authCheck
             ? _c("div", { staticClass: "blog-post" }, [
-                _c("h2", { staticClass: "blog-post-title" }, [
-                  _vm._v(_vm._s(item.tag.nombre))
+                _c("h3", { staticClass: "blog-post-title" }, [
+                  _vm._v(_vm._s(_vm.itemTitle(item)))
                 ]),
                 _vm._v(" "),
                 _c("p", {
@@ -68920,9 +68957,9 @@ var render = function() {
             }
           },
           [
-            _c("option", [_vm._v("Perdidos")]),
+            _c("option", [_vm._v("Encontrados")]),
             _vm._v(" "),
-            _c("option", [_vm._v("Encontrados")])
+            _c("option", [_vm._v("Perdidos")])
           ]
         ),
         _vm._v(" "),
@@ -84155,6 +84192,177 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(305)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(307)
+/* template */
+var __vue_template__ = __webpack_require__(308)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\ReportePerdidosEncontradosSemana.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2ec07137", Component.options)
+  } else {
+    hotAPI.reload("data-v-2ec07137", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(306);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(8)("2cba85cb", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ec07137\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ReportePerdidosEncontradosSemana.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2ec07137\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ReportePerdidosEncontradosSemana.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            reporte: [[], []]
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('/reportes/pes').then(function (_ref) {
+            var data = _ref.data;
+
+            _this.reporte = data;
+        });
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "lg-card", staticStyle: { "text-align": "center" } },
+    [
+      _c(
+        "p",
+        [
+          _vm._v("Esta semana se perdieron "),
+          _c("font", { staticStyle: { "font-weight": "bold" } }, [
+            _vm._v(_vm._s(_vm.reporte[0][1]))
+          ]),
+          _vm._v(" objetos y se encontraron "),
+          _c("font", { staticStyle: { "font-weight": "bold" } }, [
+            _vm._v(_vm._s(_vm.reporte[1][1]))
+          ])
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2ec07137", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

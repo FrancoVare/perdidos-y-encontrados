@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(Item::class,120)->create();
-        $retiros = factory(Retiro::class,60)->make();
+        $retiros = factory(Retiro::class,12)->make();
 
         foreach ($retiros as $retiro) {
             repeat:
