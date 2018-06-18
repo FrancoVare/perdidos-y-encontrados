@@ -3,7 +3,20 @@
       <div class="col-sm-1"><pes id="reporte"></pes></div>
 
       <div class="col-sm-8">
-        <div v-if="total" class="container" style="text-align: right;"><p class="blog-post-meta">Mostrando {{Math.min(this.perPage,this.total)}} de {{this.total}}</p></div>
+
+        <div>
+          
+        </div>
+
+        <div v-if="total" class="container" style="margin-bottom: .5rem; display: inline-block">
+          <p class="items-order" style="float: left" @click="orderClick(5)">Tag <span :class="{'fa':true,'fa-fw':true, 'fa-arrow-circle-up': this.sortActive == 'ta','fa-arrow-circle-down': this.sortActive == 'td'}"></span></p>
+          <p class="items-order" style="float: left" @click="orderClick(2)">Materia <span :class="{'fa':true,'fa-fw':true, 'fa-arrow-circle-up': this.sortActive == 'ma','fa-arrow-circle-down': this.sortActive == 'md'}"></span></p>
+          <p class="items-order" style="float: left" @click="orderClick(4)">Sede <span :class="{'fa':true,'fa-fw':true, 'fa-arrow-circle-up': this.sortActive == 'sa','fa-arrow-circle-down': this.sortActive == 'sd'}"></span></p>
+          <p class="items-order" style="float: left" @click="orderClick(3)">Laboratorio <span :class="{'fa':true,'fa-fw':true, 'fa-arrow-circle-up': this.sortActive == 'la','fa-arrow-circle-down': this.sortActive == 'ld'}"></span></p>
+          <p class="items-order" style="float: left" @click="orderClick(1)">Fecha <span :class="{'fa':true,'fa-fw':true, 'fa-arrow-circle-up': this.sortActive == 'fa','fa-arrow-circle-down': this.sortActive == 'fd'}"></span></p>
+          <p class="blog-post-meta" style="float: right">Mostrando {{Math.min(this.perPage,this.total)}} de {{this.total}}</p>
+        </div>
+
         <div v-else class="blog-post">
           <h2 class="blog-post-title">No se encontro nada con esas caracteristicas...</h2>
         </div>
@@ -108,6 +121,7 @@ moment.locale('es');
                 materiaActive: 'Todas',
                 laboratorioActive: 'Todos',
                 sedeActive: 'Todas',
+                sortActive: 'fa'
             };
         },
 
@@ -169,6 +183,7 @@ moment.locale('es');
                           '&tag=' + this.tagActive + 
                           '&estado=' + this.estadoActive + 
                           '&q=' + this.searchActive + 
+                          '&sort=' + this.sortActive +
                           '&materia=' + this.materiaActive +
                           '&sede=' + this.sedeActive + 
                           '&laboratorio=' + this.laboratorioActive)
@@ -178,6 +193,31 @@ moment.locale('es');
                         this.total = data.total;
                         this.perPage = data.to - data.from + 1;
                     });
+            },
+            orderClick(orden){
+              switch(orden){
+                case 1:
+                  if(this.sortActive == 'fa') this.sortActive = 'fd';
+                  else this.sortActive = 'fa';
+                  break;
+                case 2:
+                  if(this.sortActive == 'ma') this.sortActive = 'md';
+                  else this.sortActive = 'ma';
+                  break;
+                case 3:
+                  if(this.sortActive == 'la') this.sortActive = 'ld';
+                  else this.sortActive = 'la';
+                  break;
+                case 4:
+                  if(this.sortActive == 'sa') this.sortActive = 'sd';
+                  else this.sortActive = 'sa';
+                  break;
+                case 5:
+                  if(this.sortActive == 'ta') this.sortActive = 'td';
+                  else this.sortActive = 'ta';
+                  break;
+              }
+              this.fetchChangeSelect();
             },
             itemTitle(item){
               var man1 = moment('7:45','HH:mm');
@@ -325,6 +365,17 @@ a > .blog-post:hover {
   margin-bottom: 0px;
   color: #999;
   white-space: pre-wrap;
+}
+
+.items-order {
+  margin-bottom: 0px;
+  color: #999;
+  white-space: pre-wrap;
+}
+
+.items-order:hover {
+  cursor:pointer;
+  color:lightgrey;
 }
 
 a:hover{

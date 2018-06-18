@@ -26,7 +26,6 @@ class ItemController extends Controller
    {  
 
       $items = Item::with(['materia','laboratorio','tag','user','laboratorio.sede','retiro'])
-                        ->latest()
                         ->tag(request('tag'))
                         ->estado(request('estado'))
                         ->materia(request('materia'))
@@ -34,14 +33,61 @@ class ItemController extends Controller
                         ->get();
                         if(request('q')){
                           $items = $items->filter(function($item){return $item->filtrar(request('q'));});
-                                         // ->sortByDesc(function($item){return $item->filtrar(request('q'));});
                         }
 
                         if(request('sede') != 'Todas'){
                           $items = $items->filter(function($item){return $item->laboratorio->sede->nombre == request('sede');});
-                                         // ->sortByDesc(function($item){return $item->filtrar(request('q'));});
                         }
-      $items = $items->paginate(15);             
+      
+      switch(request('sort')){
+        case 'fa':
+          //sort fecha nueva->vieja
+          $items = $items->sortByDesc(function($item){
+            return $item->created_at->timestamp;
+          });
+          break;
+        case 'fd':
+          //sort fecha vieja->nueva
+          $items = $items->sortBy(function($item){
+            return $item->created_at->timestamp;
+          });
+          break;
+        case 'ma':
+        //sort materia asc
+          $items = $items->sortBy('materia.nombre');
+          break;
+        case 'md':
+         //sort materia desc
+          $items = $items->sortByDesc('materia.nombre');
+          break;
+        case 'ta':
+        //sort tag asc
+          $items = $items->sortBy('tag.nombre');
+          break;
+        case 'td':
+         //sort tag desc
+          $items = $items->sortByDesc('tag.nombre');
+          break;
+        case 'la':
+         //sort laboratorio asc
+          $items = $items->sortBy('laboratorio.nombre');
+          break;
+        case 'ld':
+         //sort laboratorio desc
+          $items = $items->sortByDesc('laboratorio.nombre');
+          break;
+        case 'sa':
+         //sort sede asc
+          $items = $items->sortBy('laboratorio.sede.nombre');
+          break;
+        case 'sd':
+         //sort sede desc
+          $items = $items->sortByDesc('laboratorio.sede.nombre');
+          break;
+      }
+
+      $items = $items->values();
+      $items = $items->paginate(15); 
       return json_encode($items);
    }
 
